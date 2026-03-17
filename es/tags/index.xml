@@ -2,52 +2,52 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on MaxisFront</title>
-    <link>http://localhost:1313/es/tags/</link>
+    <link>https://maxisfront.github.io/es/tags/</link>
     <description>Recent content in Tags on MaxisFront</description>
     <generator>Hugo</generator>
     <language>es</language>
     <lastBuildDate>Mon, 16 Mar 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/es/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://maxisfront.github.io/es/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CMS</title>
-      <link>http://localhost:1313/es/tags/cms/</link>
+      <link>https://maxisfront.github.io/es/tags/cms/</link>
       <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/es/tags/cms/</guid>
+      <guid>https://maxisfront.github.io/es/tags/cms/</guid>
       <description></description>
     </item>
     <item>
       <title>CVE-2018-7600</title>
-      <link>http://localhost:1313/es/tags/cve-2018-7600/</link>
+      <link>https://maxisfront.github.io/es/tags/cve-2018-7600/</link>
       <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/es/tags/cve-2018-7600/</guid>
+      <guid>https://maxisfront.github.io/es/tags/cve-2018-7600/</guid>
       <description></description>
     </item>
     <item>
       <title>Drupal</title>
-      <link>http://localhost:1313/es/tags/drupal/</link>
+      <link>https://maxisfront.github.io/es/tags/drupal/</link>
       <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/es/tags/drupal/</guid>
+      <guid>https://maxisfront.github.io/es/tags/drupal/</guid>
       <description></description>
     </item>
     <item>
       <title>GFTOBins</title>
-      <link>http://localhost:1313/es/tags/gftobins/</link>
+      <link>https://maxisfront.github.io/es/tags/gftobins/</link>
       <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/es/tags/gftobins/</guid>
+      <guid>https://maxisfront.github.io/es/tags/gftobins/</guid>
       <description></description>
     </item>
     <item>
       <title>Linux</title>
-      <link>http://localhost:1313/es/tags/linux/</link>
+      <link>https://maxisfront.github.io/es/tags/linux/</link>
       <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/es/tags/linux/</guid>
+      <guid>https://maxisfront.github.io/es/tags/linux/</guid>
       <description></description>
     </item>
     <item>
       <title>SUID</title>
-      <link>http://localhost:1313/es/tags/suid/</link>
+      <link>https://maxisfront.github.io/es/tags/suid/</link>
       <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/es/tags/suid/</guid>
+      <guid>https://maxisfront.github.io/es/tags/suid/</guid>
       <description></description>
     </item>
   </channel>
