@@ -2,90 +2,86 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://maxisfront.github.io/es/categories/</loc>
-    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/es/tags/cms/</loc>
+    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/es/tags/cve-2018-7600/</loc>
+    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/es/tags/drupal/</loc>
+    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/es/tags/gftobins/</loc>
+    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/es/tags/linux/</loc>
+    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/es/</loc>
+    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://maxisfront.github.io/categories/"
+                href="http://localhost:1313/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://maxisfront.github.io/es/categories/"
+                href="http://localhost:1313/es/"
                 />
   </url><url>
-    <loc>https://maxisfront.github.io/es/tags/cms/</loc>
-    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://maxisfront.github.io/es/tags/cve-2018-7600/</loc>
-    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://maxisfront.github.io/es/tags/drupal/</loc>
-    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://maxisfront.github.io/es/tags/gftobins/</loc>
-    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://maxisfront.github.io/es/tags/linux/</loc>
-    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://maxisfront.github.io/es/</loc>
-    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/es/posts/</loc>
+    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://maxisfront.github.io/"
+                href="http://localhost:1313/posts/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://maxisfront.github.io/es/"
+                href="http://localhost:1313/es/posts/"
                 />
   </url><url>
-    <loc>https://maxisfront.github.io/es/posts/</loc>
-    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/es/tags/suid/</loc>
+    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/es/tags/</loc>
+    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://maxisfront.github.io/posts/"
+                href="http://localhost:1313/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://maxisfront.github.io/es/posts/"
+                href="http://localhost:1313/es/tags/"
                 />
   </url><url>
-    <loc>https://maxisfront.github.io/es/tags/suid/</loc>
-    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://maxisfront.github.io/es/tags/</loc>
-    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/es/posts/primer_post/</loc>
+    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://maxisfront.github.io/tags/"
+                href="http://localhost:1313/posts/primer_post/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://maxisfront.github.io/es/tags/"
+                href="http://localhost:1313/es/posts/primer_post/"
                 />
   </url><url>
-    <loc>https://maxisfront.github.io/es/categories/writeup/</loc>
-    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://maxisfront.github.io/es/posts/primer_post/</loc>
-    <lastmod>2026-03-01T00:00:00+00:00</lastmod>
+    <loc>http://localhost:1313/es/archives/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://maxisfront.github.io/posts/primer_post/"
+                href="http://localhost:1313/archives/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://maxisfront.github.io/es/posts/primer_post/"
+                href="http://localhost:1313/es/archives/"
                 />
   </url>
 </urlset>

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>GFTOBins on MaxisFront</title>
-    <link>https://maxisfront.github.io/es/tags/gftobins/</link>
+    <link>http://localhost:1313/es/tags/gftobins/</link>
     <description>Recent content in GFTOBins on MaxisFront</description>
     <generator>Hugo</generator>
     <language>es</language>
-    <lastBuildDate>Sun, 01 Mar 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://maxisfront.github.io/es/tags/gftobins/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 16 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/es/tags/gftobins/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>WriteUp: DC1 | VulnHub</title>
-      <link>https://maxisfront.github.io/es/posts/primer_post/</link>
-      <pubDate>Sun, 01 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://maxisfront.github.io/es/posts/primer_post/</guid>
+      <link>http://localhost:1313/es/posts/primer_post/</link>
+      <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/es/posts/primer_post/</guid>
       <description>&lt;div class=&#34;flash mb-3&#34;&gt;&#xA;  &lt;blockquote&gt;&#xA;&lt;p&gt;Resumen&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Identificación del servicio &lt;code&gt;Drupal 7&lt;/code&gt; en el puerto 80.&lt;/li&gt;&#xA;&lt;li&gt;Aprovechamiento del &lt;code&gt;CVE-2018-7600&lt;/code&gt; para obtener acceso (Drupalgeddon2).&lt;/li&gt;&#xA;&lt;li&gt;Explotación de SUID a partir del comando &lt;code&gt;find&lt;/code&gt; para escalar a  root.&lt;/li&gt;&#xA;&lt;li&gt;Recomendaciones de seguridad para prevenir y mitigar las vulnerabilidades de está máquina.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/div&gt;&#xA;&#xA;&#xA;&#xA;&lt;h2 id=&#34;habilidades-empleadas&#34;&gt;Habilidades Empleadas&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Enumeración de puertos y enumeración de CMS&lt;/li&gt;&#xA;&lt;li&gt;Búsqueda y uso de CVEs Críticos&lt;/li&gt;&#xA;&lt;li&gt;Uso de comandos básicos basados en GNU/Linux&lt;/li&gt;&#xA;&lt;li&gt;Aprovechamiento de SUID vulnerables&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;herramientas-utilizadas&#34;&gt;Herramientas Utilizadas&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;arp-scan&lt;/li&gt;&#xA;&lt;li&gt;ping&lt;/li&gt;&#xA;&lt;li&gt;nmap&lt;/li&gt;&#xA;&lt;li&gt;python3&lt;/li&gt;&#xA;&lt;li&gt;nc&lt;/li&gt;&#xA;&lt;li&gt;find (SUID)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h1 id=&#34;recolección-de-información&#34;&gt;Recolección de Información&lt;/h1&gt;&#xA;&lt;p&gt;Primeramente analizamos nuestra red local a través del comando &lt;code&gt;arp-scan&lt;/code&gt;, especificando nuestra interfaz de red. El comando utilizado fue este:&lt;/p&gt;</description>
     </item>
   </channel>
