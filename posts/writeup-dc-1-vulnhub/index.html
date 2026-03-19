@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html lang="es" data-color-mode="auto" data-light-theme="light" data-dark-theme="dark">
+<html lang="en" data-color-mode="auto" data-light-theme="light" data-dark-theme="dark">
 <head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title>Posts | MaxisFront</title><meta property="og:title" content="Posts"><meta property="og:description" content=""><meta property="og:type" content="website"><meta property="og:url" content="https://maxisfront.github.io/es/posts/"><meta property="og:site_name" content="MaxisFront"><meta property="og:locale" content="es">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Posts">
-<meta name="twitter:description" content="">
-<link rel="canonical" href="https://maxisfront.github.io/es/posts/">
+<title>Post test ^^ | MaxisFront</title><meta name="description" content="A brief description of the post"><meta property="og:title" content="Post test ^^"><meta property="og:description" content="A brief description of the post"><meta property="og:type" content="article"><meta property="og:url" content="https://maxisfront.github.io/posts/writeup-dc-1-vulnhub/"><meta property="og:image" content="https://maxisfront.github.io/posts/writeup-dc-1-vulnhub/Drupal_Logo.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630"><meta property="og:site_name" content="MaxisFront"><meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Post test ^^">
+<meta name="twitter:description" content="A brief description of the post"><meta name="twitter:image" content="https://maxisfront.github.io/posts/writeup-dc-1-vulnhub/Drupal_Logo.png">
+<link rel="canonical" href="https://maxisfront.github.io/posts/writeup-dc-1-vulnhub/">
 
-<link rel="alternate" type="application/rss&#43;xml" href="https://maxisfront.github.io/es/posts/index.xml" title="MaxisFront"><link rel="alternate" hreflang="en" href="https://maxisfront.github.io/posts/"><link rel="stylesheet" href="/css/primer.min.c12daf26af408c64f29cc993dd5ab422334e71e50fa7198111b729fdf674e34d.css" integrity="sha256-wS2vJq9AjGTynMmT3Vq0IjNOceUPpxmBEbcp/fZ0400=">
+<link rel="alternate" hreflang="es" href="https://maxisfront.github.io/es/posts/writeup-dc-1-vulnhub/"><link rel="stylesheet" href="/css/primer.min.c12daf26af408c64f29cc993dd5ab422334e71e50fa7198111b729fdf674e34d.css" integrity="sha256-wS2vJq9AjGTynMmT3Vq0IjNOceUPpxmBEbcp/fZ0400=">
 
 <link rel="stylesheet" href="/css/custom.min.44f76475abc99bc3028656bd061d05d398c1b30eefd8ef829d03d0a85e7e5ff2.css" integrity="sha256-RPdkdavJm8MChla9Bh0F05jBsw7v2O&#43;CnQPQqF5&#43;X/I=">
 
@@ -43,9 +45,9 @@
   <div class="d-flex flex-column min-height-full"><header class="AppHeader">
   <div class="AppHeader-globalBar">
     <div class="AppHeader-globalBar-start">
-      <a href="/es/" class="AppHeader-logo" aria-label="MaxisFront"><span class="AppHeader-logo-text">MaxisFront</span></a>
+      <a href="/" class="AppHeader-logo" aria-label="MaxisFront"><span class="AppHeader-logo-text">MaxisFront</span></a>
 
-      <nav class="AppHeader-nav" aria-label="Main navigation"><a href="/es/" class="AppHeader-nav-item">Home</a><a href="/es/posts/" class="AppHeader-nav-item">Posts</a></nav>
+      <nav class="AppHeader-nav" aria-label="Main navigation"><a href="/" class="AppHeader-nav-item">Home</a><a href="/posts/" class="AppHeader-nav-item">Posts</a></nav>
     </div>
 
     <div class="AppHeader-globalBar-end"><button type="button" id="theme-toggle"
@@ -72,39 +74,76 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
             <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM5.78 8.75a9.64 9.64 0 0 0 1.363 4.177c.255.426.542.832.857 1.215.245-.296.551-.705.857-1.215A9.64 9.64 0 0 0 10.22 8.75Zm4.44-1.5a9.64 9.64 0 0 0-1.363-4.177c-.307-.51-.612-.919-.857-1.215a9.927 9.927 0 0 0-.857 1.215A9.64 9.64 0 0 0 5.78 7.25Zm-5.944 1.5H1.543a6.507 6.507 0 0 0 4.666 5.5c-.123-.181-.24-.365-.352-.552-.715-1.192-1.437-2.874-1.581-4.948Zm-2.733-1.5h2.733c.144-2.074.866-3.756 1.58-4.948.12-.197.237-.381.353-.552a6.507 6.507 0 0 0-4.666 5.5Zm10.181 1.5c-.144 2.074-.866 3.756-1.581 4.948-.111.187-.229.371-.352.552a6.507 6.507 0 0 0 4.666-5.5Zm2.733-1.5a6.507 6.507 0 0 0-4.666-5.5c.123.181.241.365.352.552.715 1.192 1.437 2.874 1.581 4.948Z"></path>
           </svg>
-          <span class="AppHeader-button-text">Español</span>
+          <span class="AppHeader-button-text">English</span>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="AppHeader-dropdown-caret">
             <path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"></path>
           </svg>
         </summary>
         <ul class="dropdown-menu dropdown-menu-sw"><li>
-            <a href="/posts/" class="dropdown-item" lang="en">English</a>
+            <a href="/posts/writeup-dc-1-vulnhub/" class="dropdown-item selected" lang="en">English</a>
           </li><li>
-            <a href="/es/posts/" class="dropdown-item selected" lang="es">Español</a>
+            <a href="/es/posts/writeup-dc-1-vulnhub/" class="dropdown-item" lang="es">Español</a>
           </li></ul>
       </details></div>
   </div>
 </header>
 <main class="flex-auto">
       <div class="container-xl px-3 px-md-4 px-lg-5 py-4"><div class="Layout Layout--sidebarPosition-end Layout--flowRow-until-md">
-          <div class="Layout-main"><div class="Subhead mb-4">
-  <h1 class="Subhead-heading">Posts</h1></div><div class="Box"><div class="Box-row">
-    <article class="d-flex flex-column flex-md-row"><div class="mr-md-3 mb-2 mb-md-0" style="flex-shrink: 0;">
-        <a href="/es/posts/writeup-dc-1-vulnhub/"><img src="/posts/writeup-dc-1-vulnhub/Drupal_Logo.png" alt="WriteUp: DC-1 | VulnHub" loading="lazy" class="rounded-2" style="width: 200px; height: 120px; object-fit: cover;"></a>
-      </div><div class="flex-auto">
-        <h2 class="f3 lh-condensed mb-1">
-          <a href="/es/posts/writeup-dc-1-vulnhub/" class="Link--primary">WriteUp: DC-1 | VulnHub</a>
-        </h2><div class="d-flex flex-items-center color-fg-muted f6 mb-2"><time datetime="2026-03-16T00:00:00Z">
-            2026-03-16
-          </time><span class="mx-2">&middot;</span><span>12 min read</span></div><p class="color-fg-muted mb-2">Máquina DC:1 de VulnHub | Reto hecho por: DCAU | Serie: DC</p><div class="d-flex flex-wrap"><a href="/es/tags/linux/" class="Label Label--secondary mr-1 mb-1">Linux</a><a href="/es/tags/drupal/" class="Label Label--secondary mr-1 mb-1">Drupal</a><a href="/es/tags/cms/" class="Label Label--secondary mr-1 mb-1">CMS</a><a href="/es/tags/cve-2018-7600/" class="Label Label--secondary mr-1 mb-1">CVE-2018-7600</a><a href="/es/tags/suid/" class="Label Label--secondary mr-1 mb-1">SUID</a><a href="/es/tags/gftobins/" class="Label Label--secondary mr-1 mb-1">GFTOBins</a></div></div>
-    </article>
-  </div></div>
+          <div class="Layout-main"><article>
+  <header class="mb-4">
+    <h1 class="f1 lh-condensed mb-2">Post test ^^</h1><div class="d-flex flex-items-center color-fg-muted f5 mb-3"><time datetime="2026-03-01T00:00:00Z">
+        2026-03-01
+      </time><span class="mx-2">&middot;</span><span>Your Name</span></div><div class="d-flex flex-wrap mb-3" style="gap: 0.5rem;"><a href="/tags/hugo/" class="topic-tag">hugo</a><a href="/tags/primer/" class="topic-tag">primer</a></div><img src="/posts/writeup-dc-1-vulnhub/Drupal_Logo.png" alt="Post test ^^" loading="lazy" class="rounded-2 width-full mb-3" style="max-height: 400px; object-fit: cover;"></header>
+
+  <div class="markdown-body">
+    <blockquote>
+<p>All reserved rights to the Drupal Organization</p>
+</blockquote>
+
+  </div><div class="border-top pt-4 mt-4">
+    <p class="f5 text-bold mb-2">Share</p>
+    <div class="d-flex flex-wrap" style="gap: 0.5rem;">
+      <a href="https://twitter.com/intent/tweet?text=Post&#43;test&#43;%5E%5E&url=https%3A%2F%2Fmaxisfront.github.io%2Fposts%2Fwriteup-dc-1-vulnhub%2F" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" class="octicon mr-1" style="vertical-align: text-bottom;">
+          <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"></path>
+        </svg>
+        X
+      </a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmaxisfront.github.io%2Fposts%2Fwriteup-dc-1-vulnhub%2F" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" class="octicon mr-1" style="vertical-align: text-bottom;">
+          <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"></path>
+        </svg>
+        Facebook
+      </a>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fmaxisfront.github.io%2Fposts%2Fwriteup-dc-1-vulnhub%2F&title=Post&#43;test&#43;%5E%5E" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" class="octicon mr-1" style="vertical-align: text-bottom;">
+          <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"></path>
+        </svg>
+        LinkedIn
+      </a>
+      <a href="https://bsky.app/intent/compose?text=Post&#43;test&#43;%5E%5E%20https%3A%2F%2Fmaxisfront.github.io%2Fposts%2Fwriteup-dc-1-vulnhub%2F" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" class="octicon mr-1" style="vertical-align: text-bottom;">
+          <path d="M3.468 1.948C5.303 3.325 7.276 6.118 8 7.616c.724-1.498 2.697-4.29 4.532-5.668C13.855.955 16 .186 16 2.632c0 .489-.28 4.105-.444 4.692-.572 2.04-2.653 2.561-4.504 2.246 3.236.551 4.06 2.375 2.281 4.2-3.376 3.464-4.852-.872-5.23-1.988-.07-.205-.103-.3-.103-.218 0-.081-.033.013-.103.218-.378 1.116-1.854 5.452-5.23 1.988-1.778-1.825-.955-3.649 2.28-4.2-1.85.315-3.93-.205-4.503-2.246C.28 6.737 0 3.12 0 2.632 0 .186 2.145.955 3.468 1.948"></path>
+        </svg>
+        Bluesky
+      </a>
+    </div>
+  </div><div class="border-top pt-4 mt-4">
+    <h2 class="f4 mb-3">Related Posts</h2>
+    <div class="d-flex flex-column flex-md-row"><div class="flex-1 mb-3 mb-md-0 mr-md-3">
+        <a href="/py-post/" class="Link--primary text-bold">My Post Title</a><p class="color-fg-muted f6 mb-0">
+          2024-02-28
+        </p></div></div>
+  </div><nav class="border-top pt-4 mt-4">
+    <div class="d-flex flex-justify-between"><span></span></div>
+  </nav>
+</article>
           </div>
           <div class="Layout-sidebar"><aside><div class="color-bg-subtle rounded-2 p-3 mb-3">
   <h3 class="h5 mb-2">Recent Posts</h3>
   <ul class="list-style-none"><li class="mb-2">
-      <a href="/es/posts/writeup-dc-1-vulnhub/" class="Link--primary">WriteUp: DC-1 | VulnHub</a><span class="color-fg-muted f6 d-block">
-        2026-03-16
+      <a href="/posts/writeup-dc-1-vulnhub/" class="Link--primary">Post test ^^</a><span class="color-fg-muted f6 d-block">
+        2026-03-01
       </span></li></ul>
 </div><div class="color-bg-subtle rounded-2 p-3 mb-3">
   <h3 class="h5 mb-2">Links</h3>
@@ -128,27 +167,29 @@
 
 <div class="color-bg-subtle rounded-2 p-3 mb-3">
   <h3 class="h5 mb-2">
-    <a href="/es/tags/" class="Link--primary">Tags</a>
+    <a href="/tags/" class="Link--primary">Tags</a>
   </h3>
   <div class="sidebar-collapsible d-flex flex-wrap" style="gap: 0.5rem;"
     data-max-height="150"
-    data-view-all="/es/tags/"
+    data-view-all="/tags/"
     data-label-more="Show more"
     data-label-less="Show less"
-    data-label-view-all="View all"><a href="/es/tags/cms/" class="topic-tag">
-      cms
-    </a><a href="/es/tags/cve-2018-7600/" class="topic-tag">
-      cve-2018-7600
-    </a><a href="/es/tags/drupal/" class="topic-tag">
-      drupal
-    </a><a href="/es/tags/gftobins/" class="topic-tag">
-      gftobins
-    </a><a href="/es/tags/linux/" class="topic-tag">
-      linux
-    </a><a href="/es/tags/suid/" class="topic-tag">
-      suid
+    data-label-view-all="View all"><a href="/tags/hugo/" class="topic-tag">
+      hugo
+    </a><a href="/tags/primer/" class="topic-tag">
+      primer
     </a></div>
 </div>
+<div class="sidebar-module-toc"> <div class="Box Box--condensed mb-3">
+      <div class="Box-header">
+        <h3 class="Box-title">ToC</h3>
+      </div>
+      <div class="Box-body toc-sidebar">
+        <nav id="TableOfContents"></nav>
+      </div>
+    </div>
+</div>
+
 </aside></div>
         </div></div>
     </main><footer class="color-bg-subtle border-top py-6 mt-6">
