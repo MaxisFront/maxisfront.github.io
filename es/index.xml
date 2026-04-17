@@ -6,8 +6,15 @@
     <description>Recent content on MaxisFront</description>
     <generator>Hugo</generator>
     <language>es</language>
-    <lastBuildDate>Mon, 16 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 25 Mar 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://maxisfront.github.io/es/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WriteUp: DC-2 | VulnHub</title>
+      <link>https://maxisfront.github.io/es/posts/writeup-dc-2-vulnhub/</link>
+      <pubDate>Wed, 25 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://maxisfront.github.io/es/posts/writeup-dc-2-vulnhub/</guid>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;Todos los derechos reservados a la organización WordPress&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&#xA;&#xA;&#xA;&#xA;  &#xA;&#xA;&#xA;&lt;div class=&#34;flash mb-3&#34;&gt;&#xA;  &lt;blockquote&gt;&#xA;&lt;p&gt;Resumen&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Enumeración de usuarios con &lt;code&gt;Caido&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;Descubrimiento de claves a través de &lt;code&gt;CeWL&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;Reutilización de credenciales para el servicio &lt;code&gt;SSH&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;Aprovechamiento de SUID del comando &lt;code&gt;git&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;Recomendaciones de seguridad para prevenir y mitigar las vulnerabilidades de esta máquina.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/div&gt;&#xA;&#xA;&#xA;&#xA;&lt;h4 id=&#34;habilidades-empleadas&#34;&gt;Habilidades Empleadas&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Enumeración de puertos y enumeración de CMS&lt;/li&gt;&#xA;&lt;li&gt;Búsqueda y uso de CVEs Críticos&lt;/li&gt;&#xA;&lt;li&gt;Uso de comandos básicos basados en GNU/Linux&lt;/li&gt;&#xA;&lt;li&gt;Aprovechamiento de SUID vulnerables&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h4 id=&#34;herramientas-utilizadas&#34;&gt;Herramientas Utilizadas&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;arp-scan&lt;/li&gt;&#xA;&lt;li&gt;Ping&lt;/li&gt;&#xA;&lt;li&gt;Nmap&lt;/li&gt;&#xA;&lt;li&gt;Caido&lt;/li&gt;&#xA;&lt;li&gt;WPScan&lt;/li&gt;&#xA;&lt;li&gt;CeWL&lt;/li&gt;&#xA;&lt;li&gt;SSH&lt;/li&gt;&#xA;&lt;li&gt;Git&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;escaneo-y-análisis-de-vulnerabilidades&#34;&gt;Escaneo y Análisis de Vulnerabilidades&lt;/h2&gt;&#xA;&lt;p&gt;Primeramente analizamos nuestra red local a través del comando &lt;code&gt;arp-scan&lt;/code&gt;, especificando nuestra interfaz de red:&lt;/p&gt;</description>
+    </item>
     <item>
       <title>WriteUp: DC-1 | VulnHub</title>
       <link>https://maxisfront.github.io/es/posts/writeup-dc-1-vulnhub/</link>
