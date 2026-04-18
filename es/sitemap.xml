@@ -4,18 +4,68 @@
   <url>
     <loc>https://maxisfront.github.io/es/tags/caido/</loc>
     <lastmod>2026-03-25T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.github.io/tags/caido/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.github.io/es/tags/caido/"
+                />
   </url><url>
     <loc>https://maxisfront.github.io/es/tags/cewl/</loc>
     <lastmod>2026-03-25T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.github.io/tags/cewl/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.github.io/es/tags/cewl/"
+                />
   </url><url>
     <loc>https://maxisfront.github.io/es/tags/cms/</loc>
     <lastmod>2026-03-25T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.github.io/tags/cms/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.github.io/es/tags/cms/"
+                />
   </url><url>
     <loc>https://maxisfront.github.io/es/tags/git/</loc>
     <lastmod>2026-03-25T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.github.io/tags/git/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.github.io/es/tags/git/"
+                />
   </url><url>
     <loc>https://maxisfront.github.io/es/tags/linux/</loc>
     <lastmod>2026-03-25T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.github.io/tags/linux/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.github.io/es/tags/linux/"
+                />
   </url><url>
     <loc>https://maxisfront.github.io/es/</loc>
     <lastmod>2026-03-25T00:00:00+00:00</lastmod>
@@ -58,6 +108,16 @@
   </url><url>
     <loc>https://maxisfront.github.io/es/tags/wordpress/</loc>
     <lastmod>2026-03-25T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.github.io/tags/wordpress/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.github.io/es/tags/wordpress/"
+                />
   </url><url>
     <loc>https://maxisfront.github.io/es/posts/writeup-dc-2-vulnhub/</loc>
     <lastmod>2026-03-25T00:00:00+00:00</lastmod>
@@ -74,15 +134,55 @@
   </url><url>
     <loc>https://maxisfront.github.io/es/tags/cve-2018-7600/</loc>
     <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.github.io/tags/cve-2018-7600/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.github.io/es/tags/cve-2018-7600/"
+                />
   </url><url>
     <loc>https://maxisfront.github.io/es/tags/drupal/</loc>
     <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.github.io/tags/drupal/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.github.io/es/tags/drupal/"
+                />
   </url><url>
     <loc>https://maxisfront.github.io/es/tags/gftobins/</loc>
     <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.github.io/tags/gftobins/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.github.io/es/tags/gftobins/"
+                />
   </url><url>
     <loc>https://maxisfront.github.io/es/tags/suid/</loc>
     <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.github.io/tags/suid/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.github.io/es/tags/suid/"
+                />
   </url><url>
     <loc>https://maxisfront.github.io/es/posts/writeup-dc-1-vulnhub/</loc>
     <lastmod>2026-03-16T00:00:00+00:00</lastmod>

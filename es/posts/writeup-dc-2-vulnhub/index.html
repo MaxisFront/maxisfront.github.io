@@ -4,12 +4,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title>WriteUp: DC-2 | VulnHub | MaxisFront</title><meta name="description" content="Test"><meta property="og:title" content="WriteUp: DC-2 | VulnHub"><meta property="og:description" content="Test"><meta property="og:type" content="article"><meta property="og:url" content="https://maxisfront.github.io/es/posts/writeup-dc-2-vulnhub/"><meta property="og:image" content="https://maxisfront.github.io/posts/writeup-dc-2-vulnhub/WordPress_Logo.png">
+<title>WriteUp: DC-2 | VulnHub | MaxisFront</title><meta name="description" content="VulnHub DC:1 Machine | Desafío creado por: DCAU | Serie: DC"><meta property="og:title" content="WriteUp: DC-2 | VulnHub"><meta property="og:description" content="VulnHub DC:1 Machine | Desafío creado por: DCAU | Serie: DC"><meta property="og:type" content="article"><meta property="og:url" content="https://maxisfront.github.io/es/posts/writeup-dc-2-vulnhub/"><meta property="og:image" content="https://maxisfront.github.io/posts/writeup-dc-2-vulnhub/WordPress_Logo.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630"><meta property="og:site_name" content="MaxisFront"><meta property="og:locale" content="es">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="WriteUp: DC-2 | VulnHub">
-<meta name="twitter:description" content="Test"><meta name="twitter:image" content="https://maxisfront.github.io/posts/writeup-dc-2-vulnhub/WordPress_Logo.png">
+<meta name="twitter:description" content="VulnHub DC:1 Machine | Desafío creado por: DCAU | Serie: DC"><meta name="twitter:image" content="https://maxisfront.github.io/posts/writeup-dc-2-vulnhub/WordPress_Logo.png">
 <link rel="canonical" href="https://maxisfront.github.io/es/posts/writeup-dc-2-vulnhub/">
 
 <link rel="alternate" hreflang="en" href="https://maxisfront.github.io/posts/writeup-dc-2-vulnhub/"><link rel="stylesheet" href="/css/primer.min.c12daf26af408c64f29cc993dd5ab422334e71e50fa7198111b729fdf674e34d.css" integrity="sha256-wS2vJq9AjGTynMmT3Vq0IjNOceUPpxmBEbcp/fZ0400=">
@@ -142,52 +142,58 @@
 <hr>
 <h2 id="escaneo-y-análisis-de-vulnerabilidades">Escaneo y Análisis de Vulnerabilidades</h2>
 <p>Primeramente analizamos nuestra red local a través del comando <code>arp-scan</code>, especificando nuestra interfaz de red:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>arp-scan -I eth3 -l</span></span></code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>arp-scan -I eth3 -l</span></span></code></pre></div><blockquote>
+<ul>
 <li>
-<p><code>arp-scan: Permite identificar equipos conectados a la misma red que el host</code></p>
+<p><code>arp-scan</code>: Permite identificar equipos conectados a la misma red que el host.</p>
 </li>
 <li>
-<p><code>-I (interface): Especificamos la interfaz de red donde se enviarán solicitudes para identificar dispositivos</code></p>
+<p><code>-I (interface)</code>: Especificamos la interfaz de red donde se enviarán solicitudes para identificar dispositivos.</p>
 </li>
 <li>
-<p><code>-l (--localnet): Descubrimiento de dispositivos en nuestra subred local</code></p>
+<p><code>-l (--localnet)</code>: Descubrimiento de dispositivos en nuestra subred local.</p>
 </li>
 </ul>
+</blockquote>
 <img src="./images/1_dc2-arp-scan.png" alt="Arp-Scan output" loading="lazy">
 <p>La dirección IP de interés es la <code>192.168.1.176</code>. Realizamos una prueba de conectividad a través de <code>ping</code> para observar si es posible entablar una comunicación entre equipos:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>ping -c1 -R 192.168.1.176</span></span></code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>ping -c1 -R 192.168.1.176</span></span></code></pre></div><blockquote>
+<ul>
 <li>
-<p><code>ping: Envía un paquete ICMP para verificar si un equipo está activo</code></p>
+<p><code>ping</code>: Envía un paquete ICMP para verificar si un equipo está activo.</p>
 </li>
 <li>
-<p><code>-c1: Especificamos que solo se envíe un paquete y se espere a recibirlo</code></p>
+<p><code>-c1</code>: Especificamos que solo se envíe un paquete y se espere a recibirlo.</p>
 </li>
 <li>
-<p><code>-R (Record Route): El resultado muestra los nodos por los que atravesó un paquete</code></p>
+<p><code>-R (Record Route)</code>: El resultado muestra los nodos por los que atravesó un paquete.</p>
 </li>
 </ul>
+</blockquote>
 <img src="./images/2_dc2-ping-traceroute.png" alt="Testing connection through Ping" loading="lazy">
 <p>La ruta de la traza ICMP es exitosa. Así pues, el valor del TTL es igual a <code>64</code>, lo cual <strong><em>podría</em></strong> indicar que estamos frente a un OS <code>Linux/Unix</code>.</p>
 <hr>
 <h3 id="reconocimiento-de-puertos">Reconocimiento de Puertos</h3>
 <p>Enumeramos los <code>65535</code> puertos del sistema a través de la herramienta <code>Nmap</code> (Network Mapper) para intentar identificar puertos TCP abiertos:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>nmap -p- --min-rate <span style="color:#bd93f9">5000</span> -Pn -n -oN nmap-scan 192.168.1.176</span></span></code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>nmap -p- --min-rate <span style="color:#bd93f9">5000</span> -Pn -n -oN nmap-scan 192.168.1.176</span></span></code></pre></div><blockquote>
+<ul>
 <li>
-<p><code>-p-: Nmap escanea los 65535 puertos TCP de un host.</code></p>
+<p><code>-p-</code>: Nmap escanea los 65535 puertos TCP de un host.</p>
 </li>
 <li>
-<p><code>--min-rate: Se envían como mínimo X cantidad de paquetes por segundo</code></p>
+<p><code>--min-rate</code>: Se envían como mínimo X cantidad de paquetes por segundo.</p>
 </li>
 <li>
-<p><code>-Pn (No Ping): Omisión del descubrimiento de host mediante ping (Asumiendo que el host está activo)</code></p>
+<p><code>-Pn (No Ping)</code>: Omisión del descubrimiento de host mediante ping (Asumiendo que el host está activo).</p>
 </li>
 <li>
-<p><code>-n (Sin resolución DNS): Omisión de resolución de DNS inversa (Se evita solicitar el nombre del host a partir de su IP)</code></p>
+<p><code>-n (Sin resolución DNS)</code>: Omisión de resolución de DNS inversa (Se evita solicitar el nombre del host a partir de su IP).</p>
 </li>
 <li>
-<p><code>-oN: Exportar los resultados en formato Nmap (Casi igual que el resultado en la CLI)</code></p>
+<p><code>-oN</code>: Exportar los resultados en formato Nmap (Casi igual que el resultado en la CLI)</p>
 </li>
 </ul>
+</blockquote>
 <blockquote>
 <p>&lt;= Importante =&gt;
 Dentro de entornos empresariales es preferible evitar el envío de paquetes <code>TCP, ICMP o UDP</code> en grandes cantidades, pues esto puede provocar un ataque <code>DoS</code> accidental o ser bloqueados por sistemas de monitorización.</p>
@@ -196,9 +202,11 @@ Dentro de entornos empresariales es preferible evitar el envío de paquetes <cod
 <h3 id="enumeración-de-puertos">Enumeración de Puertos</h3>
 <p>Observamos los puertos <code>80 (http) y el 7744 (raqmon-pdu)</code>. Ahora, podemos centrar la enumeración en estos puertos utilizando la flag <code>-sV</code>, donde <code>Nmap</code> - tras haber entablado una comunicación con un puerto - analice las respuestas para determinar la versión del servicio que hay detrás.</p>
 <p>Los puertos <code>80 (HTTP)</code> y el <code>7744 (SSH)</code> se encuentran activos. A partir de este punto podemos enumerar los servicios a través de <code>Nmap</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>nmap -sCV -80,7744 -oN ports-enumeration 192.168.1.176</span></span></code></pre></div><ul>
-<li><code>-sCV: Enumeración de los servicios de cada puerto, potenciado a través de scripts de reconocimiento por defecto</code></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>nmap -sCV -80,7744 -oN ports-enumeration 192.168.1.176</span></span></code></pre></div><blockquote>
+<ul>
+<li><code>-sCV</code>: Enumeración de los servicios de cada puerto, potenciado a través de scripts de reconocimiento por defecto.</li>
 </ul>
+</blockquote>
 <img src="./images/4_dc2-ports-enumeration.png" alt="Ports enumeration with their services" loading="lazy">
 <p>Tras un análisis de la enumeración de puertos, podemos agrupar los resultados en la siguiente tabla:</p>
 <table>
@@ -261,7 +269,9 @@ Dentro de entornos empresariales es preferible evitar el envío de paquetes <cod
 </blockquote>
 <p>Por todo ello, se decidió generar un diccionario personalizado basado en el contenido de la página <code>dc-2</code>, utilizando la herramienta <code>CeWL</code>.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>cewl -w custom_password_dictionary.txt http://dc-2/</span></span></code></pre></div><blockquote>
-<p><code>cewl: Custom Wordlist Generator genera diccionarios por medio del web crawling, siendo capaz de extraer palabras únicas, números de teléfono y correos electrónicos</code></p>
+<ul>
+<li><code>CeWL</code>: Custom Wordlist Generator genera diccionarios por medio del web crawling, siendo capaz de extraer palabras únicas, números de teléfono y correos electrónicos.</li>
+</ul>
 </blockquote>
 <h2 id="explotación">Explotación</h2>
 <p>A partir de este punto nos enfocamos en intentar acceder a través de diversos métodos al sistema del equipo <code>DC-2</code>.</p>
@@ -269,8 +279,10 @@ Dentro de entornos empresariales es preferible evitar el envío de paquetes <cod
 <p>Tras obtener el diccionario, utilizamos una herramienta como <code>hydra</code> o <code>Caido</code> para automatizar la fase de prueba de credenciales:</p>
 <img src="./images/9_dc2-enum-users-jerry-and-tom.png" alt="User enumeration through the &lsquo;Caido&rsquo; tool" loading="lazy">
 <blockquote>
-<p><code>Caido: Herramienta para auditorías web. Intercepta, modifica y gestiona tráfico HTTP/HTTPS en tiempo real.</code>
-<code>HTTPQL: Lenguaje de consultas utilizado por Caido. Permite consultas con operadores lógicos (AND u OR), facilitando tareas como filtrado de respuestas del servidor.</code></p>
+<ul>
+<li><code>Caido</code>: Herramienta para auditorías web. Intercepta, modifica y gestiona tráfico HTTP/HTTPS en tiempo real.</li>
+<li><code>HTTPQL</code>: Lenguaje de consultas utilizado por Caido. Permite consultas con operadores lógicos (AND u OR), facilitando tareas como filtrado de respuestas del servidor.</li>
+</ul>
 </blockquote>
 <p>Podemos observar que <code>Caido</code> recibió el código de respuesta <code>302 (Found)</code> para 2 consultas, las cuales fueron <code>tom</code> : <code>parturient</code>  y <code>jerry</code> : <code>adipiscing</code>.</p>
 <p>Utilizando las credenciales obtenidas, logramos acceder al panel de administración.</p>
@@ -279,7 +291,9 @@ Dentro de entornos empresariales es preferible evitar el envío de paquetes <cod
 <h3 id="ssh">SSH</h3>
 <p>En diversos entornos de trabajo es común la reutilización de credenciales. Por ello, retomando el hecho de que durante la enumeración de puertos vimos que el servicio <code>SSH</code> se encontraba corriendo en el puerto <code>7744</code>, intentamos acceder con los usuarios y contraseñas previas.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>ssh tom@192.168.1.176 </span></span></code></pre></div><blockquote>
-<p><code>SSH: Secure Shell es un servicio de acceso remoto a servidores y dispositivos de manera segura</code></p>
+<ul>
+<li><code>SSH</code>: Secure Shell es un servicio de acceso remoto a servidores y dispositivos de manera segura</li>
+</ul>
 </blockquote>
 <img src="./images/11_dc2-ssh-user-tom.png" alt="SSH access with tom credentials" loading="lazy">
 <p>Al intentar ejecutar comandos como <code>groups</code> o <code>sudo -l</code> nos marca un error <code>-rbash: ... command not found</code>. Esto indica que nos encontramos frente una <code>restricted bash</code>, caracterizada por tener una cantidad limitada de comandos, acceso limitado a carpetas y no poder modificar su <code>.bashrc</code>.</p>
@@ -287,7 +301,7 @@ Dentro de entornos empresariales es preferible evitar el envío de paquetes <cod
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#8be9fd;font-style:italic">$SHELL</span>
 </span></span><span style="display:flex;"><span>ls -R -la usr/bin <span style="color:#6272a4"># Carpeta dentro del &#34;/home&#34; del usuario</span></span></span></code></pre></div><p><img src="./images/12_dc2-symbolic-links-identification.png" alt="Verification of rbash and listing our commands" loading="lazy">
 
-Es posible observar que de la mayoría de los <code>symlinks</code> (Equivalentes a un <code>acceso directo en Windows</code>) pueden dar paso a escapar de la <code>rbash</code> (<code>vi, less y scp</code>). En este caso utilizamos <code>vi</code> para cambiar la variable <code>SHELL</code> y solicitar una <code>bash</code>:</p>
+Es posible observar que de la mayoría de los <code>symlinks</code> presentes (Equivalentes a un <code>acceso directo en Windows</code>) pueden dar paso a escapar de la <code>rbash</code> (<code>vi, less y scp</code>). En este caso utilizamos <code>vi</code> para cambiar la variable <code>SHELL</code> y solicitar una <code>bash</code>:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="shell"><span style="display:flex;"><span><span style="color:#6272a4"># &gt; Ejecutar vi y presionar ESC</span>
 </span></span><span style="display:flex;"><span>:set <span style="color:#8be9fd;font-style:italic">shell</span><span style="color:#ff79c6">=</span>/bin/bash
 </span></span><span style="display:flex;"><span>:shell
@@ -299,7 +313,9 @@ Es posible observar que de la mayoría de los <code>symlinks</code> (Equivalente
 <p>Una manera rápida de elevar privilegios a través de <code>git</code> es siguiendo un formato similar al que utilizamos con <code>vi</code>:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>sudo git -p <span style="color:#8be9fd;font-style:italic">help</span> config <span style="color:#6272a4"># Abrirá un paginado</span>
 </span></span><span style="display:flex;"><span>!/bin/bash</span></span></code></pre></div><blockquote>
-<p><code>-p help config: Git lanza un paginador como el usuario root (Como less) para visualizar la ayuda detallada para el comando config.</code></p>
+<ul>
+<li><code>-p help config</code>: Git lanza un paginador como el usuario root (Como <code>less</code>) para visualizar la ayuda detallada para el comando config.</li>
+</ul>
 </blockquote>
 <img src="./images/14_dc2-privilege-escalation.png" alt="Bash session as the user root" loading="lazy">
 <p>Ahora tenemos una sesión de bash como el usuario <code>root</code>. Como última comprobación, probamos a leer la flag que se encuentra en el directorio <code>/root</code>:</p>

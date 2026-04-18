@@ -4,12 +4,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title>Post test ^^ | MaxisFront</title><meta name="description" content="A brief description of the post"><meta property="og:title" content="Post test ^^"><meta property="og:description" content="A brief description of the post"><meta property="og:type" content="article"><meta property="og:url" content="https://maxisfront.github.io/posts/writeup-dc-2-vulnhub/"><meta property="og:image" content="https://maxisfront.github.io/posts/writeup-dc-2-vulnhub/WordPress_Logo.png">
+<title>WriteUp: DC-2 | VulnHub | MaxisFront</title><meta name="description" content="VulnHub DC:2 Machine | Challenge made by: DCAU | Series: DC"><meta property="og:title" content="WriteUp: DC-2 | VulnHub"><meta property="og:description" content="VulnHub DC:2 Machine | Challenge made by: DCAU | Series: DC"><meta property="og:type" content="article"><meta property="og:url" content="https://maxisfront.github.io/posts/writeup-dc-2-vulnhub/"><meta property="og:image" content="https://maxisfront.github.io/posts/writeup-dc-2-vulnhub/WordPress_Logo.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630"><meta property="og:site_name" content="MaxisFront"><meta property="og:locale" content="en">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Post test ^^">
-<meta name="twitter:description" content="A brief description of the post"><meta name="twitter:image" content="https://maxisfront.github.io/posts/writeup-dc-2-vulnhub/WordPress_Logo.png">
+<meta name="twitter:title" content="WriteUp: DC-2 | VulnHub">
+<meta name="twitter:description" content="VulnHub DC:2 Machine | Challenge made by: DCAU | Series: DC"><meta name="twitter:image" content="https://maxisfront.github.io/posts/writeup-dc-2-vulnhub/WordPress_Logo.png">
 <link rel="canonical" href="https://maxisfront.github.io/posts/writeup-dc-2-vulnhub/">
 
 <link rel="alternate" hreflang="es" href="https://maxisfront.github.io/es/posts/writeup-dc-2-vulnhub/"><link rel="stylesheet" href="/css/primer.min.c12daf26af408c64f29cc993dd5ab422334e71e50fa7198111b729fdf674e34d.css" integrity="sha256-wS2vJq9AjGTynMmT3Vq0IjNOceUPpxmBEbcp/fZ0400=">
@@ -91,19 +91,500 @@
       <div class="container-xl px-3 px-md-4 px-lg-5 py-4"><div class="Layout Layout--sidebarPosition-end Layout--flowRow-until-md">
           <div class="Layout-main"><article>
   <header class="mb-4">
-    <h1 class="f1 lh-condensed mb-2">Post test ^^</h1><div class="d-flex flex-items-center color-fg-muted f5 mb-3"><time datetime="2026-03-01T00:00:00Z">
-        2026-03-01
-      </time><span class="mx-2">&middot;</span><span>Your Name</span></div><div class="d-flex flex-wrap mb-3" style="gap: 0.5rem;"><a href="/tags/hugo/" class="topic-tag">hugo</a><a href="/tags/primer/" class="topic-tag">primer</a></div><img src="/posts/writeup-dc-2-vulnhub/WordPress_Logo.png" alt="Post test ^^" loading="lazy" class="rounded-2 width-full mb-3" style="max-height: 400px; object-fit: cover;"></header>
+    <h1 class="f1 lh-condensed mb-2">WriteUp: DC-2 | VulnHub</h1><div class="d-flex flex-items-center color-fg-muted f5 mb-3"><time datetime="2026-03-25T00:00:00Z">
+        2026-03-25
+      </time><span class="mx-2">&middot;</span><span>9 min read</span><span class="mx-2">&middot;</span><span>MaxisFront</span></div><div class="d-flex flex-wrap mb-3" style="gap: 0.5rem;"><a href="/tags/linux/" class="topic-tag">Linux</a><a href="/tags/wordpress/" class="topic-tag">WordPress</a><a href="/tags/cms/" class="topic-tag">CMS</a><a href="/tags/caido/" class="topic-tag">Caido</a><a href="/tags/cewl/" class="topic-tag">CeWL</a><a href="/tags/git/" class="topic-tag">Git</a></div><img src="/posts/writeup-dc-2-vulnhub/WordPress_Logo.png" alt="WriteUp: DC-2 | VulnHub" loading="lazy" class="rounded-2 width-full mb-3" style="max-height: 400px; object-fit: cover;"></header>
 
   <div class="markdown-body">
     <blockquote>
-<p>All reserved rights to the WordPress Organization</p>
+<p>All rights reserved to the WordPress organization</p>
 </blockquote>
+
+
+
+
+  
+
+
+<div class="flash mb-3">
+  <blockquote>
+<p>Summary</p>
+</blockquote>
+<ul>
+<li>Listing users with <code>Caido</code></li>
+<li>Password discovery via <code>CeWL</code></li>
+<li>Reuse of credentials for the service <code>SSH</code></li>
+<li>Exploitation of the SUID bit on <code>git</code></li>
+<li>Security recommendations to prevent and mitigate vulnerabilities on this machine.</li>
+</ul>
+</div>
+
+
+
+<h4 id="skills-used">Skills Used</h4>
+<ul>
+<li>Port scanning and CMS enumeration</li>
+<li>Searching for and using critical CVEs</li>
+<li>Use of basic GNU/Linux-based commands</li>
+<li>Exploitation of vulnerable SUIDs</li>
+</ul>
+<h4 id="tools-used">Tools Used</h4>
+<ul>
+<li>arp-scan</li>
+<li>Ping</li>
+<li>Nmap</li>
+<li>Caido</li>
+<li>WPScan</li>
+<li>CeWL</li>
+<li>SSH</li>
+<li>Git</li>
+</ul>
+<hr>
+<h2 id="vulnerability-assessment-and-analysis">Vulnerability Assessment and Analysis</h2>
+<p>First, we scan our local network using the <code>arp-scan</code>, specifying our network interface:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>arp-scan -I eth3 -l</span></span></code></pre></div><blockquote>
+<ul>
+<li><code>arp-scan</code>: Allows identifying devices connected to the same network as the host.</li>
+<li><code>-I (interface)</code>: Specifies the network interface where requests will be sent to identify devices.</li>
+<li><code>-l (--localnet)</code>: Discovers devices on our local subnet.</li>
+</ul>
+</blockquote>
+<img src="./images/1_dc2-arp-scan.png" alt="Arp-Scan output" loading="lazy">
+<p>The IP address of interest is <code>192.168.1.176</code>. We perform a connectivity
+test using <code>ping</code> to see if communication between devices is possible:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>ping -c1 -R 192.168.1.176</span></span></code></pre></div><blockquote>
+<ul>
+<li><code>ping</code>: Sends an ICMP packet to verify if a host is active.</li>
+<li><code>-c1</code>: Specifies that only one packet should be sent and awaited.</li>
+<li><code>-R (Record Route)</code>: The output shows the nodes a packet traversed.</li>
+</ul>
+</blockquote>
+<img src="./images/2_dc2-ping-traceroute.png" alt="Testing connection through Ping" loading="lazy">
+<p>The ICMP trace is successful. Thus, the TTL value is <code>64</code>, which could indicate a Linux/Unix system.</p>
+<hr>
+<h3 id="port-scanning">Port Scanning</h3>
+<p>We begin scanning all 65,535 TCP ports with <code>Nmap</code> (Network Mapper) tool to identify open TCP ports:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>nmap -p- --min-rate <span style="color:#bd93f9">5000</span> -Pn -n -oN nmap-scan 192.168.1.176</span></span></code></pre></div><blockquote>
+<ul>
+<li><code>-p-</code>: Nmap scans all 65535 TCP ports of a host.</li>
+<li><code>--min-rate</code>: Sends a minimum of X packets per second.</li>
+<li><code>-Pn (No Ping)</code>: Skips host discovery via ping (assuming the host is active).</li>
+<li><code>-n (No DNS resolution)</code>: Skips reverse DNS resolution (avoids requesting the hostname from its IP).</li>
+<li><code>-oN</code>: Exports the results in Nmap format (almost identical to the CLI output).</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>&lt;= Important =&gt; In enterprise environments, it is preferable to avoid sending packets <code>TCP, ICMP or UDP</code> in large quantities, as this can trigger a <code>DoS</code> or be blocked by monitoring systems.</p>
+</blockquote>
+<img src="/posts/writeup-dc-2-vulnhub/images/3_dc2-nmap-scam.png" alt="Port scanning with Nmap" loading="lazy">
+<h3 id="port-enumeration">Port Enumeration</h3>
+<p>We observe the ports <code>80 (http) and 7744 (raqmon-pdu)</code>. Now, we can
+focus the enumeration on these ports using the flag <code>-sV</code>, where
+<code>Nmap</code> - after establishing communication with a port - analyzes the
+responses to determine the version of the service behind it.</p>
+<p>The ports <code>80 (HTTP)</code> and the <code>7744 (SSH)</code> are active. From this point
+on, we can enumerate the services through <code>Nmap</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>nmap -sCV -80,7744 -oN ports-enumeration 192.168.1.176</span></span></code></pre></div><blockquote>
+<ul>
+<li><code>-sCV</code>: Enumerates services on each port, enhanced through default reconnaissance scripts.</li>
+</ul>
+</blockquote>
+<img src="/posts/writeup-dc-2-vulnhub/images/4_dc2-ports-enumeration.png" alt="Port enumeration with their services" loading="lazy">
+<p>After analyzing the port enumeration, we can group the results in the
+following table:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">Port</th>
+          <th style="text-align: center">Service</th>
+          <th style="text-align: center">Version</th>
+          <th style="text-align: center">Notes</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">80</td>
+          <td style="text-align: center">HTTP</td>
+          <td style="text-align: center">Apache httpd 2.4.10 ((Debian)) Debian 5+deb8u7</td>
+          <td style="text-align: center">The host appears to be running WordPress on Apache. The operating system is likely <code>Debian 8 (Jessie)</code>.<br></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">7744</td>
+          <td style="text-align: center">SSH</td>
+          <td style="text-align: center">OpenSSH 6.7p1 Debian 5+deb8u7 (protocol 2.0)</td>
+          <td style="text-align: center">Outdated version vulnerable to <strong>CVE-2018-15473</strong>, although for this service <code>there's another approach</code>.</td>
+      </tr>
+  </tbody>
+</table>
+<blockquote>
+<p>Tools such as <code>whatweb</code> (Command) or <code>Wappalyzer</code> (Browser extension)
+are very useful when we only want to know the technologies present in
+an HTTP service.</p>
+</blockquote>
+<p>Based on the table, we can identify potential attack vectors: Port 80 (HTTP):</p>
+<blockquote>
+<ul>
+<li>
+<p>Port 80 (HTTP): The <code>CMS</code> is <code>WordPress 4.7.10</code> vulnerable to <code>CVE-2019-20041</code>, user enumeration via the <code>/wp-json/wp/v2/users</code>, as well as enumeration of vulnerabilities using automated tools such as <code>WPScan</code>.</p>
+</li>
+<li>
+<p>Port 7744 (SSH): Service <code>OpenSSH</code> outdated, possibly used by a <code>Debian 8</code> (jessie). Possible user enumeration via the <code>CVE-2018-15473</code>, although for this machine it is possible to gain access via web enumeration (using tools such as <code>Caido</code> and <code>CeWL</code>.</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="web-enumeration">Web Enumeration</h3>
+<p>Before accessing the website in the browser, the machine's IP is
+temporarily mapped to the dc-2 page by modifying the <code>/etc/hosts</code> to
+resolve the page's address:</p>
+<img src="./images/5_dc2-map-etc-hosts.png" alt="Adding dc-2 to the /etc/hosts file" loading="lazy">
+<p>Before accessing the site via the browser, we perform an enumeration of
+addresses within the website:</p>
+<img src="./images/6_dc2-gobuster-urls.png" alt="Using gobuster to enumerate URL paths" loading="lazy">
+<p>We observe that among the identified addresses there is <code>/wp-admin</code>, so
+we access it via the browser to view the administration panel.</p>
+<img src="./images/7_dc2-admin-panel.png" alt="Wordpress Administration Panel" loading="lazy">
+<p>Although the user <code>admin</code> exists, it was not possible to access the panel without valid credentials. Therefore, it was decided to use <code>curl</code> to list the users in the system:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span><span style="color:#ff79c6">for</span> i in <span style="color:#ff79c6">{</span>0..10<span style="color:#ff79c6">}</span>; <span style="color:#ff79c6">do</span> curl -si <span style="color:#f1fa8c">&#34;http://dc-2/?author=</span><span style="color:#8be9fd;font-style:italic">$i</span><span style="color:#f1fa8c">&#34;</span> | grep <span style="color:#f1fa8c">&#34;author/&#34;</span>; <span style="color:#ff79c6">done</span></span></span></code></pre></div><img src="./images/8_dc2-curl-users-enumeration.png" alt="Enumerating users through the Curl command" loading="lazy">
+<blockquote>
+<p>Another way to list potential users is by querying the address
+<code>/?rest_route=/wp/v2/users/</code>, taking advantage of the <code>REST API</code>
+WordPress URL, included starting with version <code>4.7.0</code>.</p>
+<p>It should be noted that the <code>REST API</code> will only display users with at
+least one post, skipping the rest.</p>
+</blockquote>
+<p>After finally enumerating the existing users on the page, we must now
+somehow discover the users&rsquo; passwords.</p>
+<hr>
+<p>Dictionary attacks are often more effective than generic dictionaries.
+This premise is based on the fact that employees and users often create
+passwords based on their context (product consumption, hobbies, work
+tools, etc.).</p>
+<blockquote>
+<p>According to the paper &ldquo;Context-Based Password Cracking for Digital
+Investigation,&rdquo; it is suggested that custom dictionaries (contextual
+information) can improve the effectiveness of an attack by up to 50%
+in some cases. This is compared to traditional cracking methods.</p>
+<p>Source: <a href="https://forensicsandsecurity.com/papers/PhDThesis-ContextBasedPasswordCrackingForDigitalInvestigation.pdf">Context-Based Password Cracking for Digital Investigation</a></p>
+</blockquote>
+<p>For all these reasons, it was decided to generate a custom dictionary
+based on the page&rsquo;s content <code>dc-2</code>, using the tool <code>CeWL</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>cewl -w custom_password_dictionary.txt http://dc-2/</span></span></code></pre></div><blockquote>
+<ul>
+<li><code>CeWL</code>: Custom Wordlist Generator creates dictionaries through web crawling, capable of extracting unique words, phone numbers, and emails.</li>
+</ul>
+</blockquote>
+<h2 id="exploitation">Exploitation</h2>
+<p>From this point on, we focused on attempting to access the computer&rsquo;s
+system through various methods <code>DC-2</code>.</p>
+<h3 id="web">Web</h3>
+<p>After obtaining the dictionary, we used a tool such as <code>hydra</code> or
+<code>Caido</code> to automate the credential testing phase:</p>
+<img src="./images/9_dc2-enum-users-jerry-and-tom.png" alt="User enumeration through the &lsquo;Caido&rsquo; tool" loading="lazy">
+<blockquote>
+<ul>
+<li><code>Caido</code>: Web auditing tool. Intercepts, modifies, and manages HTTP/HTTPS traffic in real-time.</li>
+<li><code>HTTPQL</code>: Query language used by Caido. Allows queries with logical operators (AND or OR), facilitating tasks like filtering server responses.</li>
+</ul>
+</blockquote>
+<p>We can see that <code>Caido</code> received the response code <code>302 (Found)</code>. for
+2 queries, which were <code>tom</code> : <code>parturient</code> and <code>jerry</code> : <code>adipiscing</code>.</p>
+<p>Using the credentials obtained, we were able to access the
+administration panel.</p>
+<img src="./images/10_dc2-administration-panel-as-jerry.png" alt="WordPress administration panel successful access" loading="lazy">
+<p>Despite having access to the panel, we were unable to identify outdated
+<em>plugins</em>, confidential information, or notices from the system
+administrator.</p>
+<h3 id="ssh">SSH</h3>
+<p>In various work environments, it is common to reuse credentials.
+Therefore, returning to the fact that during the port enumeration we saw
+that the service <code>SSH</code> was running on port <code>7744</code>, we attempted to log
+in using the previous usernames and passwords.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>ssh tom@192.168.1.176 </span></span></code></pre></div><blockquote>
+<ul>
+<li><code>SSH</code>: Secure Shell is a service for secure remote access to servers and devices.</li>
+</ul>
+</blockquote>
+<img src="./images/11_dc2-ssh-user-tom.png" alt="SSH access with tom credentials" loading="lazy">
+<p>When attempting to execute commands such as <code>groups</code> or <code>sudo -l</code> we get
+an error <code>-rbash: ... command not found</code>. This indicates that we are
+dealing with a <code>restricted bash</code>, characterized by having a limited set
+of commands, restricted access to directories, and the inability to
+modify its <code>.bashrc</code>.</p>
+<p>We can verify this by checking the type of <code>Shell</code> of our session, as
+well as viewing the commands we are restricted to:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#8be9fd;font-style:italic">$SHELL</span>
+</span></span><span style="display:flex;"><span>ls -R -la usr/bin <span style="color:#6272a4"># Inside the &#34;/home&#34; user directory</span></span></span></code></pre></div><img src="./images/12_dc2-symbolic-links-identification.png" alt="Verification of rbash and listing our commands" loading="lazy">
+<p>It is possible to observe that most of this <code>symlinks</code> (Equivalent to a
+<code>Windows' shortcut</code>) can lead to escaping the <code>rbash</code>
+(<code>vi, less and scp</code>). In this case, we use <code>vi</code> to change the variable
+<code>SHELL</code> and spawn a <code>bash</code> shell:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="shell"><span style="display:flex;"><span><span style="color:#6272a4"># &gt; Execute vi and press the ESC key</span>
+</span></span><span style="display:flex;"><span>:set <span style="color:#8be9fd;font-style:italic">shell</span><span style="color:#ff79c6">=</span>/bin/bash
+</span></span><span style="display:flex;"><span>:shell
+</span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">export</span> <span style="color:#8be9fd;font-style:italic">PATH</span><span style="color:#ff79c6">=</span>/bin:/usr/bin:<span style="color:#8be9fd;font-style:italic">$PATH</span></span></span></code></pre></div><p>When checking the value of <code>SHELL</code>, we observe that our session now uses
+a default <code>bash</code> and we have access to all system commands.</p>
+<p>When executing <code>sudo -l</code> we see that <code>tom</code> is not in the
+<code>sudoers</code> file. Despite this, earlier during the web exploit we discovered
+that the user <code>jerry</code>. We try switching users:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>su jerry <span style="color:#6272a4"># Password: adipiscing</span></span></span></code></pre></div><p>We again observed credential reuse. Now we try to list -if they exist- the commands we can execute with root privileges:</p>
+<img src="./images/13_dc2-command-as-sudo.png" alt="Command that Jerry can run as sudo" loading="lazy">
+<p>We observe that the user <code>jerry</code> has administrator permissions to
+execute the <code>git</code> binary, a tool used for version control.</p>
+<p>A quick way to elevate privileges through <code>git</code> is to follow a format
+similar to the one we use with <code>vi</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>sudo git -p <span style="color:#8be9fd;font-style:italic">help</span> config <span style="color:#6272a4"># Abrirá un paginado</span>
+</span></span><span style="display:flex;"><span>!/bin/bash</span></span></code></pre></div><blockquote>
+<ul>
+<li><code>-p help config</code>: Git launches a pager as the root user (like <code>less</code>) to view detailed help for the config command.</li>
+</ul>
+</blockquote>
+<img src="./images/14_dc2-privilege-escalation.png" alt="Bash session as the user root" loading="lazy">
+<p>We now have a bash session as the user <code>root</code>. As a final check, we try
+to read the flag located in the directory <code>/root</code>:</p>
+<blockquote>
+<p>Congratulations!!!</p>
+<p>A special thanks to all those who sent me tweets and provided me with
+feedback&mdash;it&rsquo;s all greatly appreciated.</p>
+<p>If you enjoyed this CTF, send me a tweet via @DCAU7</p>
+</blockquote>
+<h2 id="impact">Impact</h2>
+<p>An attacker with the permissions of a regular user such as <code>tom</code> or
+<code>jerry</code> has the following capabilities:</p>
+<blockquote>
+<ul>
+<li>Access and read permissions on folders such as <code>/www/html</code>.</li>
+<li>Ability to read the file <code>wp-config.php</code>.</li>
+<li>Access to the WordPress database, with the ability to modify tables such as <code>wp_users</code>.</li>
+<li>Ability to enumerate other systems on the network and perform
+lateral movement.</li>
+</ul>
+</blockquote>
+<p>An attacker with administrator permissions gains the following
+capabilities:</p>
+<blockquote>
+<ul>
+<li>Create, modify, or delete users, maintain persistence across
+sessions, and control server traffic.</li>
+<li>Full modification of system files <code>Linux</code>.</li>
+<li>Modify or delete the <code>WordPress</code> installation on the server.</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="summary">Summary</h2>
+<p>The machine <code>DC-2</code> presented a series of critical vulnerabilities (<strong>not
+all of which are detailed in this WriteUp</strong>) that enabled techniques
+such as <code>User enumeration</code> and <code>Dictionary Attack</code>, as well as
+<code>Credential Reuse</code> in the service <code>SSH</code>, among others. Therefore, the
+following section will outline the findings, their severity, and
+guidelines for preventing this type of security flaw.</p>
+<h3 id="findings">Findings</h3>
+<blockquote>
+<p>Reuse of Credentials</p>
+</blockquote>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">ID</th>
+          <th style="text-align: center"><strong>Vulnerability</strong></th>
+          <th style="text-align: center"><strong>Threat Level</strong></th>
+          <th style="text-align: center"><strong>Description</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">MF1</td>
+          <td style="text-align: center">CWE-1391: Use of Weak Credentials</td>
+          <td style="text-align: center"><span style="background-color: #cc0000; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85em; display: inline-block; text-transform: uppercase;">
+     Critical 
+</span>
+
+
+
+</td>
+          <td style="text-align: center">Credential reuse between the service <code>Web</code> and <code>SSH</code>, allowing the attacker to access the server and jump between local users.</td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+
+ 
+
+
+<div class="flash flash-error mb-3">
+  <p>Immediate measures</p>
+<blockquote>
+<ul>
+<li>Avoid using passwords based on company products such as the
+website or content within it.</li>
+<li>Do not reuse credentials under any circumstances.</li>
+<li>Change user credentials periodically (both in the service <code>Web</code>
+and in the <code>SSH</code>).</li>
+</ul>
+</blockquote>
+</div>
+
+
+
+<blockquote>
+<p>Running git as sudo</p>
+</blockquote>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">ID</th>
+          <th style="text-align: center"><strong>Vulnerability</strong></th>
+          <th style="text-align: center"><strong>Threat Level</strong></th>
+          <th style="text-align: center"><strong>Description</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">MF2</td>
+          <td style="text-align: center">CWE-269: Improper Privilege Management</td>
+          <td style="text-align: center"><span style="background-color: #cc0000; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85em; display: inline-block; text-transform: uppercase;">
+     Critical 
+</span>
+
+
+
+</td>
+          <td style="text-align: center">The user <code>jerry</code> has the ability to escalate privileges through the binary <code>git</code> using the flag <code>--paginate</code></td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+
+ 
+
+
+<div class="flash flash-error mb-3">
+  <p>Immediate actions:</p>
+<blockquote>
+<p>To mitigate an attacker&rsquo;s ability to escalate privileges, it is
+recommended to:</p>
+<ul>
+<li>Set restrictive permissions for the command <code>git</code> within the file
+<code>/etc/sudoers</code>, allowing only the use of <code>sudo</code> for commands such
+as <code>git pull</code>.</li>
+<li>If permissions are required for modifying files within
+<code>/var/www/</code>, change the directory owner to special users such as
+<code>www-data</code>.</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>To mitigate an attacker&rsquo;s ability to escalate privileges, it is
+recommended to use isolated automated tools with special permissions,
+preventing a user from having to perform tasks manually.</p>
+</blockquote>
+
+</div>
+
+
+
+<blockquote>
+<p>Administration Panel</p>
+</blockquote>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">ID</th>
+          <th style="text-align: center"><strong>Vulnerability</strong></th>
+          <th style="text-align: center"><strong>Threat Level</strong></th>
+          <th style="text-align: center"><strong>Description</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">MF3</td>
+          <td style="text-align: center">CWE-307: Improper Restriction of Excessive Authentication Attempts</td>
+          <td style="text-align: center"><span style="background-color: #ff4444; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85em; display: inline-block; text-transform: uppercase;">
+     High 
+</span>
+
+
+
+</td>
+          <td style="text-align: center">The WordPress admin panel has no defined limit on authentication attempts, allowing automated authentication attempts indefinitely.</td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+
+ 
+
+
+<div class="flash flash-error mb-3">
+  <p>Immediate actions:</p>
+<blockquote>
+<ul>
+<li>Establish a method <code>2FA</code> to reduce the scope of targeted attacks.</li>
+<li>Implement a <code>WAF</code> (Web Application Firewall) to monitor and block
+<code>HTTP/HTTPS</code> .</li>
+<li>Establish a policy for temporary or permanent IP blocking.</li>
+</ul>
+</blockquote>
+</div>
+
+
+
+<blockquote>
+<p>User enumeration</p>
+</blockquote>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">ID</th>
+          <th style="text-align: center"><strong>Vulnerability</strong></th>
+          <th style="text-align: center"><strong>Threat Level</strong></th>
+          <th style="text-align: center"><strong>Description</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">MF4</td>
+          <td style="text-align: center">CWE-200: Exposure of Sensitive Information to an Unauthorized Actor</td>
+          <td style="text-align: center"><span style="background-color: #ffbb33; color: black; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85em; display: inline-block; text-transform: uppercase;">
+     Medium 
+</span>
+
+
+
+</td>
+          <td style="text-align: center">WordPress <code>4.7.0</code> allows user enumeration via the REST API at the URL <code>/wp-json/wp/v2/users</code></td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+
+ 
+
+
+<div class="flash flash-error mb-3">
+  <p>Immediate actions:</p>
+<blockquote>
+<ul>
+<li>Restrict access to the <code>API REST</code> to non-privileged users, or
+disable the <code>endpoints</code> that allow access to user information.</li>
+<li>Block user enumeration via the URL <code>/?author=ID</code>.</li>
+</ul>
+</blockquote>
+</div>
+
+
+
 
   </div><div class="border-top pt-4 mt-4">
     <p class="f5 text-bold mb-2">Share</p>
     <div class="d-flex flex-wrap" style="gap: 0.5rem;">
-      <a href="https://twitter.com/intent/tweet?text=Post&#43;test&#43;%5E%5E&url=https%3A%2F%2Fmaxisfront.github.io%2Fposts%2Fwriteup-dc-2-vulnhub%2F" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+      <a href="https://twitter.com/intent/tweet?text=WriteUp%3A&#43;DC-2&#43;%7C&#43;VulnHub&url=https%3A%2F%2Fmaxisfront.github.io%2Fposts%2Fwriteup-dc-2-vulnhub%2F" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" class="octicon mr-1" style="vertical-align: text-bottom;">
           <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"></path>
         </svg>
@@ -115,13 +596,13 @@
         </svg>
         Facebook
       </a>
-      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fmaxisfront.github.io%2Fposts%2Fwriteup-dc-2-vulnhub%2F&title=Post&#43;test&#43;%5E%5E" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fmaxisfront.github.io%2Fposts%2Fwriteup-dc-2-vulnhub%2F&title=WriteUp%3A&#43;DC-2&#43;%7C&#43;VulnHub" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" class="octicon mr-1" style="vertical-align: text-bottom;">
           <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"></path>
         </svg>
         LinkedIn
       </a>
-      <a href="https://bsky.app/intent/compose?text=Post&#43;test&#43;%5E%5E%20https%3A%2F%2Fmaxisfront.github.io%2Fposts%2Fwriteup-dc-2-vulnhub%2F" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+      <a href="https://bsky.app/intent/compose?text=WriteUp%3A&#43;DC-2&#43;%7C&#43;VulnHub%20https%3A%2F%2Fmaxisfront.github.io%2Fposts%2Fwriteup-dc-2-vulnhub%2F" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" class="octicon mr-1" style="vertical-align: text-bottom;">
           <path d="M3.468 1.948C5.303 3.325 7.276 6.118 8 7.616c.724-1.498 2.697-4.29 4.532-5.668C13.855.955 16 .186 16 2.632c0 .489-.28 4.105-.444 4.692-.572 2.04-2.653 2.561-4.504 2.246 3.236.551 4.06 2.375 2.281 4.2-3.376 3.464-4.852-.872-5.23-1.988-.07-.205-.103-.3-.103-.218 0-.081-.033.013-.103.218-.378 1.116-1.854 5.452-5.23 1.988-1.778-1.825-.955-3.649 2.28-4.2-1.85.315-3.93-.205-4.503-2.246C.28 6.737 0 3.12 0 2.632 0 .186 2.145.955 3.468 1.948"></path>
         </svg>
@@ -131,15 +612,12 @@
   </div><div class="border-top pt-4 mt-4">
     <h2 class="f4 mb-3">Related Posts</h2>
     <div class="d-flex flex-column flex-md-row"><div class="flex-1 mb-3 mb-md-0 mr-md-3">
-        <a href="/posts/writeup-dc-1-vulnhub/" class="Link--primary text-bold">Post test ^^</a><p class="color-fg-muted f6 mb-0">
-          2026-03-01
-        </p></div><div class="flex-1 mb-3 mb-md-0 mr-md-3">
-        <a href="/py-post/" class="Link--primary text-bold">My Post Title</a><p class="color-fg-muted f6 mb-0">
-          2024-02-28
+        <a href="/posts/writeup-dc-1-vulnhub/" class="Link--primary text-bold">WriteUp: DC-1 | VulnHub</a><p class="color-fg-muted f6 mb-0">
+          2026-03-16
         </p></div></div>
   </div><nav class="border-top pt-4 mt-4">
-    <div class="d-flex flex-justify-between"><span></span><a href="/posts/writeup-dc-1-vulnhub/" class="Link--secondary">
-        Post test ^^ &rarr;
+    <div class="d-flex flex-justify-between"><a href="/posts/writeup-dc-1-vulnhub/" class="Link--secondary">
+        &larr; WriteUp: DC-1 | VulnHub
       </a></div>
   </nav>
 </article>
@@ -147,11 +625,11 @@
           <div class="Layout-sidebar"><aside><div class="color-bg-subtle rounded-2 p-3 mb-3">
   <h3 class="h5 mb-2">Recent Posts</h3>
   <ul class="list-style-none"><li class="mb-2">
-      <a href="/posts/writeup-dc-1-vulnhub/" class="Link--primary">Post test ^^</a><span class="color-fg-muted f6 d-block">
-        2026-03-01
+      <a href="/posts/writeup-dc-2-vulnhub/" class="Link--primary">WriteUp: DC-2 | VulnHub</a><span class="color-fg-muted f6 d-block">
+        2026-03-25
       </span></li><li class="mb-2">
-      <a href="/posts/writeup-dc-2-vulnhub/" class="Link--primary">Post test ^^</a><span class="color-fg-muted f6 d-block">
-        2026-03-01
+      <a href="/posts/writeup-dc-1-vulnhub/" class="Link--primary">WriteUp: DC-1 | VulnHub</a><span class="color-fg-muted f6 d-block">
+        2026-03-16
       </span></li></ul>
 </div><div class="color-bg-subtle rounded-2 p-3 mb-3">
   <h3 class="h5 mb-2">Links</h3>
@@ -182,10 +660,26 @@
     data-view-all="/tags/"
     data-label-more="Show more"
     data-label-less="Show less"
-    data-label-view-all="View all"><a href="/tags/hugo/" class="topic-tag">
-      hugo
-    </a><a href="/tags/primer/" class="topic-tag">
-      primer
+    data-label-view-all="View all"><a href="/tags/caido/" class="topic-tag">
+      caido
+    </a><a href="/tags/cewl/" class="topic-tag">
+      cewl
+    </a><a href="/tags/cms/" class="topic-tag">
+      cms
+    </a><a href="/tags/cve-2018-7600/" class="topic-tag">
+      cve-2018-7600
+    </a><a href="/tags/drupal/" class="topic-tag">
+      drupal
+    </a><a href="/tags/gftobins/" class="topic-tag">
+      gftobins
+    </a><a href="/tags/git/" class="topic-tag">
+      git
+    </a><a href="/tags/linux/" class="topic-tag">
+      linux
+    </a><a href="/tags/suid/" class="topic-tag">
+      suid
+    </a><a href="/tags/wordpress/" class="topic-tag">
+      wordpress
     </a></div>
 </div>
 <div class="sidebar-module-toc"> <div class="Box Box--condensed mb-3">
@@ -193,7 +687,34 @@
         <h3 class="Box-title">ToC</h3>
       </div>
       <div class="Box-body toc-sidebar">
-        <nav id="TableOfContents"></nav>
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#vulnerability-assessment-and-analysis">Vulnerability Assessment and Analysis</a>
+      <ul>
+        <li><a href="#port-scanning">Port Scanning</a></li>
+        <li><a href="#port-enumeration">Port Enumeration</a></li>
+        <li><a href="#web-enumeration">Web Enumeration</a></li>
+      </ul>
+    </li>
+    <li><a href="#exploitation">Exploitation</a>
+      <ul>
+        <li><a href="#web">Web</a></li>
+        <li><a href="#ssh">SSH</a></li>
+      </ul>
+    </li>
+    <li><a href="#impact">Impact</a></li>
+    <li><a href="#summary">Summary</a>
+      <ul>
+        <li><a href="#findings">Findings</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
       </div>
     </div>
 </div>
