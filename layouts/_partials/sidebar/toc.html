@@ -1,0 +1,11 @@
+{{ if .IsPage }}
+<div class="sidebar-module-toc"> <div class="Box Box--condensed mb-3">
+      <div class="Box-header">
+        <h3 class="Box-title">ToC</h3>
+      </div>
+      <div class="Box-body toc-sidebar">
+        {{ .TableOfContents }}
+      </div>
+    </div>
+</div>
+{{ end }}

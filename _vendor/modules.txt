@@ -1,0 +1,1 @@
+# go.ngs.io/hugo-primer-blog v1.0.8

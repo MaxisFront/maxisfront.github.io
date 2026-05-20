@@ -1,0 +1,106 @@
+baseURL = "https://maxisfront.github.io/"
+languageCode = "es"
+title = "MaxisFront"
+
+[module]
+  [[module.imports]]
+    path = "go.ngs.io/hugo-primer-blog"
+
+defaultContentLanguage = "es"
+defaultContentLanguageInSubdir = true
+
+# Crucial para que el módulo Archive funcione
+[taxonomies]
+  archive = "archives"
+  tag = "tags"
+
+[params]
+  sidebar = true            # Enable/disable sidebar
+  mainSections = ['posts']
+  recentPostsCount = 5      # Number of recent posts in sidebar module
+  defaultTheme = "auto"     # auto, light, or dark
+  dateFormat = "2006-01-02"
+  showReadingTime = true
+  showAuthor = true
+  showShareButtons = true
+  googleAnalyticsID = "G-EY36TLSMFS"  # Google Analytics 4 ID
+  customCSS = ["css/custom_properties.css"] # Insertar custom CSS
+
+  # Sidebar modules - order determines display order
+  # Available: recentPosts, tags, categories, archive, links (+ custom partials)
+  [[params.sidebarModules]]
+    partial = "recentPosts"
+
+  [[params.sidebarModules]]
+    partial = "links"  
+
+  [[params.sidebarModules]]
+    partial = "tags"
+
+  [[params.sidebarModules]]
+    partial = "archive"
+
+  [[params.sidebarModules]]
+    partial = "toc" # Habilitar la Table of Content
+
+  [params.social]
+    github = "MaxisFront"
+    x = "MaxisFront"
+  
+[languages]
+  [languages.es]
+    languageName = "Español"
+    weight = 1
+    contentDir = "content"
+  
+  [languages.en]
+    languageName = "English"
+    weight = 2
+    contentDir = "content"
+
+
+    
+
+[menus]  
+  [[menus.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+
+  [[menus.main]]
+    name = "Posts"
+    url = "/posts/"
+    weight = 2
+
+  [[menus.footer]]
+    name = "Privacy"
+    url = "/privacy/"
+    weight = 1
+
+# Custom stuff
+# Enable write html code
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+    unsafe = true
+    hardLineBreak = true
+    [markup.goldmark.parser]
+      wrapStandAloneImageWithinParagraph = false
+      [markup.goldmark.parser.attribute]
+        block = true
+
+
+[markup.highlight]
+  anchorLineNos = true
+  codeFences = true
+  guessSyntax = true
+  hl_Lines = ''
+  hl_inline = false
+  lineAnchors = ''
+  lineNoStart = 1
+  lineNos = false
+  lineNumbersInTable = true
+  noClasses = true # Esencial para el highlight
+  style = 'dracula'
+  tabWidth = 4
+  wrapperClass = 'highlight'

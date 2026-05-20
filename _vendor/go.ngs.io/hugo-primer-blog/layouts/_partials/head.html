@@ -1,0 +1,174 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+
+{{- with .Description | default .Site.Params.description -}}
+<meta name="description" content="{{ . }}">
+{{- end -}}
+
+{{- with .Site.Params.author -}}
+<meta name="author" content="{{ . }}">
+{{- end -}}
+
+<!-- Open Graph (default tags) -->
+{{- $hasOgType := false -}}
+{{- $hasOgTitle := false -}}
+{{- $hasOgDescription := false -}}
+{{- $hasOgUrl := false -}}
+{{- $hasOgImage := false -}}
+{{- $hasOgSiteName := false -}}
+{{- $hasOgLocale := false -}}
+{{- with .Params.ogp.og -}}
+  {{- if isset . "type" }}{{ $hasOgType = true }}{{ end -}}
+  {{- if isset . "title" }}{{ $hasOgTitle = true }}{{ end -}}
+  {{- if isset . "description" }}{{ $hasOgDescription = true }}{{ end -}}
+  {{- if isset . "url" }}{{ $hasOgUrl = true }}{{ end -}}
+  {{- if isset . "image" }}{{ $hasOgImage = true }}{{ end -}}
+  {{- if isset . "site_name" }}{{ $hasOgSiteName = true }}{{ end -}}
+  {{- if isset . "locale" }}{{ $hasOgLocale = true }}{{ end -}}
+{{- end -}}
+{{- if not $hasOgTitle -}}
+<meta property="og:title" content="{{ cond .IsHome .Site.Title .Title }}">
+{{- end -}}
+{{- if not $hasOgDescription -}}
+<meta property="og:description" content="{{ .Description | default .Site.Params.description }}">
+{{- end -}}
+{{- if not $hasOgType -}}
+<meta property="og:type" content="{{ cond .IsPage "article" "website" }}">
+{{- end -}}
+{{- if not $hasOgUrl -}}
+<meta property="og:url" content="{{ .Permalink }}">
+{{- end -}}
+{{- $ogImageSrc := "" -}}
+{{- with .Params.image -}}
+  {{- if or (hasPrefix . "http://") (hasPrefix . "https://") -}}
+    {{- $ogImageSrc = . -}}
+  {{- else -}}
+    {{- $resource := $.Resources.GetMatch . -}}
+    {{- if $resource -}}
+      {{- $ogImageSrc = $resource.Permalink -}}
+    {{- else -}}
+      {{- $ogImageSrc = . | absURL -}}
+    {{- end -}}
+  {{- end -}}
+{{- else -}}
+  {{- with $.Site.Params.ogImage -}}
+    {{- $ogImageSrc = . -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $hasOgImage -}}
+{{- with $ogImageSrc -}}
+<meta property="og:image" content="{{ . }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+{{- end -}}
+{{- end -}}
+{{- if not $hasOgSiteName -}}
+<meta property="og:site_name" content="{{ .Site.Title }}">
+{{- end -}}
+{{- if not $hasOgLocale -}}
+<meta property="og:locale" content="{{ .Site.Language.Lang }}">
+{{- end -}}
+{{- /* Custom OGP tags from frontmatter (recursive) */ -}}
+{{- with .Params.ogp -}}
+{{- partial "ogp-meta.html" (dict "data" . "prefix" "") -}}
+{{- end -}}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="{{ if $ogImageSrc }}summary_large_image{{ else }}summary{{ end }}">
+<meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
+<meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+{{- with $ogImageSrc -}}
+<meta name="twitter:image" content="{{ . }}">
+{{- end -}}
+{{- with .Site.Params.twitterSite -}}
+<meta name="twitter:site" content="@{{ . }}">
+{{- end -}}
+
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ .Permalink }}">
+
+<!-- RSS -->
+{{- range .AlternativeOutputFormats -}}
+<link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}" title="{{ $.Site.Title }}">
+{{- end -}}
+
+<!-- Alternate Languages -->
+{{- if .IsTranslated -}}
+{{- range .Translations -}}
+<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}">
+{{- end -}}
+{{- end -}}
+
+<!-- Primer CSS -->
+{{- $primerCss := resources.Get "css/primer.css" | minify | fingerprint -}}
+<link rel="stylesheet" href="{{ $primerCss.RelPermalink }}" integrity="{{ $primerCss.Data.Integrity }}">
+
+<!-- Custom Theme CSS -->
+{{- $customCss := resources.Get "css/custom.css" | minify | fingerprint -}}
+<link rel="stylesheet" href="{{ $customCss.RelPermalink }}" integrity="{{ $customCss.Data.Integrity }}">
+
+<!-- Syntax Highlighting CSS -->
+{{- $syntaxCss := resources.Get "css/syntax.css" | minify | fingerprint -}}
+<link rel="stylesheet" href="{{ $syntaxCss.RelPermalink }}" integrity="{{ $syntaxCss.Data.Integrity }}">
+
+<!-- Favicon -->
+{{- if .Site.Params.appleTouchIcons -}}
+{{- range .Site.Params.appleTouchIcons -}}
+<link rel="apple-touch-icon"{{ with .sizes }} sizes="{{ . }}"{{ end }} href="{{ .href | relURL }}">
+{{- end -}}
+{{- end -}}
+{{- with .Site.Params.faviconPng -}}
+<link rel="shortcut icon" href="{{ . | relURL }}">
+{{- end -}}
+<link rel="icon" href="{{ .Site.Params.faviconIco | default "favicon.ico" | relURL }}" type="image/x-icon">
+
+<!-- Google Analytics -->
+{{- with .Site.Params.googleAnalyticsID -}}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ . }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ . }}');
+</script>
+{{- end -}}
+
+<!-- Primary Color Customization -->
+{{- with .Site.Params.primaryColor -}}
+<style>
+  html,
+  html[data-color-mode="light"],
+  html[data-light-theme="light"][data-color-mode="auto"] {
+    --fgColor-accent: {{ . }} !important;
+    --bgColor-accent-emphasis: {{ . }} !important;
+    --bgColor-accent-muted: color-mix(in srgb, {{ . }} 15%, transparent) !important;
+  }
+  html[data-color-mode="dark"],
+  html[data-dark-theme="dark"][data-color-mode="auto"] {
+    --fgColor-accent: color-mix(in srgb, {{ . }} 80%, #ffffff) !important;
+    --bgColor-accent-emphasis: {{ . }} !important;
+    --bgColor-accent-muted: color-mix(in srgb, {{ . }} 20%, transparent) !important;
+  }
+  @media (prefers-color-scheme: dark) {
+    html[data-color-mode="auto"] {
+      --fgColor-accent: color-mix(in srgb, {{ . }} 80%, #ffffff) !important;
+      --bgColor-accent-emphasis: {{ . }} !important;
+      --bgColor-accent-muted: color-mix(in srgb, {{ . }} 20%, transparent) !important;
+    }
+  }
+</style>
+{{- end -}}
+
+<!-- Theme initialization (prevent flash) -->
+<script>
+  (function() {
+    const saved = localStorage.getItem('theme');
+    const html = document.documentElement;
+    if (saved === 'light' || saved === 'dark') {
+      html.setAttribute('data-color-mode', saved);
+    }
+  })();
+</script>

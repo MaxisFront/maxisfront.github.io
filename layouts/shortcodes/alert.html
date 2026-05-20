@@ -1,0 +1,15 @@
+{{ $type := .Get 0 | default "info" }}
+
+{{/* Mapeamos nombres comunes a las clases reales de Primer CSS */}}
+{{ $class := "flash" }}
+{{ if eq $type "warning" }} {{ $class = "flash flash-warn" }}
+{{ else if eq $type "error" }} {{ $class = "flash flash-error" }}
+{{ else if eq $type "success" }} {{ $class = "flash flash-success" }}
+{{ else if eq $type "info" }} {{ $class = "flash" }} 
+{{ else }} {{ $class = printf "flash flash-%s" $type }} {{ end }}
+
+<div class="{{ $class }} mb-3">
+  {{ .Inner | markdownify }}
+</div>
+
+{{/* Uso: {{< alert info >}} Resumen  {{< /alert>}} */}}

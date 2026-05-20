@@ -1,0 +1,95 @@
+/* Se aumentan los márgenes inferiores de los párrafos, listas, 
+ * códigos y blackquotes*/
+article p, 
+article ul, 
+article .highlight, 
+article blockquote {
+    margin-bottom: 1.8rem;
+}
+
+/* Se agrega un espaciado a las imágenes para separarlas para 
+ * evitar aglomerar todo el contenido */
+article img {
+    margin: 2rem auto;
+    display: block;
+    border-radius: 5px; /* Se suavizan las esquinas */
+}
+
+/* 1. Ajuste del contenedor principal */
+.highlight {
+    margin-top: 1.2rem !important;
+    margin-bottom: 1.2rem !important;
+    background-color: #282a36 !important; /* Color de fondo Dracula */
+    border-radius: 10px;
+}
+
+/* 2. Reducción drástica de padding en el bloque pre */
+.highlight pre {
+    padding: 1rem 0.8rem !important; /* Ajusta estos valores para reducir el espacio */
+    margin: 0 !important;
+    line-height: 1.4 !important;    /* Espacio entre líneas más compacto */
+}
+
+/* 3. Si usas números de línea (que generan una tabla) */
+.highlight table {
+    border-spacing: 0 !important;
+    margin: 0 !important;
+    width: auto !important;
+}
+
+.highlight td {
+    padding: 0 0.5rem 0 0 !important; /* Espacio solo a la derecha del número */
+    vertical-align: top;
+}
+
+.highlight td:last-child {
+    padding-right: 0 !important;
+    width: 100%; /* El código ocupa el resto del espacio */
+}
+
+/* 4. Eliminar márgenes de párrafos dentro de bloques (si existieran) */
+.highlight code {
+    padding: 0 !important;
+    background: transparent !important;
+}
+
+
+/* <----------------------------------------->
+/* Estilos para la Table of Contents (ToC) */
+.toc-sidebar nav ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.toc-sidebar nav ul ul {
+    padding-left: 1rem; /* Indentación para niveles H2, H3... */
+    margin-top: 0.2rem;   
+}
+
+
+.toc-sidebar a {
+    font-size: 0.85rem;
+    color: #6272a4 !important; /* Color comentario Dracula */
+    text-decoration: none;
+    display: block;
+    padding: 3px 0;
+}
+
+.toc-sidebar a:hover {
+    color: #ff79c6 !important; /* Rosa Dracula al pasar el mouse */
+    text-decoration: underline;
+}
+
+/* <----------------------------------------->
+/* Estilos para los links en la sidebar */
+
+/* Centrado perfecto de iconos en botones de la sidebar */
+.btn-sm i {
+    font-size: 16px;
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+/* <----------------------------------------->

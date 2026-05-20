@@ -1,0 +1,19 @@
+{{/* Shortcodes para asignar colores (Indicar la gravedad de las vulnerabilidades) */}}
+
+{{- $tipo := lower (.Get 0) -}}
+{{- $color := "#9e9e9e" -}} {{/* Color Gris por defecto */}}
+{{- $font := "white" -}}
+
+{{- if eq $tipo "critica" -}} {{- $color = "#cc0000" -}}
+{{- else if eq $tipo "alta" -}} {{- $color = "#ff4444" -}}
+{{- else if eq $tipo "media" -}} {{- $color = "#ffbb33" -}} {{- $font = "black" -}}
+{{- else if eq $tipo "baja" -}} {{- $color = "#00c851" -}}
+{{- else if eq $tipo "info" -}} {{- $color = "#33b5e5" -}}
+{{- end -}}
+
+<span style="background-color: {{ $color }}; color: {{ $font }}; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85em; display: inline-block; text-transform: uppercase;">
+    {{ .Inner }}
+</span>
+
+
+{{/* Uso: {{< exptag "critica" >}}Crítica{{< /exptag >}} */}}
