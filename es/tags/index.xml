@@ -2,80 +2,80 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on MaxisFront</title>
-    <link>https://maxisfront.github.io/es/tags/</link>
+    <link>https://maxisfront.me/es/tags/</link>
     <description>Recent content in Tags on MaxisFront</description>
     <generator>Hugo</generator>
     <language>es</language>
     <lastBuildDate>Wed, 25 Mar 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://maxisfront.github.io/es/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://maxisfront.me/es/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Caido</title>
-      <link>https://maxisfront.github.io/es/tags/caido/</link>
+      <link>https://maxisfront.me/es/tags/caido/</link>
       <pubDate>Wed, 25 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://maxisfront.github.io/es/tags/caido/</guid>
+      <guid>https://maxisfront.me/es/tags/caido/</guid>
       <description></description>
     </item>
     <item>
       <title>CeWL</title>
-      <link>https://maxisfront.github.io/es/tags/cewl/</link>
+      <link>https://maxisfront.me/es/tags/cewl/</link>
       <pubDate>Wed, 25 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://maxisfront.github.io/es/tags/cewl/</guid>
+      <guid>https://maxisfront.me/es/tags/cewl/</guid>
       <description></description>
     </item>
     <item>
       <title>CMS</title>
-      <link>https://maxisfront.github.io/es/tags/cms/</link>
+      <link>https://maxisfront.me/es/tags/cms/</link>
       <pubDate>Wed, 25 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://maxisfront.github.io/es/tags/cms/</guid>
+      <guid>https://maxisfront.me/es/tags/cms/</guid>
       <description></description>
     </item>
     <item>
       <title>Git</title>
-      <link>https://maxisfront.github.io/es/tags/git/</link>
+      <link>https://maxisfront.me/es/tags/git/</link>
       <pubDate>Wed, 25 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://maxisfront.github.io/es/tags/git/</guid>
+      <guid>https://maxisfront.me/es/tags/git/</guid>
       <description></description>
     </item>
     <item>
       <title>Linux</title>
-      <link>https://maxisfront.github.io/es/tags/linux/</link>
+      <link>https://maxisfront.me/es/tags/linux/</link>
       <pubDate>Wed, 25 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://maxisfront.github.io/es/tags/linux/</guid>
+      <guid>https://maxisfront.me/es/tags/linux/</guid>
       <description></description>
     </item>
     <item>
       <title>WordPress</title>
-      <link>https://maxisfront.github.io/es/tags/wordpress/</link>
+      <link>https://maxisfront.me/es/tags/wordpress/</link>
       <pubDate>Wed, 25 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://maxisfront.github.io/es/tags/wordpress/</guid>
+      <guid>https://maxisfront.me/es/tags/wordpress/</guid>
       <description></description>
     </item>
     <item>
       <title>CVE-2018-7600</title>
-      <link>https://maxisfront.github.io/es/tags/cve-2018-7600/</link>
+      <link>https://maxisfront.me/es/tags/cve-2018-7600/</link>
       <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://maxisfront.github.io/es/tags/cve-2018-7600/</guid>
+      <guid>https://maxisfront.me/es/tags/cve-2018-7600/</guid>
       <description></description>
     </item>
     <item>
       <title>Drupal</title>
-      <link>https://maxisfront.github.io/es/tags/drupal/</link>
+      <link>https://maxisfront.me/es/tags/drupal/</link>
       <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://maxisfront.github.io/es/tags/drupal/</guid>
+      <guid>https://maxisfront.me/es/tags/drupal/</guid>
       <description></description>
     </item>
     <item>
       <title>GFTOBins</title>
-      <link>https://maxisfront.github.io/es/tags/gftobins/</link>
+      <link>https://maxisfront.me/es/tags/gftobins/</link>
       <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://maxisfront.github.io/es/tags/gftobins/</guid>
+      <guid>https://maxisfront.me/es/tags/gftobins/</guid>
       <description></description>
     </item>
     <item>
       <title>SUID</title>
-      <link>https://maxisfront.github.io/es/tags/suid/</link>
+      <link>https://maxisfront.me/es/tags/suid/</link>
       <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://maxisfront.github.io/es/tags/suid/</guid>
+      <guid>https://maxisfront.me/es/tags/suid/</guid>
       <description></description>
     </item>
   </channel>
