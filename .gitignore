@@ -1,6 +1,7 @@
 # Automation Scripts
 export
 fetch_and_push
+sync_repos
 
 # Folders
 /public
