@@ -4,6 +4,7 @@ date: 2026-03-25
 draft: false
 tags:
   - Linux
+  - Web
   - WordPress
   - CMS
   - Caido

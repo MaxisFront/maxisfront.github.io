@@ -9,6 +9,7 @@ hideReadingTime: false
 image: Drupal_Logo.png
 tags:
 - Linux
+- Web
 - Drupal
 - CMS
 - CVE-2018-7600

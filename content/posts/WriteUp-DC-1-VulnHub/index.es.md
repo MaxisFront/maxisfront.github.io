@@ -4,6 +4,7 @@ date: 2026-03-16
 draft: false
 tags:
   - Linux
+  - Web
   - Drupal
   - CMS
   - CVE-2018-7600
