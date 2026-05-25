@@ -93,7 +93,7 @@
   <header class="mb-4">
     <h1 class="f1 lh-condensed mb-2">WriteUp: DC-2 | VulnHub</h1><div class="d-flex flex-items-center color-fg-muted f5 mb-3"><time datetime="2026-03-25T00:00:00Z">
         2026-03-25
-      </time><span class="mx-2">&middot;</span><span>10 min read</span><span class="mx-2">&middot;</span><span>MaxisFront</span></div><div class="d-flex flex-wrap mb-3" style="gap: 0.5rem;"><a href="/es/tags/linux/" class="topic-tag">Linux</a><a href="/es/tags/wordpress/" class="topic-tag">WordPress</a><a href="/es/tags/cms/" class="topic-tag">CMS</a><a href="/es/tags/caido/" class="topic-tag">Caido</a><a href="/es/tags/cewl/" class="topic-tag">CeWL</a><a href="/es/tags/git/" class="topic-tag">Git</a></div><img src="/posts/writeup-dc-2-vulnhub/WordPress_Logo.png" alt="WriteUp: DC-2 | VulnHub" loading="lazy" class="rounded-2 width-full mb-3" style="max-height: 400px; object-fit: cover;"></header>
+      </time><span class="mx-2">&middot;</span><span>10 min read</span><span class="mx-2">&middot;</span><span>MaxisFront</span></div><div class="d-flex flex-wrap mb-3" style="gap: 0.5rem;"><a href="/es/tags/linux/" class="topic-tag">Linux</a><a href="/es/tags/web/" class="topic-tag">Web</a><a href="/es/tags/wordpress/" class="topic-tag">WordPress</a><a href="/es/tags/cms/" class="topic-tag">CMS</a><a href="/es/tags/caido/" class="topic-tag">Caido</a><a href="/es/tags/cewl/" class="topic-tag">CeWL</a><a href="/es/tags/git/" class="topic-tag">Git</a></div><img src="/posts/writeup-dc-2-vulnhub/WordPress_Logo.png" alt="WriteUp: DC-2 | VulnHub" loading="lazy" class="rounded-2 width-full mb-3" style="max-height: 400px; object-fit: cover;"></header>
 
   <div class="markdown-body">
     <blockquote>
@@ -155,7 +155,7 @@
 </li>
 </ul>
 </blockquote>
-<img src="./images/1_dc2-arp-scan.png" alt="Arp-Scan output" loading="lazy">
+<img src="/posts/writeup-dc-2-vulnhub/images/1_dc2-arp-scan.png" alt="Arp-Scan output" loading="lazy">
 <p>La dirección IP de interés es la <code>192.168.1.176</code>. Realizamos una prueba de conectividad a través de <code>ping</code> para observar si es posible entablar una comunicación entre equipos:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>ping -c1 -R 192.168.1.176</span></span></code></pre></div><blockquote>
 <ul>
@@ -170,7 +170,7 @@
 </li>
 </ul>
 </blockquote>
-<img src="./images/2_dc2-ping-traceroute.png" alt="Testing connection through Ping" loading="lazy">
+<img src="/posts/writeup-dc-2-vulnhub/images/2_dc2-ping-traceroute.png" alt="Testing connection through Ping" loading="lazy">
 <p>La ruta de la traza ICMP es exitosa. Así pues, el valor del TTL es igual a <code>64</code>, lo cual <strong><em>podría</em></strong> indicar que estamos frente a un OS <code>Linux/Unix</code>.</p>
 <hr>
 <h3 id="reconocimiento-de-puertos">Reconocimiento de Puertos</h3>
@@ -198,7 +198,7 @@
 <p>&lt;= Importante =&gt;
 Dentro de entornos empresariales es preferible evitar el envío de paquetes <code>TCP, ICMP o UDP</code> en grandes cantidades, pues esto puede provocar un ataque <code>DoS</code> accidental o ser bloqueados por sistemas de monitorización.</p>
 </blockquote>
-<img src="./images/3_dc2-nmap-scam.png" alt="Escaneo de puertos con Nmap" loading="lazy">
+<img src="/posts/writeup-dc-2-vulnhub/images/3_dc2-nmap-scam.png" alt="Escaneo de puertos con Nmap" loading="lazy">
 <h3 id="enumeración-de-puertos">Enumeración de Puertos</h3>
 <p>Observamos los puertos <code>80 (http) y el 7744 (raqmon-pdu)</code>. Ahora, podemos centrar la enumeración en estos puertos utilizando la flag <code>-sV</code>, donde <code>Nmap</code> - tras haber entablado una comunicación con un puerto - analice las respuestas para determinar la versión del servicio que hay detrás.</p>
 <p>Los puertos <code>80 (HTTP)</code> y el <code>7744 (SSH)</code> se encuentran activos. A partir de este punto podemos enumerar los servicios a través de <code>Nmap</code>.</p>
@@ -207,7 +207,7 @@ Dentro de entornos empresariales es preferible evitar el envío de paquetes <cod
 <li><code>-sCV</code>: Enumeración de los servicios de cada puerto, potenciado a través de scripts de reconocimiento por defecto.</li>
 </ul>
 </blockquote>
-<img src="./images/4_dc2-ports-enumeration.png" alt="Ports enumeration with their services" loading="lazy">
+<img src="/posts/writeup-dc-2-vulnhub/images/4_dc2-ports-enumeration.png" alt="Ports enumeration with their services" loading="lazy">
 <p>Tras un análisis de la enumeración de puertos, podemos agrupar los resultados en la siguiente tabla:</p>
 <table>
   <thead>
@@ -249,13 +249,13 @@ Dentro de entornos empresariales es preferible evitar el envío de paquetes <cod
 </blockquote>
 <h3 id="enumeración-web">Enumeración Web</h3>
 <p>Previo a acceder a la web sin fallos, se mapea la IP de la máquina a la página dc-2 de manera temporal, modificando el archivo <code>/etc/hosts</code> para solucionar la dirección de la página:</p>
-<img src="./images/5_dc2-map-etc-hosts.png" alt="Adding dc-2 to the /etc/hosts file" loading="lazy">
+<img src="/posts/writeup-dc-2-vulnhub/images/5_dc2-map-etc-hosts.png" alt="Adding dc-2 to the /etc/hosts file" loading="lazy">
 <p>Antes de acceder a través del navegador, realizamos una enumeración de direcciones dentro de la página web:</p>
-<img src="./images/6_dc2-gobuster-urls.png" alt="Using gobuster to enumerate URL paths" loading="lazy">
+<img src="/posts/writeup-dc-2-vulnhub/images/6_dc2-gobuster-urls.png" alt="Using gobuster to enumerate URL paths" loading="lazy">
 <p>Observamos que dentro de las direcciones identificadas existe <code>/wp-admin</code>, por lo que accedemos a través del navegador para visualizar el panel de administración.</p>
-<img src="./images/7_dc2-admin-panel.png" alt="Wordpress Administration Panel" loading="lazy">
+<img src="/posts/writeup-dc-2-vulnhub/images/7_dc2-admin-panel.png" alt="Wordpress Administration Panel" loading="lazy">
 <p>Se identificó la existencia del usuario <code>admin</code>, pero sin otros usuarios o contraseñas no es posible acceder al panel. Por ello se decidió utilizar <code>curl</code> para enumerar los usuarios del sistema:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span><span style="color:#ff79c6">for</span> i in <span style="color:#ff79c6">{</span>0..10<span style="color:#ff79c6">}</span>; <span style="color:#ff79c6">do</span> curl -si <span style="color:#f1fa8c">&#34;http://dc-2/?author=</span><span style="color:#8be9fd;font-style:italic">$i</span><span style="color:#f1fa8c">&#34;</span> | grep <span style="color:#f1fa8c">&#34;author/&#34;</span>; <span style="color:#ff79c6">done</span></span></span></code></pre></div><img src="./images/8_dc2-curl-users-enumeration.png" alt="Enumerating users through the Curl command" loading="lazy">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span><span style="color:#ff79c6">for</span> i in <span style="color:#ff79c6">{</span>0..10<span style="color:#ff79c6">}</span>; <span style="color:#ff79c6">do</span> curl -si <span style="color:#f1fa8c">&#34;http://dc-2/?author=</span><span style="color:#8be9fd;font-style:italic">$i</span><span style="color:#f1fa8c">&#34;</span> | grep <span style="color:#f1fa8c">&#34;author/&#34;</span>; <span style="color:#ff79c6">done</span></span></span></code></pre></div><img src="/posts/writeup-dc-2-vulnhub/images/8_dc2-curl-users-enumeration.png" alt="Enumerating users through the Curl command" loading="lazy">
 <blockquote>
 <p>Otra manera de enumerar posibles usuarios es consultando la dirección <code>/?rest_route=/wp/v2/users/</code>, aprovechándonos de la <code>REST API</code> de WordPress, incluida a partir de la versión <code>4.7.0</code>.</p>
 <p>Se debe destacar que la <code>REST API</code> solo expondrá a los usuarios con por lo menos 1 publicación, saltándose el resto.</p>
@@ -277,7 +277,7 @@ Dentro de entornos empresariales es preferible evitar el envío de paquetes <cod
 <p>A partir de este punto nos enfocamos en intentar acceder a través de diversos métodos al sistema del equipo <code>DC-2</code>.</p>
 <h3 id="web">Web</h3>
 <p>Tras obtener el diccionario, utilizamos una herramienta como <code>hydra</code> o <code>Caido</code> para automatizar la fase de prueba de credenciales:</p>
-<img src="./images/9_dc2-enum-users-jerry-and-tom.png" alt="User enumeration through the &lsquo;Caido&rsquo; tool" loading="lazy">
+<img src="/posts/writeup-dc-2-vulnhub/images/9_dc2-enum-users-jerry-and-tom.png" alt="User enumeration through the &lsquo;Caido&rsquo; tool" loading="lazy">
 <blockquote>
 <ul>
 <li><code>Caido</code>: Herramienta para auditorías web. Intercepta, modifica y gestiona tráfico HTTP/HTTPS en tiempo real.</li>
@@ -286,7 +286,7 @@ Dentro de entornos empresariales es preferible evitar el envío de paquetes <cod
 </blockquote>
 <p>Podemos observar que <code>Caido</code> recibió el código de respuesta <code>302 (Found)</code> para 2 consultas, las cuales fueron <code>tom</code> : <code>parturient</code>  y <code>jerry</code> : <code>adipiscing</code>.</p>
 <p>Utilizando las credenciales obtenidas, logramos acceder al panel de administración.</p>
-<img src="./images/10_dc2-administration-panel-as-jerry.png" alt="WordPress administration panel successful access" loading="lazy">
+<img src="/posts/writeup-dc-2-vulnhub/images/10_dc2-administration-panel-as-jerry.png" alt="WordPress administration panel successful access" loading="lazy">
 <p>A pesar de tener acceso al panel, no se lograron identificar <em>plugins</em> desactualizados, información confidencial o avisos del administrador del sistema.</p>
 <h3 id="ssh">SSH</h3>
 <p>En diversos entornos de trabajo es común la reutilización de credenciales. Por ello, retomando el hecho de que durante la enumeración de puertos vimos que el servicio <code>SSH</code> se encontraba corriendo en el puerto <code>7744</code>, intentamos acceder con los usuarios y contraseñas previas.</p>
@@ -295,11 +295,11 @@ Dentro de entornos empresariales es preferible evitar el envío de paquetes <cod
 <li><code>SSH</code>: Secure Shell es un servicio de acceso remoto a servidores y dispositivos de manera segura</li>
 </ul>
 </blockquote>
-<img src="./images/11_dc2-ssh-user-tom.png" alt="SSH access with tom credentials" loading="lazy">
+<img src="/posts/writeup-dc-2-vulnhub/images/11_dc2-ssh-user-tom.png" alt="SSH access with tom credentials" loading="lazy">
 <p>Al intentar ejecutar comandos como <code>groups</code> o <code>sudo -l</code> nos marca un error <code>-rbash: ... command not found</code>. Esto indica que nos encontramos frente una <code>restricted bash</code>, caracterizada por tener una cantidad limitada de comandos, acceso limitado a carpetas y no poder modificar su <code>.bashrc</code>.</p>
 <p>Podemos verificar esto viendo el tipo de <code>Shell</code> de nuestra sesión, así como ver los comandos a los que estamos encapsulados:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#8be9fd;font-style:italic">$SHELL</span>
-</span></span><span style="display:flex;"><span>ls -R -la usr/bin <span style="color:#6272a4"># Carpeta dentro del &#34;/home&#34; del usuario</span></span></span></code></pre></div><p><img src="./images/12_dc2-symbolic-links-identification.png" alt="Verification of rbash and listing our commands" loading="lazy">
+</span></span><span style="display:flex;"><span>ls -R -la usr/bin <span style="color:#6272a4"># Carpeta dentro del &#34;/home&#34; del usuario</span></span></span></code></pre></div><p><img src="/posts/writeup-dc-2-vulnhub/images/12_dc2-symbolic-links-identification.png" alt="Verification of rbash and listing our commands" loading="lazy">
 
 Es posible observar que de la mayoría de los <code>symlinks</code> presentes (Equivalentes a un <code>acceso directo en Windows</code>) pueden dar paso a escapar de la <code>rbash</code> (<code>vi, less y scp</code>). En este caso utilizamos <code>vi</code> para cambiar la variable <code>SHELL</code> y solicitar una <code>bash</code>:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="shell"><span style="display:flex;"><span><span style="color:#6272a4"># &gt; Ejecutar vi y presionar ESC</span>
@@ -308,7 +308,7 @@ Es posible observar que de la mayoría de los <code>symlinks</code> presentes (E
 </span></span><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">export</span> <span style="color:#8be9fd;font-style:italic">PATH</span><span style="color:#ff79c6">=</span>/bin:/usr/bin:<span style="color:#8be9fd;font-style:italic">$PATH</span></span></span></code></pre></div><p>Al checar el valor nuevamente de <code>SHELL</code>, observamos que nuestra sesión ahora utiliza una <code>bash sin restricciones</code>, así como que tenemos acceso a todos comandos del sistema.</p>
 <p>Al ejecutar <code>sudo -l</code> observamos que <code>tom</code> no se encuentra dentro del grupo <code>sudoers</code>. A pesar de ello, previamente durante la explotación web descubrimos que existía el usuario <code>jerry</code>. Probamos a cambiar de usuario:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>su jerry <span style="color:#6272a4"># Contraseña: adipiscing</span></span></span></code></pre></div><p>Observamos nuevamente una reutilización de credenciales. Ahora intentamos listar -si es que existen- los comandos que podemos ejecutar con permisos de root:</p>
-<img src="./images/13_dc2-command-as-sudo.png" alt="Command that Jerry can run as sudo" loading="lazy">
+<img src="/posts/writeup-dc-2-vulnhub/images/13_dc2-command-as-sudo.png" alt="Command that Jerry can run as sudo" loading="lazy">
 <p>Observamos que el usuario <code>jerry</code> tiene permisos de administrador para ejecutar el comando <code>git</code>, una herramienta utilizada para control de versiones.</p>
 <p>Una manera rápida de elevar privilegios a través de <code>git</code> es siguiendo un formato similar al que utilizamos con <code>vi</code>:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>sudo git -p <span style="color:#8be9fd;font-style:italic">help</span> config <span style="color:#6272a4"># Abrirá un paginado</span>
@@ -317,7 +317,7 @@ Es posible observar que de la mayoría de los <code>symlinks</code> presentes (E
 <li><code>-p help config</code>: Git lanza un paginador como el usuario root (Como <code>less</code>) para visualizar la ayuda detallada para el comando config.</li>
 </ul>
 </blockquote>
-<img src="./images/14_dc2-privilege-escalation.png" alt="Bash session as the user root" loading="lazy">
+<img src="/posts/writeup-dc-2-vulnhub/images/14_dc2-privilege-escalation.png" alt="Bash session as the user root" loading="lazy">
 <p>Ahora tenemos una sesión de bash como el usuario <code>root</code>. Como última comprobación, probamos a leer la flag que se encuentra en el directorio <code>/root</code>:</p>
 <blockquote>
 <p>Congratulatons!!!</p>
@@ -577,6 +577,8 @@ appreciated.</p>
   </div><nav class="border-top pt-4 mt-4">
     <div class="d-flex flex-justify-between"><a href="/es/posts/writeup-dc-1-vulnhub/" class="Link--secondary">
         &larr; WriteUp: DC-1 | VulnHub
+      </a><a href="/es/posts/writeup-conversor-htb/" class="Link--secondary">
+        WriteUp: Conversor | HTB &rarr;
       </a></div>
   </nav>
 </article>
@@ -584,6 +586,9 @@ appreciated.</p>
           <div class="Layout-sidebar"><aside><div class="color-bg-subtle rounded-2 p-3 mb-3">
   <h3 class="h5 mb-2">Recent Posts</h3>
   <ul class="list-style-none"><li class="mb-2">
+      <a href="/es/posts/writeup-conversor-htb/" class="Link--primary">WriteUp: Conversor | HTB</a><span class="color-fg-muted f6 d-block">
+        2026-05-24
+      </span></li><li class="mb-2">
       <a href="/es/posts/writeup-dc-2-vulnhub/" class="Link--primary">WriteUp: DC-2 | VulnHub</a><span class="color-fg-muted f6 d-block">
         2026-03-25
       </span></li><li class="mb-2">
@@ -627,16 +632,24 @@ appreciated.</p>
       cms
     </a><a href="/es/tags/cve-2018-7600/" class="topic-tag">
       cve-2018-7600
+    </a><a href="/es/tags/cve-2024-48990/" class="topic-tag">
+      cve-2024-48990
     </a><a href="/es/tags/drupal/" class="topic-tag">
       drupal
     </a><a href="/es/tags/gftobins/" class="topic-tag">
       gftobins
     </a><a href="/es/tags/git/" class="topic-tag">
       git
+    </a><a href="/es/tags/gtfobins/" class="topic-tag">
+      gtfobins
     </a><a href="/es/tags/linux/" class="topic-tag">
       linux
+    </a><a href="/es/tags/path-traversal/" class="topic-tag">
+      path-traversal
     </a><a href="/es/tags/suid/" class="topic-tag">
       suid
+    </a><a href="/es/tags/web/" class="topic-tag">
+      web
     </a><a href="/es/tags/wordpress/" class="topic-tag">
       wordpress
     </a></div>

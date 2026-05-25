@@ -6,8 +6,15 @@
     <description>Recent content in SUID on MaxisFront</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 16 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 24 May 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://maxisfront.me/tags/suid/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WriteUp: Converter | HTB</title>
+      <link>https://maxisfront.me/posts/writeup-conversor-htb/</link>
+      <pubDate>Sun, 24 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://maxisfront.me/posts/writeup-conversor-htb/</guid>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;All rights reserved to &lt;strong&gt;Hack The Box LTD&lt;/strong&gt;.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&#xA;&#xA;&#xA;&#xA;  &#xA;&#xA;&#xA;&lt;div class=&#34;flash mb-3&#34;&gt;&#xA;  &lt;blockquote&gt;&#xA;&lt;p&gt;Summary&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Exploitation of &lt;code&gt;Path Traversal&lt;/code&gt; to gain &lt;code&gt;RCE&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;Extraction and cracking of hashes &lt;code&gt;MD5&lt;/code&gt; via &lt;code&gt;Hashcat&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;Reuse of credentials for access via &lt;code&gt;SSH&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;Exploitation of the command&amp;rsquo;s SUID &lt;code&gt;needrestart&lt;/code&gt; (&lt;code&gt;CVE-2024-48990&lt;/code&gt;)&lt;/li&gt;&#xA;&lt;li&gt;Security recommendations to prevent and mitigate vulnerabilities on this machine.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/div&gt;&#xA;&#xA;&#xA;&#xA;&lt;h4 id=&#34;skills-used&#34;&gt;Skills Used&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Port enumeration&lt;/li&gt;&#xA;&lt;li&gt;Use of basic GNU/Linux-based commands&lt;/li&gt;&#xA;&lt;li&gt;Exploitation via UFU and RCE&lt;/li&gt;&#xA;&lt;li&gt;Searching for and using Critical CVEs&lt;/li&gt;&#xA;&lt;li&gt;Exploitation of vulnerable SUID&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h4 id=&#34;tools-used&#34;&gt;Tools Used&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Nmap&lt;/li&gt;&#xA;&lt;li&gt;Caido&lt;/li&gt;&#xA;&lt;li&gt;Netcat&lt;/li&gt;&#xA;&lt;li&gt;Strings&lt;/li&gt;&#xA;&lt;li&gt;Hashcat&lt;/li&gt;&#xA;&lt;li&gt;SSH&lt;/li&gt;&#xA;&lt;li&gt;sudo&lt;/li&gt;&#xA;&lt;li&gt;needrestart&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;vulnerability-assessment-and-analysis&#34;&gt;Vulnerability Assessment and Analysis&lt;/h2&gt;&#xA;&lt;p&gt;The platform &lt;code&gt;HTB&lt;/code&gt; provides us with the &lt;code&gt;IP&lt;/code&gt; target, which is the &lt;code&gt;10.129.12.212&lt;/code&gt;, an address that can be reached by connecting through the &lt;code&gt;VPN&lt;/code&gt; assigned to us by the platform.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>WriteUp: DC-1 | VulnHub</title>
       <link>https://maxisfront.me/posts/writeup-dc-1-vulnhub/</link>

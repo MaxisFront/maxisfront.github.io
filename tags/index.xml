@@ -6,13 +6,55 @@
     <description>Recent content in Tags on MaxisFront</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 25 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 24 May 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://maxisfront.me/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Caido</title>
       <link>https://maxisfront.me/tags/caido/</link>
-      <pubDate>Wed, 25 Mar 2026 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 24 May 2026 00:00:00 +0000</pubDate>
       <guid>https://maxisfront.me/tags/caido/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>CVE-2024-48990</title>
+      <link>https://maxisfront.me/tags/cve-2024-48990/</link>
+      <pubDate>Sun, 24 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://maxisfront.me/tags/cve-2024-48990/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>GTFObins</title>
+      <link>https://maxisfront.me/tags/gtfobins/</link>
+      <pubDate>Sun, 24 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://maxisfront.me/tags/gtfobins/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Linux</title>
+      <link>https://maxisfront.me/tags/linux/</link>
+      <pubDate>Sun, 24 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://maxisfront.me/tags/linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Path-Traversal</title>
+      <link>https://maxisfront.me/tags/path-traversal/</link>
+      <pubDate>Sun, 24 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://maxisfront.me/tags/path-traversal/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>SUID</title>
+      <link>https://maxisfront.me/tags/suid/</link>
+      <pubDate>Sun, 24 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://maxisfront.me/tags/suid/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Web</title>
+      <link>https://maxisfront.me/tags/web/</link>
+      <pubDate>Sun, 24 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://maxisfront.me/tags/web/</guid>
       <description></description>
     </item>
     <item>
@@ -34,13 +76,6 @@
       <link>https://maxisfront.me/tags/git/</link>
       <pubDate>Wed, 25 Mar 2026 00:00:00 +0000</pubDate>
       <guid>https://maxisfront.me/tags/git/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Linux</title>
-      <link>https://maxisfront.me/tags/linux/</link>
-      <pubDate>Wed, 25 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://maxisfront.me/tags/linux/</guid>
       <description></description>
     </item>
     <item>
@@ -69,13 +104,6 @@
       <link>https://maxisfront.me/tags/gftobins/</link>
       <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
       <guid>https://maxisfront.me/tags/gftobins/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>SUID</title>
-      <link>https://maxisfront.me/tags/suid/</link>
-      <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://maxisfront.me/tags/suid/</guid>
       <description></description>
     </item>
   </channel>
