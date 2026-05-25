@@ -10,7 +10,7 @@ tags:
   - SUID
   - GFTOBins
 categories:
-  - WriteUp
+  - WriteUps
 author: MaxisFront
 description: "Máquina DC:1 de VulnHub | Desafío hecho por: DCAU | Serie: DC"
 image: Drupal_Logo.png

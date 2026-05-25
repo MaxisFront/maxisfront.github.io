@@ -1,7 +1,7 @@
 ---
 author: MaxisFront
 categories:
-- WriteUp
+- WriteUps
 date: 2026-03-16
 description: 'VulnHub DC:1 Machine | Challenge made by: DCAU | Series: DC'
 draft: false

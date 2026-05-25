@@ -10,7 +10,7 @@ tags:
   - CeWL
   - Git
 categories:
-  - WirteUps
+  - WriteUps
 author: MaxisFront
 description: "VulnHub DC:1 Machine | Desafío creado por: DCAU | Serie: DC"
 image: WordPress_Logo.png
