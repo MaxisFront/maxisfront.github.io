@@ -17,13 +17,13 @@ tags:
 - CVE-2024-48990
 title: 'WriteUp: Converter | HTB'
 ---
-> All rights reserved by **Hack The Box LTD**.
+> All rights reserved to **Hack The Box LTD**.
 
 {{< alert info >}}
 
 > Summary
 
-- Exploitation of `Path Traversañ` to gain `RCE`
+- Exploitation of `Path Traversal` to gain `RCE`
 - Extraction and cracking of hashes `MD5` via `Hashcat`
 - Reuse of credentials for access via `SSH`
 - Exploitation of the command's SUID `needrestart` (`CVE-2024-48990`)
@@ -52,7 +52,7 @@ title: 'WriteUp: Converter | HTB'
 
 ------------------------------------------------------------------------
 
-## Vulnerability Scanning and Analysis
+## Vulnerability Assessment and Analysis
 
 The platform `HTB` provides us with the `IP` target, which is the `10.129.12.212`, an address that can be reached by connecting through the `VPN` assigned to us by the platform.
 
@@ -72,7 +72,7 @@ nmap -p- --min-rate 5000 -Pn -n -oN nmap-scan 10.129.12.212
 
 > \<= Important =\> In enterprise environments, sending large numbers of packets `TCP`, `ICMP` or `UDP` often causes network congestion, leading to an `DoS` or being blocked by monitoring systems.
 
-### Port Scanning
+### Port Enumeration
 
 We observe that ports 22 `(SSH)` and 80 `(HTTP)` are active. From this point, we can enumerate the services through `Nmap`.
 
@@ -263,7 +263,7 @@ The machine `Conversor` exhibited a series of critical vulnerabilities (**not al
 
 > Unrestricted file uploads and `Path Traversal`
 
-| ID  |                        **Vulnerability**                        |               **Severity**               |                                                                    Description                                                                    |
+| ID  |                        **Vulnerability**                        |               **Threat Level**               |                                                                    Description                                                                    |
 |:---:|:---------------------------------------------------------------:|:----------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------:|
 | MF1 | CWE-35 and CWE-434: Path Traversal and Unrestricted File Upload | {{< exptag "critica">}} Critical {{</exptag >}} | Lack of sanitization in the parameter `filename` in the code `app.py`, allowing file overwriting and hosting of malicious code in arbitrary paths |
 
@@ -277,7 +277,7 @@ The machine `Conversor` exhibited a series of critical vulnerabilities (**not al
 
 > Exploitation of `XXE` in files `.xslt`
 
-| ID  |                      **Vulnerability**                      |               **Severity**               |                                                          Description                                                           |
+| ID  |                      **Vulnerability**                      |               **Threat Level**               |                                                          Description                                                           |
 |:---:|:-----------------------------------------------------------:|:----------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------:|
 | MF2 | CWE-611: Improper Scoping of XML External Entity References | {{< exptag "critica">}} Critical {{</exptag >}} | Insecure file processing `.xslt`, allowing reading and writing of system files, as well as execution of commands on the server |
 
@@ -290,11 +290,11 @@ The machine `Conversor` exhibited a series of critical vulnerabilities (**not al
 
 > `Dictionary Attack` against algorithm `MD5`
 
-| ID  |                              **Vulnerability**                              |              **Severity**              |                          Description                           |
+| ID  |                              **Vulnerability**                              |              **Threat Level**              |                          Description                           |
 |:---:|:---------------------------------------------------------------------------:|:--------------------------------------:|:--------------------------------------------------------------:|
 | MF3 | CWE-328 and CWE-522: Weak Hash Usage and Insufficient Credential Protection | {{< exptag "alta">}} High {{</exptag >}} | Credentials exposed in `users.db` and weak `hash` weak (`MD5`) |
 
-\`
+
 
 {{< alert error >}} Immediate measures:
 
@@ -316,7 +316,7 @@ The machine `Conversor` exhibited a series of critical vulnerabilities (**not al
 <tr class="header">
 <th style="text-align: center;">ID</th>
 <th style="text-align: center;"><strong>Vulnerability</strong></th>
-<th style="text-align: center;"><strong>Severity</strong></th>
+<th style="text-align: center;"><strong>Threat Level</strong></th>
 <th style="text-align: center;">Description</th>
 </tr>
 </thead>
@@ -333,7 +333,7 @@ The machine `Conversor` exhibited a series of critical vulnerabilities (**not al
 
 {{< alert error >}}
 
-> To mitigate an attacker’s ability to escalate privileges, it is recommended to:
+To mitigate an attacker’s ability to escalate privileges, it is recommended to:
 >
 > - Remove administrator execution permissions for the user `fismathack` for the execution of `needrestart` the file `/etc/sudoers`.
 > - If strictly necessary, restrict the `-c`, or allow absolute, write-protected configuration paths for the user `fismathack`.

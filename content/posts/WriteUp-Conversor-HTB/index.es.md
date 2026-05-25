@@ -24,7 +24,7 @@ hideReadingTime: false
 
 > Resumen
 
-- Explotación de `Path Traversañ` para obtener capacidad de `RCE`
+- Explotación de `Path Traversal` para obtener capacidad de `RCE`
 -  Extracción y crackeo de hashes `MD5` mediante `Hashcat`
 - Reutilización de credenciales para el acceso por `SSH`
 - Aprovechamiento de SUID del comando `needrestart` (`CVE-2024-48990`)
