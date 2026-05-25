@@ -62,7 +62,7 @@ arp-scan -I eth3 -l
 > - `-I (interface)`: Specifies the network interface where requests will be sent to identify devices.
 > - `-l (--localnet)`: Discovers devices on our local subnet.
 
-![Arp-Scan output](./images/1_dc2-arp-scan.png)
+![Arp-Scan output](images/1_dc2-arp-scan.png)
 
 The IP address of interest is `192.168.1.176`. We perform a connectivity
 test using `ping` to see if communication between devices is possible:

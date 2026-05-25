@@ -69,7 +69,7 @@ arp-scan -I eth3 -l
 >- `-l (--localnet)`: Descubrimiento de dispositivos en nuestra subred local.
 
 
-![Arp-Scan output](./images/1_dc2-arp-scan.png)
+![Arp-Scan output](images/1_dc2-arp-scan.png)
 
 
 La dirección IP de interés es la `192.168.1.176`. Realizamos una prueba de conectividad a través de `ping` para observar si es posible entablar una comunicación entre equipos:
@@ -86,7 +86,7 @@ ping -c1 -R 192.168.1.176
 >
 >- `-R (Record Route)`: El resultado muestra los nodos por los que atravesó un paquete.
   
-![Testing connection through Ping](./images/2_dc2-ping-traceroute.png)  
+![Testing connection through Ping](images/2_dc2-ping-traceroute.png)  
 
 
   La ruta de la traza ICMP es exitosa. Así pues, el valor del TTL es igual a `64`, lo cual **_podría_** indicar que estamos frente a un OS `Linux/Unix`.
@@ -117,7 +117,7 @@ nmap -p- --min-rate 5000 -Pn -n -oN nmap-scan 192.168.1.176
 > <= Importante =>
 > Dentro de entornos empresariales es preferible evitar el envío de paquetes `TCP, ICMP o UDP` en grandes cantidades, pues esto puede provocar un ataque `DoS` accidental o ser bloqueados por sistemas de monitorización.
 
-![Escaneo de puertos con Nmap](./images/3_dc2-nmap-scam.png)
+![Escaneo de puertos con Nmap](images/3_dc2-nmap-scam.png)
   
 ### Enumeración de Puertos
 
@@ -132,7 +132,7 @@ nmap -sCV -80,7744 -oN ports-enumeration 192.168.1.176
 > - `-sCV`: Enumeración de los servicios de cada puerto, potenciado a través de scripts de reconocimiento por defecto.
   
 
-![Ports enumeration with their services](./images/4_dc2-ports-enumeration.png)  
+![Ports enumeration with their services](images/4_dc2-ports-enumeration.png)  
   
 
 Tras un análisis de la enumeración de puertos, podemos agrupar los resultados en la siguiente tabla:
@@ -158,16 +158,16 @@ A partir de la tabla podemos definir posibles vectores de ataques:
 Previo a acceder a la web sin fallos, se mapea la IP de la máquina a la página dc-2 de manera temporal, modificando el archivo `/etc/hosts` para solucionar la dirección de la página:
 
 
-![Adding dc-2 to the /etc/hosts file](./images/5_dc2-map-etc-hosts.png)
+![Adding dc-2 to the /etc/hosts file](images/5_dc2-map-etc-hosts.png)
 
 Antes de acceder a través del navegador, realizamos una enumeración de direcciones dentro de la página web:
 
 
-![Using gobuster to enumerate URL paths](./images/6_dc2-gobuster-urls.png)
+![Using gobuster to enumerate URL paths](images/6_dc2-gobuster-urls.png)
 
 Observamos que dentro de las direcciones identificadas existe `/wp-admin`, por lo que accedemos a través del navegador para visualizar el panel de administración.
 
-![Wordpress Administration Panel](./images/7_dc2-admin-panel.png)
+![Wordpress Administration Panel](images/7_dc2-admin-panel.png)
 
 Se identificó la existencia del usuario `admin`, pero sin otros usuarios o contraseñas no es posible acceder al panel. Por ello se decidió utilizar `curl` para enumerar los usuarios del sistema:
 
@@ -175,7 +175,7 @@ Se identificó la existencia del usuario `admin`, pero sin otros usuarios o cont
 for i in {0..10}; do curl -si "http://dc-2/?author=$i" | grep "author/"; done
 ```
 
-![Enumerating users through the Curl command](./images/8_dc2-curl-users-enumeration.png)
+![Enumerating users through the Curl command](images/8_dc2-curl-users-enumeration.png)
 
 > Otra manera de enumerar posibles usuarios es consultando la dirección `/?rest_route=/wp/v2/users/`, aprovechándonos de la `REST API` de WordPress, incluida a partir de la versión `4.7.0`.
 >
@@ -208,7 +208,7 @@ A partir de este punto nos enfocamos en intentar acceder a través de diversos m
 
 Tras obtener el diccionario, utilizamos una herramienta como `hydra` o `Caido` para automatizar la fase de prueba de credenciales:
 
-![User enumeration through the 'Caido' tool](./images/9_dc2-enum-users-jerry-and-tom.png)
+![User enumeration through the 'Caido' tool](images/9_dc2-enum-users-jerry-and-tom.png)
 
 >- `Caido`: Herramienta para auditorías web. Intercepta, modifica y gestiona tráfico HTTP/HTTPS en tiempo real.
 >- `HTTPQL`: Lenguaje de consultas utilizado por Caido. Permite consultas con operadores lógicos (AND u OR), facilitando tareas como filtrado de respuestas del servidor.
@@ -217,7 +217,7 @@ Podemos observar que `Caido` recibió el código de respuesta `302 (Found)` para
 
 Utilizando las credenciales obtenidas, logramos acceder al panel de administración.
 
-![WordPress administration panel successful access](./images/10_dc2-administration-panel-as-jerry.png)
+![WordPress administration panel successful access](images/10_dc2-administration-panel-as-jerry.png)
 
 A pesar de tener acceso al panel, no se lograron identificar _plugins_ desactualizados, información confidencial o avisos del administrador del sistema.
 
@@ -231,7 +231,7 @@ ssh tom@192.168.1.176
 
 > - `SSH`: Secure Shell es un servicio de acceso remoto a servidores y dispositivos de manera segura
 
-![SSH access with tom credentials](./images/11_dc2-ssh-user-tom.png)
+![SSH access with tom credentials](images/11_dc2-ssh-user-tom.png)
 
 Al intentar ejecutar comandos como `groups` o `sudo -l` nos marca un error `-rbash: ... command not found`. Esto indica que nos encontramos frente una `restricted bash`, caracterizada por tener una cantidad limitada de comandos, acceso limitado a carpetas y no poder modificar su `.bashrc`.
 
@@ -242,7 +242,7 @@ echo $SHELL
 ls -R -la usr/bin # Carpeta dentro del "/home" del usuario
 ```
 
-![Verification of rbash and listing our commands](./images/12_dc2-symbolic-links-identification.png)
+![Verification of rbash and listing our commands](images/12_dc2-symbolic-links-identification.png)
 Es posible observar que de la mayoría de los `symlinks` presentes (Equivalentes a un `acceso directo en Windows`) pueden dar paso a escapar de la `rbash` (`vi, less y scp`). En este caso utilizamos `vi` para cambiar la variable `SHELL` y solicitar una `bash`:
 
 ```shell
@@ -262,7 +262,7 @@ su jerry # Contraseña: adipiscing
 
 Observamos nuevamente una reutilización de credenciales. Ahora intentamos listar -si es que existen- los comandos que podemos ejecutar con permisos de root:
 
-![Command that Jerry can run as sudo](./images/13_dc2-command-as-sudo.png)
+![Command that Jerry can run as sudo](images/13_dc2-command-as-sudo.png)
 
 Observamos que el usuario `jerry` tiene permisos de administrador para ejecutar el comando `git`, una herramienta utilizada para control de versiones.
 
@@ -276,7 +276,7 @@ sudo git -p help config # Abrirá un paginado
 > - `-p help config`: Git lanza un paginador como el usuario root (Como `less`) para visualizar la ayuda detallada para el comando config.
 
 
-![Bash session as the user root](./images/14_dc2-privilege-escalation.png)
+![Bash session as the user root](images/14_dc2-privilege-escalation.png)
 
 
 Ahora tenemos una sesión de bash como el usuario `root`. Como última comprobación, probamos a leer la flag que se encuentra en el directorio `/root`:
