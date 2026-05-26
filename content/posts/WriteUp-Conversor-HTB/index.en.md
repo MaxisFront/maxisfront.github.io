@@ -3,7 +3,7 @@ author: MaxisFront
 categories:
 - WriteUps
 date: 2026-05-24
-description: 'HTB Converter Machine | Challenge made by: FisMatHack'
+description: 'HTB Conversor Machine | Challenge made by: FisMatHack'
 draft: false
 hideReadingTime: false
 image: Conversor_Shield.png
