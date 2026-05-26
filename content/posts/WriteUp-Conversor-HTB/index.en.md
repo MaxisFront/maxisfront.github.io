@@ -15,7 +15,7 @@ tags:
 - GTFObins
 - SUID
 - CVE-2024-48990
-title: 'WriteUp: Converter | HTB'
+title: 'WriteUp: Conversor | HTB'
 ---
 > All rights reserved to **Hack The Box LTD**.
 
