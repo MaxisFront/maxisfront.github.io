@@ -278,11 +278,11 @@ The `Facts` machine exhibited a series of critical vulnerabilities (**not all of
 
 > Mass Attribute Assignment and Privilege Escalation on `CMS Camaleon`
 
-| ID  |                          **Vulnerability**                          |            **Severity**            |                                                                              Description                                                                               |
+| ID  |                          **Vulnerability**                          |            **Threat Level**            |                                                                              Description                                                                               |
 |:---:|:-------------------------------------------------------------------:|:----------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 | MF1 | CWE-915: Improper Modification of Dynamically Determined Attributes | {{< exptag "critica">}} Critical {{</exptag >}} | `CMS` does not properly validate the request `POST` when changing a password, allowing injection of the parameter `role` to escalate privileges to administrator level |
 
-{{< alert error >}} Immediate Actions
+{{< alert error >}} Immediate Measures
 
 > - Immediately update the `CMS Camaleon` system to a patched version supported by the client.
 > - Implement server-side measures `Zero Trust` to ignore or reject unauthorized parameters during user profile updates (`whitelisting`).
@@ -292,11 +292,11 @@ The `Facts` machine exhibited a series of critical vulnerabilities (**not all of
 
 > Insecure Storage of Cryptographic Keys and Use of Weak Passwords
 
-| ID  |                                        **Vulnerability**                                        |          **Severity**          |                                                                   Description                                                                    |
+| ID  |                                        **Vulnerability**                                        |          **Threat Level**          |                                                                   Description                                                                    |
 |:---:|:-----------------------------------------------------------------------------------------------:|:------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------:|
 | MF2 | CWE-1391 and CWE-312: Use of Weak Credentials and Storage of Sensitive Information in Plaintext | {{< exptag "alta">}} High {{</exptag >}} | Exposure of the SSH private key `id_ed25519` on the local `bucket S3`, which is in turn protected by a password vulnerable to dictionary attacks |
 
-{{< alert error >}} Immediate Actions
+{{< alert error >}} Immediate Measures
 
 > - Implement strict read permissions for the internal `S3` bucket, limiting access exclusively to essential services and `IP` addresses through a strict `Firewall`.
 > - Revoke the compromised SSH key and generate a new key pair using a strong `passphrase` (minimum 16 characters, *including* alphanumeric characters and symbols).
@@ -306,11 +306,11 @@ The `Facts` machine exhibited a series of critical vulnerabilities (**not all of
 
 > Exposure of Sensitive Files via `Path Traversal`
 
-| ID  |                            **Vulnerability**                            |           **Severity**           |                                                         Description                                                         |
+| ID  |                            **Vulnerability**                            |           **Threat Level**           |                                                         Description                                                         |
 |:---:|:-----------------------------------------------------------------------:|:--------------------------------:|:---------------------------------------------------------------------------------------------------------------------------:|
 | MF3 | CWE-22: Inadequate Restriction of a Path Name to a Restricted Directory | {{< exptag "alta">}} High {{</exptag >}} | The private file download endpoint allows the use of `../`, exposing critical operating system files such as `/etc/passwd`. |
 
-{{< alert error >}} Immediate Actions
+{{< alert error >}} Immediate Measures
 
 > - Implement strict validation and sanitization of the `file` parameter, restricting special character sequences such as `../` and `%2e%2e%2f`.
 > - Verify that the entered absolute path requests files within allowed directories before processing the requested file.
@@ -319,11 +319,11 @@ The `Facts` machine exhibited a series of critical vulnerabilities (**not all of
 
 > Inadequate Management of Sudo Privileges
 
-| ID  |          **Vulnerability**           |             **Severity**             |                                                                         Description                                                                          |
+| ID  |          **Threat Level**           |             **Severity**             |                                                                         Description                                                                          |
 |:---:|:------------------------------------:|:------------------------------------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 | MF4 | CWE-269: Improper Privilege Handling | {{< exptag "critica">}} Critical {{</exptag >}} | A user with the `trivia` permission can execute the binary `facter` as `root`, allowing Ruby code injection and thus executing commands as an administrator. |
 
-{{< alert error >}} Immediate Actions
+{{< alert error >}} Immediate Measures
 
 > - Remove the binary `facter` from the passwordless execution permissions directives for the user `trivia` in the file `/etc/sudoers`.
 > - If execution is part of the business logic, create an intermediary `wrapper` that limits and validates arguments entered by the user `trivia` to prevent dangerous arguments such as `--custom-dir`.
