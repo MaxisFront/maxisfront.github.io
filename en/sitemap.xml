@@ -2,6 +2,162 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://maxisfront.me/tags/cve-2024-46987/</loc>
+    <lastmod>2026-07-11T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.me/es/tags/cve-2024-46987/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.me/tags/cve-2024-46987/"
+                />
+  </url><url>
+    <loc>https://maxisfront.me/tags/cve-2025-2304/</loc>
+    <lastmod>2026-07-11T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.me/es/tags/cve-2025-2304/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.me/tags/cve-2025-2304/"
+                />
+  </url><url>
+    <loc>https://maxisfront.me/tags/facter/</loc>
+    <lastmod>2026-07-11T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.me/es/tags/facter/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.me/tags/facter/"
+                />
+  </url><url>
+    <loc>https://maxisfront.me/tags/gtfobins/</loc>
+    <lastmod>2026-07-11T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.me/es/tags/gtfobins/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.me/tags/gtfobins/"
+                />
+  </url><url>
+    <loc>https://maxisfront.me/tags/linux/</loc>
+    <lastmod>2026-07-11T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.me/es/tags/linux/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.me/tags/linux/"
+                />
+  </url><url>
+    <loc>https://maxisfront.me/</loc>
+    <lastmod>2026-07-11T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.me/es/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.me/"
+                />
+  </url><url>
+    <loc>https://maxisfront.me/posts/</loc>
+    <lastmod>2026-07-11T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.me/es/posts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.me/posts/"
+                />
+  </url><url>
+    <loc>https://maxisfront.me/tags/s3/</loc>
+    <lastmod>2026-07-11T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.me/es/tags/s3/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.me/tags/s3/"
+                />
+  </url><url>
+    <loc>https://maxisfront.me/tags/</loc>
+    <lastmod>2026-07-11T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.me/es/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.me/tags/"
+                />
+  </url><url>
+    <loc>https://maxisfront.me/tags/web/</loc>
+    <lastmod>2026-07-11T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.me/es/tags/web/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.me/tags/web/"
+                />
+  </url><url>
+    <loc>https://maxisfront.me/tags/wordpress/</loc>
+    <lastmod>2026-07-11T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.me/es/tags/wordpress/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.me/tags/wordpress/"
+                />
+  </url><url>
+    <loc>https://maxisfront.me/posts/writeup-facts-htb/</loc>
+    <lastmod>2026-07-11T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.me/es/posts/writeup-facts-htb/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.me/posts/writeup-facts-htb/"
+                />
+  </url><url>
     <loc>https://maxisfront.me/tags/caido/</loc>
     <lastmod>2026-05-24T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -28,45 +184,6 @@
                 href="https://maxisfront.me/tags/cve-2024-48990/"
                 />
   </url><url>
-    <loc>https://maxisfront.me/tags/gtfobins/</loc>
-    <lastmod>2026-05-24T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="es"
-                href="https://maxisfront.me/es/tags/gtfobins/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://maxisfront.me/tags/gtfobins/"
-                />
-  </url><url>
-    <loc>https://maxisfront.me/tags/linux/</loc>
-    <lastmod>2026-05-24T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="es"
-                href="https://maxisfront.me/es/tags/linux/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://maxisfront.me/tags/linux/"
-                />
-  </url><url>
-    <loc>https://maxisfront.me/</loc>
-    <lastmod>2026-05-24T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="es"
-                href="https://maxisfront.me/es/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://maxisfront.me/"
-                />
-  </url><url>
     <loc>https://maxisfront.me/tags/path-traversal/</loc>
     <lastmod>2026-05-24T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -80,19 +197,6 @@
                 href="https://maxisfront.me/tags/path-traversal/"
                 />
   </url><url>
-    <loc>https://maxisfront.me/posts/</loc>
-    <lastmod>2026-05-24T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="es"
-                href="https://maxisfront.me/es/posts/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://maxisfront.me/posts/"
-                />
-  </url><url>
     <loc>https://maxisfront.me/tags/suid/</loc>
     <lastmod>2026-05-24T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -104,32 +208,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://maxisfront.me/tags/suid/"
-                />
-  </url><url>
-    <loc>https://maxisfront.me/tags/</loc>
-    <lastmod>2026-05-24T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="es"
-                href="https://maxisfront.me/es/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://maxisfront.me/tags/"
-                />
-  </url><url>
-    <loc>https://maxisfront.me/tags/web/</loc>
-    <lastmod>2026-05-24T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="es"
-                href="https://maxisfront.me/es/tags/web/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://maxisfront.me/tags/web/"
                 />
   </url><url>
     <loc>https://maxisfront.me/posts/writeup-conversor-htb/</loc>
@@ -182,19 +260,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://maxisfront.me/tags/git/"
-                />
-  </url><url>
-    <loc>https://maxisfront.me/tags/wordpress/</loc>
-    <lastmod>2026-03-25T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="es"
-                href="https://maxisfront.me/es/tags/wordpress/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://maxisfront.me/tags/wordpress/"
                 />
   </url><url>
     <loc>https://maxisfront.me/posts/writeup-dc-2-vulnhub/</loc>

