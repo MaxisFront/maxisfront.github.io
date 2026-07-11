@@ -2,6 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://maxisfront.me/tags/camaleon/</loc>
+    <lastmod>2026-07-11T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://maxisfront.me/tags/cms/</loc>
+    <lastmod>2026-07-11T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.me/es/tags/cms/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.me/tags/cms/"
+                />
+  </url><url>
     <loc>https://maxisfront.me/tags/cve-2024-46987/</loc>
     <lastmod>2026-07-11T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -132,19 +148,6 @@
                 href="https://maxisfront.me/tags/web/"
                 />
   </url><url>
-    <loc>https://maxisfront.me/tags/wordpress/</loc>
-    <lastmod>2026-07-11T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="es"
-                href="https://maxisfront.me/es/tags/wordpress/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://maxisfront.me/tags/wordpress/"
-                />
-  </url><url>
     <loc>https://maxisfront.me/posts/writeup-facts-htb/</loc>
     <lastmod>2026-07-11T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -236,19 +239,6 @@
                 href="https://maxisfront.me/tags/cewl/"
                 />
   </url><url>
-    <loc>https://maxisfront.me/tags/cms/</loc>
-    <lastmod>2026-03-25T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="es"
-                href="https://maxisfront.me/es/tags/cms/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://maxisfront.me/tags/cms/"
-                />
-  </url><url>
     <loc>https://maxisfront.me/tags/git/</loc>
     <lastmod>2026-03-25T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -260,6 +250,19 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://maxisfront.me/tags/git/"
+                />
+  </url><url>
+    <loc>https://maxisfront.me/tags/wordpress/</loc>
+    <lastmod>2026-03-25T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.me/es/tags/wordpress/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.me/tags/wordpress/"
                 />
   </url><url>
     <loc>https://maxisfront.me/posts/writeup-dc-2-vulnhub/</loc>

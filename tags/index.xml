@@ -9,6 +9,20 @@
     <lastBuildDate>Sat, 11 Jul 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://maxisfront.me/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Camaleon</title>
+      <link>https://maxisfront.me/tags/camaleon/</link>
+      <pubDate>Sat, 11 Jul 2026 00:00:00 +0000</pubDate>
+      <guid>https://maxisfront.me/tags/camaleon/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>CMS</title>
+      <link>https://maxisfront.me/tags/cms/</link>
+      <pubDate>Sat, 11 Jul 2026 00:00:00 +0000</pubDate>
+      <guid>https://maxisfront.me/tags/cms/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>CVE-2024-46987</title>
       <link>https://maxisfront.me/tags/cve-2024-46987/</link>
       <pubDate>Sat, 11 Jul 2026 00:00:00 +0000</pubDate>
@@ -30,7 +44,7 @@
       <description></description>
     </item>
     <item>
-      <title>GTFObins</title>
+      <title>GTFOBins</title>
       <link>https://maxisfront.me/tags/gtfobins/</link>
       <pubDate>Sat, 11 Jul 2026 00:00:00 +0000</pubDate>
       <guid>https://maxisfront.me/tags/gtfobins/</guid>
@@ -55,13 +69,6 @@
       <link>https://maxisfront.me/tags/web/</link>
       <pubDate>Sat, 11 Jul 2026 00:00:00 +0000</pubDate>
       <guid>https://maxisfront.me/tags/web/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>WordPress</title>
-      <link>https://maxisfront.me/tags/wordpress/</link>
-      <pubDate>Sat, 11 Jul 2026 00:00:00 +0000</pubDate>
-      <guid>https://maxisfront.me/tags/wordpress/</guid>
       <description></description>
     </item>
     <item>
@@ -100,17 +107,17 @@
       <description></description>
     </item>
     <item>
-      <title>CMS</title>
-      <link>https://maxisfront.me/tags/cms/</link>
-      <pubDate>Wed, 25 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://maxisfront.me/tags/cms/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Git</title>
       <link>https://maxisfront.me/tags/git/</link>
       <pubDate>Wed, 25 Mar 2026 00:00:00 +0000</pubDate>
       <guid>https://maxisfront.me/tags/git/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>WordPress</title>
+      <link>https://maxisfront.me/tags/wordpress/</link>
+      <pubDate>Wed, 25 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://maxisfront.me/tags/wordpress/</guid>
       <description></description>
     </item>
     <item>
