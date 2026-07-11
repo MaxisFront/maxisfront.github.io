@@ -5,8 +5,8 @@ draft: false
 tags:
   - Linux
   - Web
-  - WordPress
   - CMS
+  - WordPress
   - Caido
   - CeWL
   - Git

@@ -10,8 +10,8 @@ image: Drupal_Logo.png
 tags:
 - Linux
 - Web
-- Drupal
 - CMS
+- Drupal
 - CVE-2018-7600
 - SUID
 - GFTOBins
