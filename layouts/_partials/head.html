@@ -4,6 +4,8 @@
 
 <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
 
+<link rel="icon" type="image/x-icon" href="/favicon.png">
+
 {{- with .Description | default .Site.Params.description -}}
 <meta name="description" content="{{ . }}">
 {{- end -}}

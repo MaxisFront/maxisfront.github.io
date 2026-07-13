@@ -46,6 +46,8 @@ defaultContentLanguageInSubdir = true
   [params.social]
     github = "MaxisFront"
     x = "MaxisFront"
+
+  faviconPng = "favicon.png"
   
 [languages]
   [languages.es]
