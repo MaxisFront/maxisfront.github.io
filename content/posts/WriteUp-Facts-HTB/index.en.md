@@ -3,6 +3,7 @@ title: 'WriteUp: Facts | HTB'
 date: 2026-07-11
 draft: false
 tags:
+- HTB
 - Linux
 - Web
 - CMS

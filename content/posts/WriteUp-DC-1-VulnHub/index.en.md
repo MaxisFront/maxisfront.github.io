@@ -8,6 +8,7 @@ draft: false
 hideReadingTime: false
 image: Drupal_Logo.png
 tags:
+- VulnHub
 - Linux
 - Web
 - CMS

@@ -3,6 +3,7 @@ title: "WriteUp: DC-1 | VulnHub"
 date: 2026-03-16
 draft: false
 tags:
+  - VulnHub
   - Linux
   - Web
   - Drupal
