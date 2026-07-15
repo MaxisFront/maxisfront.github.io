@@ -37,6 +37,13 @@
       <description></description>
     </item>
     <item>
+      <title>HTB</title>
+      <link>https://maxisfront.me/es/tags/htb/</link>
+      <pubDate>Sat, 11 Jul 2026 00:00:00 +0000</pubDate>
+      <guid>https://maxisfront.me/es/tags/htb/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Linux</title>
       <link>https://maxisfront.me/es/tags/linux/</link>
       <pubDate>Sat, 11 Jul 2026 00:00:00 +0000</pubDate>
@@ -114,6 +121,13 @@
       <description></description>
     </item>
     <item>
+      <title>VulHub</title>
+      <link>https://maxisfront.me/es/tags/vulhub/</link>
+      <pubDate>Wed, 25 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://maxisfront.me/es/tags/vulhub/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>CVE-2018-7600</title>
       <link>https://maxisfront.me/es/tags/cve-2018-7600/</link>
       <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
@@ -132,6 +146,13 @@
       <link>https://maxisfront.me/es/tags/gftobins/</link>
       <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
       <guid>https://maxisfront.me/es/tags/gftobins/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>VulnHub</title>
+      <link>https://maxisfront.me/es/tags/vulnhub/</link>
+      <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://maxisfront.me/es/tags/vulnhub/</guid>
       <description></description>
     </item>
   </channel>

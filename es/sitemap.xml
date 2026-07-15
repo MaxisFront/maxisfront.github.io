@@ -54,6 +54,19 @@
                 href="https://maxisfront.me/es/tags/gtfobins/"
                 />
   </url><url>
+    <loc>https://maxisfront.me/es/tags/htb/</loc>
+    <lastmod>2026-07-11T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.me/tags/htb/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.me/es/tags/htb/"
+                />
+  </url><url>
     <loc>https://maxisfront.me/es/tags/linux/</loc>
     <lastmod>2026-07-11T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -262,6 +275,9 @@
                 href="https://maxisfront.me/es/tags/git/"
                 />
   </url><url>
+    <loc>https://maxisfront.me/es/tags/vulhub/</loc>
+    <lastmod>2026-03-25T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://maxisfront.me/es/posts/writeup-dc-2-vulnhub/</loc>
     <lastmod>2026-03-25T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -312,6 +328,19 @@
                 rel="alternate"
                 hreflang="es"
                 href="https://maxisfront.me/es/tags/gftobins/"
+                />
+  </url><url>
+    <loc>https://maxisfront.me/es/tags/vulnhub/</loc>
+    <lastmod>2026-03-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://maxisfront.me/tags/vulnhub/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://maxisfront.me/es/tags/vulnhub/"
                 />
   </url><url>
     <loc>https://maxisfront.me/es/posts/writeup-dc-1-vulnhub/</loc>
