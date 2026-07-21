@@ -6,8 +6,15 @@
     <description>Recent content in Linux on MaxisFront</description>
     <generator>Hugo</generator>
     <language>es</language>
-    <lastBuildDate>Sat, 11 Jul 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 19 Jul 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://maxisfront.me/es/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>WriteUp: CCTV | HTB</title>
+      <link>https://maxisfront.me/es/posts/writeup-cctv-htb/</link>
+      <pubDate>Sun, 19 Jul 2026 00:00:00 +0000</pubDate>
+      <guid>https://maxisfront.me/es/posts/writeup-cctv-htb/</guid>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;Todos los derechos reservados a la &lt;strong&gt;Hack The Box LTD&lt;/strong&gt;.&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&#xA;&#xA;&#xA;&#xA;  &#xA;&#xA;&#xA;&lt;div class=&#34;flash mb-3&#34;&gt;&#xA;  &lt;blockquote&gt;&#xA;&lt;p&gt;Resumen&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Explotación de credenciales predeterminadas en &lt;code&gt;ZoneMinder&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;Aprovechamiento de &lt;code&gt;SQLi&lt;/code&gt; boolenada y basada en tiempo (&lt;code&gt;CVE-2024-51482&lt;/code&gt;)&lt;/li&gt;&#xA;&lt;li&gt;Explotación de &lt;code&gt;RCE&lt;/code&gt; en &lt;code&gt;MotionEye&lt;/code&gt; mediante bypass de tipo &lt;code&gt;client-side&lt;/code&gt; (&lt;code&gt;CVE-2025-60787&lt;/code&gt;)&lt;/li&gt;&#xA;&lt;li&gt;Recomendaciones de seguridad para prevenir y mitigar las vulnerabilidades de esta máquina.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/div&gt;&#xA;&#xA;&#xA;&#xA;&lt;h4 id=&#34;habilidades-empleadas&#34;&gt;Habilidades Empleadas&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Enumeración de puertos&lt;/li&gt;&#xA;&lt;li&gt;Uso de comandos básicos basados en GNU/Linux&lt;/li&gt;&#xA;&lt;li&gt;Explotación de &lt;code&gt;SQLi Boolean-based&lt;/code&gt; y &lt;code&gt;time-based&lt;/code&gt; con &lt;code&gt;SQLmap&lt;/code&gt;.&lt;/li&gt;&#xA;&lt;li&gt;Crackeo de hashes mediante ataques de diccionario.&lt;/li&gt;&#xA;&lt;li&gt;Bypass de validaciones del lado del cliente (&lt;code&gt;JavaScript&lt;/code&gt;).&lt;/li&gt;&#xA;&lt;li&gt;Aplicación de &lt;code&gt;Port Forwarding&lt;/code&gt; vía &lt;code&gt;SSH&lt;/code&gt; para acceder a servicios internos.&lt;/li&gt;&#xA;&lt;li&gt;Explotación de &lt;code&gt;RCE&lt;/code&gt; en aplicaciones web.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h4 id=&#34;herramientas-utilizadas&#34;&gt;Herramientas Utilizadas&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;ping&lt;/li&gt;&#xA;&lt;li&gt;nmap&lt;/li&gt;&#xA;&lt;li&gt;caido&lt;/li&gt;&#xA;&lt;li&gt;sqlmap&lt;/li&gt;&#xA;&lt;li&gt;hashcat&lt;/li&gt;&#xA;&lt;li&gt;ssh&lt;/li&gt;&#xA;&lt;li&gt;ss&lt;/li&gt;&#xA;&lt;li&gt;nc&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;escaneo-y-análisis-de-vulnerabilidades&#34;&gt;Escaneo y Análisis de Vulnerabilidades&lt;/h2&gt;&#xA;&lt;p&gt;La plataforma &lt;code&gt;HTB&lt;/code&gt; nos provee la &lt;code&gt;IP&lt;/code&gt; objetivo, la cual es la &lt;code&gt;10.129.47.195&lt;/code&gt;, dirección capaz de ser alcanzada conectándonos a través de la &lt;code&gt;VPN&lt;/code&gt; que nos asigna la plataforma.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>WriteUp: Facts | HTB</title>
       <link>https://maxisfront.me/es/posts/writeup-facts-htb/</link>

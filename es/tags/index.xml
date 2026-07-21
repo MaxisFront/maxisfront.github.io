@@ -6,8 +6,57 @@
     <description>Recent content in Tags on MaxisFront</description>
     <generator>Hugo</generator>
     <language>es</language>
-    <lastBuildDate>Sat, 11 Jul 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 19 Jul 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://maxisfront.me/es/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CVE-2024-51482</title>
+      <link>https://maxisfront.me/es/tags/cve-2024-51482/</link>
+      <pubDate>Sun, 19 Jul 2026 00:00:00 +0000</pubDate>
+      <guid>https://maxisfront.me/es/tags/cve-2024-51482/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>CVE-2025-60787</title>
+      <link>https://maxisfront.me/es/tags/cve-2025-60787/</link>
+      <pubDate>Sun, 19 Jul 2026 00:00:00 +0000</pubDate>
+      <guid>https://maxisfront.me/es/tags/cve-2025-60787/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>HTB</title>
+      <link>https://maxisfront.me/es/tags/htb/</link>
+      <pubDate>Sun, 19 Jul 2026 00:00:00 +0000</pubDate>
+      <guid>https://maxisfront.me/es/tags/htb/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Linux</title>
+      <link>https://maxisfront.me/es/tags/linux/</link>
+      <pubDate>Sun, 19 Jul 2026 00:00:00 +0000</pubDate>
+      <guid>https://maxisfront.me/es/tags/linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>MotionEye</title>
+      <link>https://maxisfront.me/es/tags/motioneye/</link>
+      <pubDate>Sun, 19 Jul 2026 00:00:00 +0000</pubDate>
+      <guid>https://maxisfront.me/es/tags/motioneye/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Web</title>
+      <link>https://maxisfront.me/es/tags/web/</link>
+      <pubDate>Sun, 19 Jul 2026 00:00:00 +0000</pubDate>
+      <guid>https://maxisfront.me/es/tags/web/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>ZoneMinder</title>
+      <link>https://maxisfront.me/es/tags/zoneminder/</link>
+      <pubDate>Sun, 19 Jul 2026 00:00:00 +0000</pubDate>
+      <guid>https://maxisfront.me/es/tags/zoneminder/</guid>
+      <description></description>
+    </item>
     <item>
       <title>CVE-2024-46987</title>
       <link>https://maxisfront.me/es/tags/cve-2024-46987/</link>
@@ -37,31 +86,10 @@
       <description></description>
     </item>
     <item>
-      <title>HTB</title>
-      <link>https://maxisfront.me/es/tags/htb/</link>
-      <pubDate>Sat, 11 Jul 2026 00:00:00 +0000</pubDate>
-      <guid>https://maxisfront.me/es/tags/htb/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Linux</title>
-      <link>https://maxisfront.me/es/tags/linux/</link>
-      <pubDate>Sat, 11 Jul 2026 00:00:00 +0000</pubDate>
-      <guid>https://maxisfront.me/es/tags/linux/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>S3</title>
       <link>https://maxisfront.me/es/tags/s3/</link>
       <pubDate>Sat, 11 Jul 2026 00:00:00 +0000</pubDate>
       <guid>https://maxisfront.me/es/tags/s3/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Web</title>
-      <link>https://maxisfront.me/es/tags/web/</link>
-      <pubDate>Sat, 11 Jul 2026 00:00:00 +0000</pubDate>
-      <guid>https://maxisfront.me/es/tags/web/</guid>
       <description></description>
     </item>
     <item>
