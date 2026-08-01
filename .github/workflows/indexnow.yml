@@ -1,0 +1,59 @@
+name: IndexNow Ping
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'es/sitemap.xml'
+      - 'en/sitemap.xml'
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Detect changed URLs (es + en)
+        id: diff
+        run: |
+          mkdir -p old new
+
+          for lang in es en; do
+            if git rev-parse HEAD~1 >/dev/null 2>&1; then
+              git show HEAD~1:${lang}/sitemap.xml > old/${lang}.xml 2>/dev/null || touch old/${lang}.xml
+            else
+              touch old/${lang}.xml
+            fi
+
+            grep -oP '(?<=<loc>)[^<]+' ${lang}/sitemap.xml 2>/dev/null | sort -u > new/${lang}.txt
+            grep -oP '(?<=<loc>)[^<]+' old/${lang}.xml 2>/dev/null | sort -u > old/${lang}.txt || touch old/${lang}.txt
+          done
+
+          cat new/*.txt | sort -u > all_new.txt
+          cat old/*.txt | sort -u > all_old.txt
+          comm -13 all_old.txt all_new.txt > changed_urls.txt
+
+          if [[ ! -s changed_urls.txt ]]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Submit to IndexNow
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          URLS_JSON=$(jq -R -s -c 'split("\n") | map(select(length > 0))' changed_urls.txt)
+
+          curl -s -X POST https://api.indexnow.org/indexnow \
+            -H "Content-Type: application/json" \
+            -d @- <<EOF
+          {
+            "host": "maxisfront.me",
+            "key": "${{ secrets.INDEXNOW_KEY }}",
+            "keyLocation": "https://maxisfront.me/${{ secrets.INDEXNOW_KEY }}.txt",
+            "urlList": $URLS_JSON
+          }
+          EOF
