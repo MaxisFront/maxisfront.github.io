@@ -1,19 +1,43 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Drupal on MaxisFront</title>
-    <link>https://maxisfront.me/tags/drupal/</link>
-    <description>Recent content in Drupal on MaxisFront</description>
-    <generator>Hugo</generator>
-    <language>en</language>
-    <lastBuildDate>Mon, 16 Mar 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://maxisfront.me/tags/drupal/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>WriteUp: DC-1 | VulnHub</title>
-      <link>https://maxisfront.me/posts/writeup-dc-1-vulnhub/</link>
-      <pubDate>Mon, 16 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://maxisfront.me/posts/writeup-dc-1-vulnhub/</guid>
-      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;All rights reserved by the Drupal organization&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&#xA;&#xA;&#xA;&#xA;  &#xA;&#xA;&#xA;&lt;div class=&#34;flash mb-3&#34;&gt;&#xA;  &lt;blockquote&gt;&#xA;&lt;p&gt;Summary&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Service identification &lt;code&gt;Drupal 7&lt;/code&gt; on port 80.&lt;/li&gt;&#xA;&lt;li&gt;Exploitation of the &lt;code&gt;CVE-2018-7600&lt;/code&gt; to gain access (Drupalgeddon2).&lt;/li&gt;&#xA;&lt;li&gt;Exploiting SUID via the &lt;code&gt;find&lt;/code&gt; to escalate to root.&lt;/li&gt;&#xA;&lt;li&gt;Security recommendations to prevent and mitigate vulnerabilities on this machine.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/div&gt;&#xA;&#xA;&#xA;&#xA;&lt;h4 id=&#34;skills-used&#34;&gt;Skills Used&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Port scanning and CMS enumeration&lt;/li&gt;&#xA;&lt;li&gt;Searching for and using critical CVEs&lt;/li&gt;&#xA;&lt;li&gt;Use of basic GNU/Linux-based commands&lt;/li&gt;&#xA;&lt;li&gt;Exploitation of vulnerable SUIDs&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h4 id=&#34;tools-used&#34;&gt;Tools Used&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;arp-scan&lt;/li&gt;&#xA;&lt;li&gt;ping&lt;/li&gt;&#xA;&lt;li&gt;nmap&lt;/li&gt;&#xA;&lt;li&gt;python3&lt;/li&gt;&#xA;&lt;li&gt;nc&lt;/li&gt;&#xA;&lt;li&gt;find (SUID)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;scanning-and-vulnerability-analysis&#34;&gt;Scanning and Vulnerability Analysis&lt;/h2&gt;&#xA;&lt;p&gt;First, we analyzed our local network using the &lt;code&gt;arp-scan&lt;/code&gt;, specifying our network interface. The command used was:&lt;/p&gt;</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Drupal on MaxisFront</title><link>https://maxisfront.me/tags/drupal/</link><description>Recent content in Drupal on MaxisFront</description><generator>Hugo</generator><language>en</language><lastBuildDate>Wed, 15 Jul 2026 10:16:52 -0600</lastBuildDate><atom:link href="https://maxisfront.me/tags/drupal/index.xml" rel="self" type="application/rss+xml"/><item><title>WriteUp: DC-1 | VulnHub</title><link>https://maxisfront.me/posts/writeup-dc-1-vulnhub/</link><pubDate>Mon, 16 Mar 2026 00:00:00 -0600</pubDate><guid>https://maxisfront.me/posts/writeup-dc-1-vulnhub/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;All rights reserved by the Drupal organization&lt;/p&gt;
+&lt;/blockquote&gt;
+
+
+
+
+ 
+
+
+&lt;div class="flash mb-3"&gt;
+ &lt;blockquote&gt;
+&lt;p&gt;Summary&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Service identification &lt;code&gt;Drupal 7&lt;/code&gt; on port 80.&lt;/li&gt;
+&lt;li&gt;Exploitation of the &lt;code&gt;CVE-2018-7600&lt;/code&gt; to gain access (Drupalgeddon2).&lt;/li&gt;
+&lt;li&gt;Exploiting SUID via the &lt;code&gt;find&lt;/code&gt; to escalate to root.&lt;/li&gt;
+&lt;li&gt;Security recommendations to prevent and mitigate vulnerabilities on this machine.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+
+
+
+&lt;h4 id="skills-used"&gt;Skills Used&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Port scanning and CMS enumeration&lt;/li&gt;
+&lt;li&gt;Searching for and using critical CVEs&lt;/li&gt;
+&lt;li&gt;Use of basic GNU/Linux-based commands&lt;/li&gt;
+&lt;li&gt;Exploitation of vulnerable SUIDs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id="tools-used"&gt;Tools Used&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;arp-scan&lt;/li&gt;
+&lt;li&gt;ping&lt;/li&gt;
+&lt;li&gt;nmap&lt;/li&gt;
+&lt;li&gt;python3&lt;/li&gt;
+&lt;li&gt;nc&lt;/li&gt;
+&lt;li&gt;find (SUID)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="scanning-and-vulnerability-analysis"&gt;Scanning and Vulnerability Analysis&lt;/h2&gt;
+&lt;p&gt;First, we analyzed our local network using the &lt;code&gt;arp-scan&lt;/code&gt;, specifying our network interface. The command used was:&lt;/p&gt;</description></item></channel></rss>
