@@ -5,13 +5,12 @@ title = "MaxisFront"
 timeZone = "America/Mexico_City"
 enableRobotsTXT = true
 enableGitInfo = true
+defaultContentLanguage = "es"
+defaultContentLanguageInSubdir = true
 
 [module]
   [[module.imports]]
     path = "go.ngs.io/hugo-primer-blog"
-
-defaultContentLanguage = "es"
-defaultContentLanguageInSubdir = true
 
 # Crucial para que el módulo Archive funcione
 [taxonomies]
