@@ -2,6 +2,10 @@ baseURL = "https://maxisfront.me"
 languageCode = "es"
 title = "MaxisFront"
 
+timeZone = "America/Mexico_City"
+enableRobotsTXT = true
+enableGitInfo = true
+
 [module]
   [[module.imports]]
     path = "go.ngs.io/hugo-primer-blog"
@@ -15,6 +19,7 @@ defaultContentLanguageInSubdir = true
   tag = "tags"
 
 [params]
+  description = "Notas y WriteUps de ciberseguridad/pentesting (HTB, VulnHub...)"
   sidebar = true            # Enable/disable sidebar
   mainSections = ['posts']
   recentPostsCount = 5      # Number of recent posts in sidebar module
