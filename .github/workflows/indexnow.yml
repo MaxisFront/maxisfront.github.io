@@ -6,6 +6,7 @@ on:
     paths:
       - 'es/sitemap.xml'
       - 'en/sitemap.xml'
+  workflow_dispatch:
 
 jobs:
   ping:
