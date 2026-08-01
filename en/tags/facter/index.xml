@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Facter on MaxisFront</title><link>https://maxisfront.me/en/tags/facter/</link><description>Recent content in Facter on MaxisFront</description><generator>Hugo</generator><language>en</language><lastBuildDate>Wed, 15 Jul 2026 10:16:52 -0600</lastBuildDate><atom:link href="https://maxisfront.me/en/tags/facter/index.xml" rel="self" type="application/rss+xml"/><item><title>WriteUp: Facts | HTB</title><link>https://maxisfront.me/en/posts/writeup-facts-htb/</link><pubDate>Sat, 11 Jul 2026 00:00:00 -0600</pubDate><guid>https://maxisfront.me/en/posts/writeup-facts-htb/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;All rights reserved by &lt;strong&gt;Hack The Box LTD&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+
+
+
+ 
+
+
+&lt;div class="flash mb-3"&gt;
+ &lt;blockquote&gt;
+&lt;p&gt;Summary&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Exploiting the &lt;code&gt;CVE-2025-2304&lt;/code&gt; on &lt;code&gt;CMS Camaleon 2.9.0&lt;/code&gt; to escalate privileges through mass attribute assignment&lt;/li&gt;
+&lt;li&gt;Obtaining &lt;code&gt;API Key&lt;/code&gt; and &lt;code&gt;Secret Key&lt;/code&gt; via the compromised &lt;code&gt;CMS&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Accessing the internal &lt;code&gt;bucket S3&lt;/code&gt; via &lt;code&gt;minio-client&lt;/code&gt;, discovering the private key &lt;code&gt;SSH&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Exploiting a &lt;code&gt;Path Traversal&lt;/code&gt; (&lt;code&gt;CVE-2024-46987&lt;/code&gt;) to read sensitive system files&lt;/li&gt;
+&lt;li&gt;Privilege escalation using the &lt;code&gt;facter&lt;/code&gt; binary with &lt;code&gt;sudo&lt;/code&gt; permissions&lt;/li&gt;
+&lt;li&gt;Security recommendations to prevent and mitigate vulnerabilities on this machine&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+
+
+
+&lt;h4 id="skills-used"&gt;Skills Used&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Port and service enumeration&lt;/li&gt;
+&lt;li&gt;Directory and web architecture enumeration&lt;/li&gt;
+&lt;li&gt;Exploitation of vulnerabilities in &lt;code&gt;CMS&lt;/code&gt; (Mass Attribute Assignment)&lt;/li&gt;
+&lt;li&gt;Interaction with object storage services (&lt;code&gt;S3&lt;/code&gt;) via &lt;code&gt;minio-client&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Exploitation of binaries with &lt;code&gt;sudo&lt;/code&gt; permissions&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id="tools-used"&gt;Tools Used&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;ping&lt;/li&gt;
+&lt;li&gt;nmap&lt;/li&gt;
+&lt;li&gt;minio-client&lt;/li&gt;
+&lt;li&gt;python3&lt;/li&gt;
+&lt;li&gt;ssh2john&lt;/li&gt;
+&lt;li&gt;john&lt;/li&gt;
+&lt;li&gt;curl&lt;/li&gt;
+&lt;li&gt;ssh&lt;/li&gt;
+&lt;li&gt;facter&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="vulnerability-assesment-and-analysis"&gt;Vulnerability Assesment and Analysis&lt;/h2&gt;
+&lt;p&gt;The &lt;code&gt;HTB&lt;/code&gt; platform provides us with the target &lt;code&gt;IP&lt;/code&gt;, which is &lt;code&gt;10.129.16.176&lt;/code&gt;—an address that can be reached by connecting through the &lt;code&gt;VPN&lt;/code&gt; assigned to us by the platform.&lt;/p&gt;</description></item></channel></rss>
